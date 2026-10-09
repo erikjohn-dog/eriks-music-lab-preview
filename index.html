@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f5f4ef">
+  <meta name="description" content="A quiet place to train your ear. Pure tones, twelve notes, and no distractions. Works offline.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Perfect Pitch">
+  <title>Perfect Pitch Trainer</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="./icons/icon-192.png">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+<div class="app-shell">
+  <header class="app-header">
+    <a class="brand" href="./" aria-label="Perfect Pitch Trainer home"><span class="brand-symbol" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 16C7.33 16 7.33 7 11.67 7S16 25 20.33 25 24.67 16 29 16" stroke="currentColor" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Perfect Pitch<span class="brand-sub">EAR TRAINING</span></span></a>
+    <button id="settings-open" class="icon-button" aria-label="Open settings"><svg viewBox="0 0 24 24" width="23" height="23" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="m9 3-.7 2.2-2 .9-2.1-.5-2 3.4 1.5 1.7v2.6L2.2 15l2 3.4 2.1-.5 2 .9L9 21h4l.7-2.2 2-.9 2.1.5 2-3.4-1.5-1.7v-2.6l1.5-1.7-2-3.4-2.1.5-2-.9L13 3Z"/><circle cx="11" cy="12" r="3"/></svg></button>
+  </header>
+  <main id="training">
+    <div class="eyebrow" id="mode-label">LISTEN · RECOGNIZE · REPEAT</div>
+    <h1 id="question-title">Find the note.</h1>
+    <p class="subtitle" id="question-subtitle">One pure tone. Twelve possibilities.</p>
+    <div id="main-metrics" class="metrics" hidden></div>
+    <section class="tone-card" aria-label="Note playback">
+      <div class="wave-mark" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <button id="play" class="primary play-button"><span aria-hidden="true">▶</span> <span id="play-label">Play Note</span></button>
+      <p id="play-help" class="micro">Listen, then choose a note below.</p>
+      <button id="reference" class="reference-button" hidden></button>
+    </section>
+    <div class="answer-heading"><span>YOUR ANSWER</span><span class="micro">Octave doesn’t matter</span></div>
+    <div class="note-grid" id="notes" role="group" aria-label="Choose a pitch class"></div>
+    <div id="feedback" class="feedback" role="status" aria-live="polite" aria-atomic="true">Tap Play Note to begin.</div>
+    <button id="next" class="primary next-button" hidden>Next Note <span aria-hidden="true">→</span></button>
+    <div class="session-actions"><button id="end-session" class="text-button" hidden>Finish session</button></div>
+    <p id="headphones" class="micro headphone-hint" hidden>Headphones recommended for notes below C3.</p>
+  </main>
+  <footer><span class="status-dot" id="offline-dot"></span><span id="offline-status">Preparing offline access…</span><button id="update" class="text-button" hidden>Update available</button></footer>
+  <p id="warning" class="notice" role="status" hidden></p>
+</div>
+<dialog id="settings-dialog" class="sheet" aria-labelledby="settings-title">
+  <form id="settings-form">
+    <div class="sheet-header"><div><div class="eyebrow">MAKE IT YOURS</div><h2 id="settings-title">Settings</h2></div><button class="icon-button" type="button" id="settings-close" aria-label="Close settings">✕</button></div>
+    <div id="settings-fields"></div>
+    <div class="sheet-actions"><button type="submit" class="primary">Save settings</button><button type="button" id="statistics-open" class="secondary">View statistics</button></div>
+  </form>
+</dialog>
+<dialog id="stats-dialog" class="sheet" aria-labelledby="stats-title"><div class="sheet-header"><div><div class="eyebrow">YOUR LISTENING JOURNEY</div><h2 id="stats-title">Statistics</h2></div><button id="stats-close" class="icon-button" aria-label="Close statistics">✕</button></div><div id="stats-content"></div></dialog>
+<dialog id="results-dialog" class="sheet" aria-labelledby="results-title"><div class="sheet-header"><div><div class="eyebrow">SESSION COMPLETE</div><h2 id="results-title">Your results</h2></div><button id="results-close" class="icon-button" aria-label="Close results">✕</button></div><div id="results-content"></div><button id="new-session" class="primary">Start a new session</button></dialog>
+<noscript><p>This app needs JavaScript for tone generation and training. Enable JavaScript in Safari settings.</p></noscript>
+</body>
+</html>

@@ -1,0 +1,68 @@
+PERFECT PITCH TRAINER — VERSION 1.0.0
+
+No Mac, programming tools, or Apple Developer account is needed.
+This ZIP is the finished project. It has not been deployed automatically.
+
+1. GET YOUR FILES
+   Download the ZIP on Windows. Right-click it > Extract All > Extract.
+   Open the extracted folder so you can see index.html and the icons folder.
+
+2. UPLOAD TO YOUR EXISTING GITHUB REPOSITORY
+   Sign in at https://github.com/erikjohn-dog/perfect-pitch-trainer
+   Choose the Code tab, select main, then Add file > Upload files.
+   Drag the CONTENTS of the extracted folder into the upload page.
+   Do not upload the ZIP or the enclosing folder.
+   Keep icons inside the icons folder. index.html must be at the root.
+   Review matching app files; leave unrelated files alone.
+   Enter “Install Perfect Pitch Trainer 1.0.0”, choose commit to main,
+   and click Commit changes. If required, merge the proposed pull request.
+   If .nojekyll was omitted, Add file > Create new file, name .nojekyll,
+   leave empty, and commit. No build or package installation is needed.
+
+3. CHECK DEPLOYMENT
+   Open Actions. Wait for pages build and deployment to have a green check.
+   Settings > Pages must stay main, / (root), Deploy from a branch, HTTPS.
+   Open https://erikjohn-dog.github.io/perfect-pitch-trainer/
+
+4. OPEN ON IPHONE
+   Open that github.io address in Safari, while online.
+   Tap Play Note. Start with a low volume and raise it comfortably.
+   Wait for “Ready for offline use” at the bottom.
+
+5. INSTALL
+   Safari > Share > Add to Home Screen.
+   Enable Open as Web App if shown, then Add.
+   Open the Perfect Pitch Home Screen icon while online.
+   Wait for “Ready for offline use” inside the installed app too.
+
+6. TEST OFFLINE
+   Turn on Airplane Mode AND turn off Wi-Fi.
+   Close and reopen the Home Screen app. Play, answer, replay, and tap Next.
+   Change a setting, save, close, and reopen to check persistence.
+   Return online afterward so future updates can download.
+
+7. UPDATE LATER
+   Upload a new release's files to the SAME main branch and root folder.
+   New releases must change VERSION in service-worker.js for cached changes.
+   Wait for the Pages deployment to succeed. Open the app online.
+   Finish your session, tap Update available, then confirm the restart.
+   Saved settings/statistics remain. Do not clear website data to update.
+
+8. TROUBLESHOOT
+   No sound: tap Play yourself, check media volume, Silent Mode/mute,
+   Bluetooth routing, and other audio apps. Reopen and tap after interruptions.
+   Weak low tones: use headphones or set the minimum to C3.
+   No install option: open Safari itself and scroll the Share menu.
+   404: check root index.html, main/root Pages source, and deployment status.
+   Offline failure: reopen ONLINE and wait for Ready for offline use.
+   Old version: wait for deployment and accept Update available while online.
+   Disabled answer buttons: play the training note first; after answering use Next.
+
+All options are in the gear menu. Save settings to apply them.
+Statistics collection and views are off by default. Blind scoring still works.
+Data stays locally on this device; devices do not sync. Clearing website data
+or removing the app can erase progress and offline files.
+
+27 automated tests pass. Real iPhone/Safari audio, rendered mobile layout,
+Home Screen installation, and live deployment still need your manual check.
+README.md has full instructions. TESTING.md has the precise QA checklist.
