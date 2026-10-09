@@ -97,3 +97,13 @@ function renderChordQuestion(){
  content.querySelectorAll('[data-quality]').forEach(b=>b.onclick=()=>answerChord(b.dataset.quality,item));
  document.getElementById('ear-next').onclick=()=>{question++;renderChordQuestion()};
 }
+
+function answerChord(choice,item){
+ if(answered)return;
+ answered=true;
+ const good=choice===item.quality;
+ if(good)correct++;
+ content.querySelectorAll('[data-quality]').forEach(b=>b.disabled=true);
+ document.getElementById('ear-feedback').textContent=good?'Correct! Listen for the third.':'Not quite. This was a '+item.quality+' triad.';
+ document.getElementById('ear-next').hidden=false;
+}
