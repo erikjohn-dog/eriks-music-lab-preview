@@ -88,6 +88,43 @@ const LAST = 95; // B7
 const WHITE_WIDTH = 46;
 const BLACK_WIDTH = 29;
 const pointers = new Map();
+
+const notationPanel=document.createElement('section');
+notationPanel.className='piano-notation';
+notationPanel.setAttribute('aria-label','Live piano sheet music');
+notationPanel.innerHTML='<div class="piano-notation-heading"><strong>LIVE NOTATION</strong><span id="piano-current-note" aria-live="off">Play a key</span></div><svg id="piano-staff" viewBox="0 0 360 188" role="img" aria-label="Treble and bass staves"><g id="piano-staff-lines"></g><g id="piano-staff-notes"></g></svg>';
+document.querySelector('.piano-landscape .piano-toolbar')?.after(notationPanel);
+const staffLines=notationPanel.querySelector('#piano-staff-lines');
+const staffNotes=notationPanel.querySelector('#piano-staff-notes');
+const NS='http://www.w3.org/2000/svg';
+function svgEl(tag,attrs,parent){const el=document.createElementNS(NS,tag);for(const [k,v] of Object.entries(attrs))el.setAttribute(k,String(v));parent.append(el);return el;}
+for(const [label,top,glyph] of [['TREBLE',24,'𝄞'],['BASS',110,'𝄢']]){
+  for(let i=0;i<5;i++)svgEl('line',{x1:65,x2:341,y1:top+i*11,y2:top+i*11,stroke:'#52657d','stroke-width':1.3},staffLines);
+  svgEl('text',{x:9,y:top+33,fill:'#a4b5d0','font-size':label==='TREBLE'?49:37,'font-family':'serif'},staffLines).textContent=glyph;
+}
+const diatonic=['C','D','E','F','G','A','B'];
+function staffPosition(midi){
+  const letter=notes[midi%12][0],octave=Math.floor(midi/12)-1;
+  const index=octave*7+diatonic.indexOf(letter);
+  // Treble E4 bottom line, bass G2 bottom line.
+  const treble=midi>=60,base=treble?4*7+2:2*7+4;
+  return {y:(treble?68:154)-(index-base)*5.5,top:treble?24:110,sharp:notes[midi%12].includes('#')};
+}
+function drawNotation(){
+  staffNotes.replaceChildren();
+  const active=[...pointers.values()].filter(p=>p.playing).map(p=>p.midi);
+  const midi=active.at(-1);
+  notationPanel.querySelector('#piano-current-note').textContent=midi===undefined?'Play a key':label(midi);
+  if(midi===undefined)return;
+  const {y,top,sharp}=staffPosition(midi);
+  const x=214;
+  for(let line=top-11;line>=y-2;line-=11)svgEl('line',{x1:x-18,x2:x+18,y1:line,y2:line,stroke:'#a3b7d0','stroke-width':1.5},staffNotes);
+  for(let line=top+55;line<=y+2;line+=11)svgEl('line',{x1:x-18,x2:x+18,y1:line,y2:line,stroke:'#a3b7d0','stroke-width':1.5},staffNotes);
+  if(sharp)svgEl('text',{x:x-29,y:y+7,fill:'#8faaff','font-size':25,'font-family':'serif'},staffNotes).textContent='♯';
+  svgEl('ellipse',{cx:x,cy:y,rx:9,ry:6,fill:'#8faaff',transform:`rotate(-19 ${x} ${y})`},staffNotes);
+  svgEl('line',{x1:x+8,x2:x+8,y1:y,y2:y-34,stroke:'#8faaff','stroke-width':2},staffNotes);
+}
+
 let initializedPosition = false;
 function label(midi) { return notes[midi%12]+(Math.floor(midi/12)-1); }
 function buildKeyboard() {
@@ -129,6 +166,7 @@ function stopPointer(pointerId) {
     if(pianoSound==='sine')sineOff(state.midi);
     else engine.noteOff(state.midi);
     state.key.classList.remove('pressed');
+    drawNotation();
   }
 }
 viewport.addEventListener('pointerdown',event=>{
@@ -138,6 +176,7 @@ viewport.addEventListener('pointerdown',event=>{
   const midi=Number(key.dataset.midi);
   pointers.set(event.pointerId,{midi,key,x:event.clientX,y:event.clientY,playing:true});
   key.classList.add('pressed');
+  drawNotation();
   if(pianoSound==='sine')sineOn(midi);
   else engine.noteOn(midi);
 });
@@ -174,6 +213,7 @@ document.addEventListener('musiclab:piano-hidden',()=>{
   for(const midi of [...sineVoices.keys()])sineOff(midi);
   if(pianoSettingsDialog.open)pianoSettingsDialog.close();
   keyboard.querySelectorAll('.pressed').forEach(key=>key.classList.remove('pressed'));
+  drawNotation();
 });
 buildKeyboard();
 function setInitialPosition(){
