@@ -73,3 +73,6 @@
   .piano-note-label{position:absolute;bottom:9px;left:0;right:0;text-align:center;font-size:10px;font-weight:600;pointer-events:none;color:#667085;white-space:nowrap}
   .piano-key.black .piano-note-label{bottom:7px;color:#e5eaf5;font-size:9px}
 }
+
+.piano-touch-label{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;white-space:nowrap}
+.piano-touch-label select{font:inherit;font-size:12px;padding:5px 7px;border-radius:8px;border:1px solid var(--line);background:var(--soft);color:inherit;max-width:92px}
