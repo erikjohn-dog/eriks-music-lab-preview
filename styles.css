@@ -188,3 +188,15 @@
 .drums-step.playhead{box-shadow:0 0 0 2px #65dfff,0 0 12px #28dfff}
 @media(max-width:380px){.drums-pad{padding:5px}.synth-glide-row{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){.drums-ripple{animation-duration:.01ms}}
+
+/* Touch XY performance controller */
+.synth-xy-wrap{margin:18px 0;padding:14px;border:1px solid var(--line);border-radius:17px}
+.synth-xy-heading{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.synth-xy-heading .secondary{width:auto;margin:0;padding:8px 12px}
+.synth-xy-pad{position:relative;height:210px;margin-top:12px;border-radius:16px;overflow:hidden;touch-action:none;user-select:none;background:radial-gradient(ellipse at center,#244b83,#0a1730 80%);border:1px solid #406ca6;box-shadow:inset 0 0 35px #060e22}
+.synth-xy-pad::before{content:"";position:absolute;inset:0;background-image:linear-gradient(#7bb8ff23 1px,transparent 1px),linear-gradient(90deg,#7bb8ff23 1px,transparent 1px);background-size:25% 25%}
+.synth-xy-pad::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 49.85%,#87cbff40 50%,transparent 50.15%),linear-gradient(transparent 49.85%,#87cbff40 50%,transparent 50.15%);pointer-events:none}
+.synth-xy-dot{position:absolute;z-index:2;left:50%;top:100%;width:29px;height:29px;border:2px solid #d2faff;border-radius:50%;background:#55b9ff;box-shadow:0 0 15px #50b9ff,0 0 35px #418aff;transform:translate(-50%,-50%);pointer-events:none}
+.synth-xy-axis-top,.synth-xy-axis-bottom{position:absolute;z-index:1;left:0;right:0;text-align:center;color:#a7c6ef;font-size:10px;font-weight:700;letter-spacing:1px;pointer-events:none}
+.synth-xy-axis-top{top:10px}.synth-xy-axis-bottom{bottom:10px}
+.synth-xy-values{display:flex;justify-content:space-between;margin-top:10px;color:var(--muted);font-size:12px;font-weight:700}
