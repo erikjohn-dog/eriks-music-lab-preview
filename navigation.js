@@ -2,17 +2,21 @@
 const home = document.getElementById('home');
 const training = document.getElementById('training');
 const piano = document.getElementById('piano-stage');
+const tuner = document.getElementById('tuner-stage');
 const navigation = document.getElementById('training-navigation');
 const settingsButton = document.getElementById('settings-open');
 const brand = document.querySelector('.brand');
 function show(view) {
   const inTraining = view === 'perfect-pitch';
   const inPiano = view === 'piano';
-  home.hidden = inTraining || inPiano;
+  const inTuner = view === 'tuner';
+  home.hidden = inTraining || inPiano || inTuner;
   training.hidden = !inTraining;
   piano.hidden = !inPiano;
+  tuner.hidden = !inTuner;
   navigation.hidden = !inTraining;
-  settingsButton.hidden = inPiano;
+  settingsButton.hidden = inPiano || inTuner;
+  if (!inTuner) document.dispatchEvent(new Event('musiclab:tuner-hidden'));
   if (!inPiano) document.dispatchEvent(new Event('musiclab:piano-hidden'));
   settingsButton.setAttribute('aria-label', inTraining ? 'Perfect Pitch settings' : 'General settings');
   if (!inTraining) {
@@ -24,6 +28,8 @@ function show(view) {
 document.getElementById('open-perfect-pitch').addEventListener('click', () => show('perfect-pitch'));
 document.getElementById('back-home').addEventListener('click', () => show('home'));
 document.getElementById('open-piano').addEventListener('click', () => show('piano'));
+document.getElementById('open-tuner').addEventListener('click', () => show('tuner'));
+document.getElementById('tuner-back').addEventListener('click', () => show('home'));
 document.querySelectorAll('.piano-return').forEach(button => button.addEventListener('click', () => show('home')));
 brand.addEventListener('click', event => { event.preventDefault(); show('home'); });
 const generalDialog = document.getElementById('general-settings-dialog');
