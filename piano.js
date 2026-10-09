@@ -16,6 +16,10 @@ function render(){
     key.className='piano-key '+(blacks.has(i%12)?'black':'white');
     key.dataset.midi=midi;
     key.setAttribute('aria-label','MIDI note '+midi);
+    if(blacks.has(i%12)) {
+      const whiteBefore=Array.from({length:i},(_,n)=>n).filter(n=>!blacks.has(n%12)).length;
+      key.style.left=((whiteBefore-.32)/14*100)+'%';
+    }
     keyboard.append(key);
   }
 }
