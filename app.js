@@ -2,6 +2,7 @@ import { NOTES, MIN_NOTE, MAX_NOTE, noteName, pitchClass, isCorrect, chooseNote,
 import { createStore } from './storage.js';
 import { TonePlayer } from './audio.js';
 import { sharedPiano } from './piano-audio.js';
+import { getEarSound } from './ear-settings.js';
 const $ = id => document.getElementById(id);
 const warning = message => { $('warning').textContent = message; $('warning').hidden = false; };
 let local;
@@ -12,7 +13,7 @@ const audio = new TonePlayer();
 let question = null, previous = null, answers = [], session = null, completed = false;
 let audioBusy = false, playbackId = 0, animationTimer, playingReference = null;
 let pianoTrainingNote = null, pianoTrainingTimer = null;
-const trainingKeys = ['min', 'max', 'duration', 'blind', 'length', 'details', 'reference', 'referenceNote', 'autoplay', 'avoidRepeat', 'sound', 'pitchClasses'];
+const trainingKeys = ['min', 'max', 'duration', 'blind', 'length', 'details', 'reference', 'referenceNote', 'autoplay', 'avoidRepeat', 'pitchClasses'];
 const persist = () => store.save(settings, stats);
 const systemTheme = matchMedia('(prefers-color-scheme: dark)');
 function applyAppearance() {
@@ -43,7 +44,7 @@ function render() {
   const blind = session?.blind ?? settings.blind;
   $('mode-label').textContent = blind ? `BLIND SESSION · ${Math.min(answers.length + (completed ? 0 : 1), session?.length ?? settings.length)} OF ${session?.length ?? settings.length}` : 'LISTEN · RECOGNIZE · REPEAT';
   $('question-title').textContent = completed ? 'Session complete.' : 'Find the note.';
-  $('question-subtitle').textContent = blind ? 'Trust your ear. Results stay hidden until the end.' : settings.sound === 'piano' ? 'One piano note. Twelve possibilities.' : 'One pure tone. Twelve possibilities.';
+  $('question-subtitle').textContent = blind ? 'Trust your ear. Results stay hidden until the end.' : getEarSound() === 'piano' ? 'One piano note. Twelve possibilities.' : 'One pure tone. Twelve possibilities.';
   $('play-label').textContent = question?.played ? 'Play Again' : 'Play Note';
   $('play').disabled = audioBusy || completed;
   $('play-help').textContent = completed ? 'Start a new session whenever you’re ready.' : question?.played ? 'Replay as often as you like.' : 'Listen, then choose a note below.';
@@ -95,7 +96,7 @@ async function playTone(reference = false) {
   try {
     const midi = reference ? settings.referenceNote : current.note;
     let played;
-    if (settings.sound === 'piano') {
+    if (getEarSound() === 'piano') {
       audio.stop();
       $('play-help').textContent = 'Preparing Grand Piano samples (first use may take a while)…';
       await sharedPiano.load((done,total)=>{
@@ -194,7 +195,7 @@ function field(parent, key, label, options) {
 function buildSettings() {
   $('settings-fields').replaceChildren();
   let parent = section('Training');
-  field(parent, 'sound', 'Sound', [['sine', 'Sine wave'], ['piano', 'Grand Piano']]);
+  const sharedSoundNote=document.createElement('p'); sharedSoundNote.className='section-help'; sharedSoundNote.textContent='Sound: managed in Ear Trainer → Settings (applies to all ear exercises).'; parent.append(sharedSoundNote);
   field(parent, 'min', 'Minimum note', noteOptions); field(parent, 'max', 'Maximum note', noteOptions);
   const pitchBox=document.createElement('div'); pitchBox.className='pitch-picker';
   const pitchTitle=document.createElement('strong'); pitchTitle.textContent='Notes to test';
@@ -221,7 +222,7 @@ function buildSettings() {
   parent = section('Training display');
   [['score', 'Score on main screen'], ['mainStreak', 'Streak on main screen'], ['feedback', 'Visual feedback colors']].forEach(([key, label]) => field(parent, key, label));
   parent = section('About'); parent.classList.add('about');
-  parent.innerHTML += `<p><strong>Perfect Pitch Trainer · Version 1.0.0</strong></p><p>Identify one of twelve pitch classes. Every octave of C counts as C. Choose sine waves or sampled Grand Piano tones, tuned to A4 = 440 Hz. Piano samples require an internet connection for their first load. This is a practice tool, not a guarantee of acquiring perfect pitch.</p><p>Offline: once “Ready for offline use” appears, the app’s essential files are cached. Install it from Safari’s Share menu → Add to Home Screen. Check this status again inside the installed app.</p><p>Privacy: settings and statistics stay in your browser on this device. No accounts, advertising, analytics, external APIs, or uploaded training data. The host receives ordinary requests for app files when online. Clearing website data, removing the app, or browser cache eviction can remove local progress and offline access. Devices do not sync.</p><p>Updates: a new version downloads in the background while online. Tap “Update available” when you are ready to restart. Settings and statistics are preserved.</p><p>History stores up to 100 completed sessions when collection stayed on for every answer and saving history is on at completion. Partially uncollected sessions are never saved. Turning collection off resets the current persistent streak. Statistics resets are independent; resetting one does not rewrite others.</p>`;
+  parent.innerHTML += `<p><strong>Perfect Pitch Trainer · Version 1.0.0</strong></p><p>Identify one of twelve pitch classes. Every octave of C counts as C. Choose sine waves or sampled Grand Piano tones in Ear Trainer Settings, tuned to A4 = 440 Hz. Piano samples require an internet connection for their first load. This is a practice tool, not a guarantee of acquiring perfect pitch.</p><p>Offline: once “Ready for offline use” appears, the app’s essential files are cached. Install it from Safari’s Share menu → Add to Home Screen. Check this status again inside the installed app.</p><p>Privacy: settings and statistics stay in your browser on this device. No accounts, advertising, analytics, external APIs, or uploaded training data. The host receives ordinary requests for app files when online. Clearing website data, removing the app, or browser cache eviction can remove local progress and offline access. Devices do not sync.</p><p>Updates: a new version downloads in the background while online. Tap “Update available” when you are ready to restart. Settings and statistics are preserved.</p><p>History stores up to 100 completed sessions when collection stayed on for every answer and saving history is on at completion. Partially uncollected sessions are never saved. Turning collection off resets the current persistent streak. Statistics resets are independent; resetting one does not rewrite others.</p>`;
   validateRange();
 }
 function validateRange() {
