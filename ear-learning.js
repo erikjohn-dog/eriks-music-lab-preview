@@ -74,3 +74,15 @@ soundForm.addEventListener('submit',event=>{
  soundDialog.close();
 });
 document.addEventListener('musiclab:ear-learning-close',()=>{playbackToken++;sharedPiano.allNotesOff()});
+
+function playChordDemo(){
+ const root=60,quality=level===1?'minor':'major';
+ playChord({root,quality,presentation:CHORD_MODES[level]==='random'?'combined':CHORD_MODES[level]});
+}
+function playChord(item){
+ const offsets=item.quality==='major'?[0,4,7]:[0,3,7];
+ if(item.presentation==='combined'){
+  playNotes(offsets,false,item.root);
+  setTimeout(()=>{if(world==='Chords'&&!stage.hidden)playNotes(offsets,true,item.root)},1700);
+ }else playNotes(offsets,item.presentation==='harmonic',item.root);
+}
