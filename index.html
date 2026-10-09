@@ -36,9 +36,9 @@
     <div class="module-grid">
       <button type="button" class="module-card" id="open-perfect-pitch">
         <span class="module-icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17C12 8 19 4 27 5c9 1 14 8 13 17-.5 7-5 10-9 14-3 3-4 8-11 8-6 0-10-4-10-10"/><path d="M19 28c-2-3-3-7-2-11 1-5 5-8 10-8 6 0 10 5 10 11 0 5-3 7-7 10-2 2-3 5-5 7"/><path d="M21 23c-1-4 1-8 5-8 4 0 6 3 6 6"/></svg></span>
-        <span class="module-title">Perfect Pitch</span>
-        <span class="module-description">Train your ear. Find the note.</span>
-        <span class="module-action">Start training <span aria-hidden="true">↗</span></span>
+        <span class="module-title">Ear Trainer</span>
+        <span class="module-description">Train your musical ear.</span>
+        <span class="module-action">Explore exercises <span aria-hidden="true">↗</span></span>
       </button>
       <button type="button" class="module-card" id="open-piano">
         <span class="module-icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"><rect x="5" y="7" width="38" height="34" rx="5"/><path d="M13 8v32M21 8v32M29 8v32M37 8v32" stroke-width="1.8"/><path d="M10 8v18h6V8M18 8v18h6V8M26 8v18h6V8" fill="currentColor" stroke="none"/></svg></span>
@@ -53,7 +53,19 @@
     </div>
     <p class="home-footnote">A little space for big musical ideas.</p>
   </main>
-  <div id="training-navigation" class="training-navigation" hidden><button id="back-home" type="button" class="back-home">← All tools</button></div>
+  <main id="ear-trainer-menu" class="ear-trainer-menu" hidden>
+    <button type="button" id="ear-menu-back" class="back-home">← All tools</button>
+    <div class="eyebrow">LISTEN · LEARN · GROW</div>
+    <h1>Ear Trainer.</h1>
+    <p class="subtitle">Sharpen your musical ear, one exercise at a time.</p>
+    <div class="ear-exercise-grid">
+      <button type="button" id="open-ear-perfect-pitch" class="ear-exercise-card"><span class="ear-exercise-symbol" aria-hidden="true">♪</span><span class="ear-exercise-copy"><strong>Perfect Pitch</strong><small>Recognize individual notes by ear.</small></span><span class="ear-exercise-arrow" aria-hidden="true">↗</span></button>
+      <div class="ear-exercise-card upcoming"><span class="ear-exercise-symbol" aria-hidden="true">↕</span><span class="ear-exercise-copy"><strong>Intervals</strong><small>Recognize the distance between notes.</small></span><span class="ear-soon">COMING SOON</span></div>
+      <div class="ear-exercise-card upcoming"><span class="ear-exercise-symbol" aria-hidden="true">♫</span><span class="ear-exercise-copy"><strong>Chords</strong><small>Discover the sound of harmony.</small></span><span class="ear-soon">COMING SOON</span></div>
+      <div class="ear-exercise-card upcoming"><span class="ear-exercise-symbol" aria-hidden="true">♬</span><span class="ear-exercise-copy"><strong>Scales</strong><small>Explore the character of scales.</small></span><span class="ear-soon">COMING SOON</span></div>
+    </div>
+  </main>
+  <div id="training-navigation" class="training-navigation" hidden><button id="back-home" type="button" class="back-home">← Ear Trainer</button></div>
   <main id="piano-stage" hidden>
     <div class="piano-portrait"><nav class="piano-portrait-nav" aria-label="Piano navigation"><button type="button" class="piano-return" aria-label="Return to all tools">← All tools</button></nav><h2>Turn your iPhone sideways.</h2><p>The piano is designed for landscape mode.</p></div>
     <div class="piano-landscape">
@@ -117,7 +129,7 @@
   <form id="general-settings-form">
     <div class="sheet-header"><div><div class="eyebrow">ERIK’S MUSIC LAB</div><h2 id="general-settings-title">General Settings</h2></div><button type="button" class="icon-button" id="general-settings-close" aria-label="Close general settings">✕</button></div>
     <section class="settings-section"><h3>Appearance</h3><label class="field"><span>App theme</span><select name="theme"><option value="system">Follow system</option><option value="light">Light</option><option value="dark">Dark</option></select></label><label class="field"><span>Subtle animations</span><input name="animations" type="checkbox"></label></section>
-    <section class="settings-section about"><h3>About</h3><p><strong>Erik’s Music Lab · Preview</strong></p><p>Your settings and Perfect Pitch statistics are stored locally on this device. Clearing website data may erase them.</p><p>Offline status is shown at the bottom of the app.</p><div class="about-detail"><strong>Grand Piano samples</strong><p id="sample-cache-status" role="status">Checking local audio cache…</p><button type="button" id="sample-cache-refresh" class="text-button">Refresh audio status</button></div><div class="about-detail"><strong>App version</strong><p>Preview 1.0.41</p><strong>What’s new</strong><p>1.0.41 · Portrait piano live treble/bass notation and cleaner key labels; Perfect Pitch 12-note training filter.</p><p>1.0.40 · Individual premium styling for all six tools; piano now playable in portrait and landscape.</p><p>1.0.39 · Premium Music Toolbox home redesign with refreshed original E-and-sound logo.</p><p>1.0.38 · Faster warm audio note triggering for Synth and Drum Pads; removed extra pad scheduling offset.</p><p>1.0.32 · Genre-based beat generator, 16/32/64-step patterns and preset-aware synth macros.</p><p>1.0.31 · Drum Machine, 16-step sequencer, neon ripple visuals, expanded synth presets, macros and glide.</p><p>1.0.30 · Synth 2.0: 808 Destroyer, oscillator switches, interactive ADSR, modulation matrix, effects and live waveform.</p><p>1.0.29 · Improved synth key release handling.</p><p>1.0.28 · Erik’s Synth: Play and Sound Design, 6 presets, two oscillators, filter, ADSR and vibrato.</p><p>1.0.27 · Metronome with BPM, time signatures, beat accents and Tap Tempo.</p><p>1.0.26 · Refined Chromatic Tuner icon.</p><p>1.0.25 · Chromatic Tuner with microphone pitch detection; Grand Piano cache status; version information and changelog.</p><p>1.0.24 · Piano settings icon aligned with the home screen.</p></div></section>
+    <section class="settings-section about"><h3>About</h3><p><strong>Erik’s Music Lab · Preview</strong></p><p>Your settings and Perfect Pitch statistics are stored locally on this device. Clearing website data may erase them.</p><p>Offline status is shown at the bottom of the app.</p><div class="about-detail"><strong>Grand Piano samples</strong><p id="sample-cache-status" role="status">Checking local audio cache…</p><button type="button" id="sample-cache-refresh" class="text-button">Refresh audio status</button></div><div class="about-detail"><strong>App version</strong><p>Preview 1.0.42</p><strong>What’s new</strong><p>1.0.42 · Ear Trainer exercise menu with Perfect Pitch and three future modules; clean portrait piano key labels.</p><p>1.0.41 · Portrait piano live treble/bass notation and cleaner key labels; Perfect Pitch 12-note training filter.</p><p>1.0.40 · Individual premium styling for all six tools; piano now playable in portrait and landscape.</p><p>1.0.39 · Premium Music Toolbox home redesign with refreshed original E-and-sound logo.</p><p>1.0.38 · Faster warm audio note triggering for Synth and Drum Pads; removed extra pad scheduling offset.</p><p>1.0.32 · Genre-based beat generator, 16/32/64-step patterns and preset-aware synth macros.</p><p>1.0.31 · Drum Machine, 16-step sequencer, neon ripple visuals, expanded synth presets, macros and glide.</p><p>1.0.30 · Synth 2.0: 808 Destroyer, oscillator switches, interactive ADSR, modulation matrix, effects and live waveform.</p><p>1.0.29 · Improved synth key release handling.</p><p>1.0.28 · Erik’s Synth: Play and Sound Design, 6 presets, two oscillators, filter, ADSR and vibrato.</p><p>1.0.27 · Metronome with BPM, time signatures, beat accents and Tap Tempo.</p><p>1.0.26 · Refined Chromatic Tuner icon.</p><p>1.0.25 · Chromatic Tuner with microphone pitch detection; Grand Piano cache status; version information and changelog.</p><p>1.0.24 · Piano settings icon aligned with the home screen.</p></div></section>
     <div class="sheet-actions"><button class="primary" type="submit">Save settings</button></div>
   </form>
 </dialog>
