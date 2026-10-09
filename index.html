@@ -16,6 +16,8 @@
   <script type="module" src="./app.js"></script>
   <script type="module" src="./navigation.js"></script>
   <script type="module" src="./piano.js"></script>
+  <script type="module" src="./tuner.js"></script>
+  <script type="module" src="./about.js"></script>
 </head>
 <body>
 <div class="app-shell">
@@ -27,7 +29,7 @@
     <div class="eyebrow">WELCOME TO ERIK’S MUSIC LAB</div>
     <h1>Your Musical Companion.</h1>
     <p class="subtitle">Explore, practice, and create — all in one place.</p>
-    <div class="home-section-label">YOUR TOOLS <span>02 MODULES</span></div>
+    <div class="home-section-label">YOUR TOOLS <span>03 MODULES</span></div>
     <div class="module-grid">
       <button type="button" class="module-card" id="open-perfect-pitch">
         <span class="module-icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17C12 8 19 4 27 5c9 1 14 8 13 17-.5 7-5 10-9 14-3 3-4 8-11 8-6 0-10-4-10-10"/><path d="M19 28c-2-3-3-7-2-11 1-5 5-8 10-8 6 0 10 5 10 11 0 5-3 7-7 10-2 2-3 5-5 7"/><path d="M21 23c-1-4 1-8 5-8 4 0 6 3 6 6"/></svg></span>
@@ -41,6 +43,7 @@
         <span class="module-description">Your digital instrument.</span>
         <span class="module-action">Play piano <span aria-hidden="true">↗</span></span>
       </button>
+      <button type="button" class="module-card" id="open-tuner"><span class="module-icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M8 35a20 20 0 0 1 32 0"/><path d="M24 34l10-18"/><circle cx="24" cy="34" r="3"/></svg></span><span class="module-title">Chromatic Tuner</span><span class="module-description">Tune with precision.</span><span class="module-action">Start tuning <span aria-hidden="true">↗</span></span></button>
     </div>
     <p class="home-footnote">A little space for big musical ideas.</p>
   </main>
@@ -55,6 +58,7 @@
       <p class="piano-credit">Salamander Grand Piano V3 · Alexander Holm · CC BY 3.0</p>
     </div>
   </main>
+  <main id="tuner-stage" hidden><button type="button" id="tuner-back" class="back-home">← All tools</button><div class="eyebrow">LISTEN · TUNE · PLAY</div><h1>Chromatic Tuner.</h1><p class="subtitle">Tune your instrument using the microphone.</p><section class="tuner-panel"><p id="tuner-status" role="status">Tap Start Tuning to enable your microphone.</p><div class="tuner-note" id="tuner-note" aria-live="off">—</div><p class="tuner-frequency" id="tuner-frequency">A4 = 440 Hz</p><div class="tuner-meter" aria-label="Pitch deviation from minus 50 to plus 50 cents"><div class="tuner-meter-center"></div><div class="tuner-needle" id="tuner-needle"></div></div><div class="tuner-scale"><span>−50</span><span>In tune</span><span>+50</span></div><p id="tuner-cents" class="tuner-cents">Waiting for a note</p><button id="tuner-toggle" class="primary" type="button">Start Tuning</button></section><p class="micro tuner-privacy">Microphone audio is analyzed on your device and is not uploaded. Use a quiet room for best results.</p></main>
   <main id="training" hidden>
     <div class="eyebrow" id="mode-label">LISTEN · RECOGNIZE · REPEAT</div>
     <h1 id="question-title">Find the note.</h1>
@@ -80,7 +84,7 @@
   <form id="general-settings-form">
     <div class="sheet-header"><div><div class="eyebrow">ERIK’S MUSIC LAB</div><h2 id="general-settings-title">General Settings</h2></div><button type="button" class="icon-button" id="general-settings-close" aria-label="Close general settings">✕</button></div>
     <section class="settings-section"><h3>Appearance</h3><label class="field"><span>App theme</span><select name="theme"><option value="system">Follow system</option><option value="light">Light</option><option value="dark">Dark</option></select></label><label class="field"><span>Subtle animations</span><input name="animations" type="checkbox"></label></section>
-    <section class="settings-section about"><h3>About</h3><p><strong>Erik’s Music Lab · Preview</strong></p><p>Your settings and Perfect Pitch statistics are stored locally on this device. Clearing website data may erase them.</p><p>Offline status is shown at the bottom of the app.</p></section>
+    <section class="settings-section about"><h3>About</h3><p><strong>Erik’s Music Lab · Preview</strong></p><p>Your settings and Perfect Pitch statistics are stored locally on this device. Clearing website data may erase them.</p><p>Offline status is shown at the bottom of the app.</p><div class="about-detail"><strong>Grand Piano samples</strong><p id="sample-cache-status" role="status">Checking local audio cache…</p><button type="button" id="sample-cache-refresh" class="text-button">Refresh audio status</button></div><div class="about-detail"><strong>App version</strong><p>Preview 1.0.25</p><strong>What’s new</strong><p>1.0.25 · Chromatic Tuner with microphone pitch detection; Grand Piano cache status; version information and changelog.</p><p>1.0.24 · Piano settings icon aligned with the home screen.</p></div></section>
     <div class="sheet-actions"><button class="primary" type="submit">Save settings</button></div>
   </form>
 </dialog>
