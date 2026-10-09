@@ -1,13 +1,19 @@
 // Erik's Music Lab — independent sample-based piano engine.
 // Salamander Grand Piano V3 by Alexander Holm, CC BY 3.0.
 // https://archive.org/details/SalamanderGrandPianoV3
-// Preview stage: remote Tone.js-hosted MP3s. Offline samples will follow.
+// Preview: 30 original-pitch MP3s hosted by Tone.js; audio requires a network connection.
+// These files are one sampled velocity layer, not three distinct recordings.
 const BASE = 'https://tonejs.github.io/audio/salamander/';
+// Every original pitch position published in the Tone.js Salamander set.
+// The intervening semitones are generated from the nearest recording.
 const SAMPLES = [
+  [21,'A0'],[24,'C1'],[27,'Ds1'],[30,'Fs1'],[33,'A1'],
+  [36,'C2'],[39,'Ds2'],[42,'Fs2'],[45,'A2'],
   [48,'C3'],[51,'Ds3'],[54,'Fs3'],[57,'A3'],
   [60,'C4'],[63,'Ds4'],[66,'Fs4'],[69,'A4'],
   [72,'C5'],[75,'Ds5'],[78,'Fs5'],[81,'A5'],
-  [84,'C6']
+  [84,'C6'],[87,'Ds6'],[90,'Fs6'],[93,'A6'],
+  [96,'C7'],[99,'Ds7'],[102,'Fs7'],[105,'A7'],[108,'C8']
 ];
 export class PianoEngine {
   constructor() { this.context=null; this.buffers=new Map(); this.active=new Map(); this.loading=null; this.maxVoices=24; }
