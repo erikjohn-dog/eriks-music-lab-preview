@@ -204,3 +204,40 @@
 .drums-kit-bar{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:10px;margin:14px 0 6px}.drums-kit-bar button{width:auto;margin:0;padding:11px 12px}.drums-kit-bar select{max-width:100%}
 
 .synth-display-switches{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0}.synth-display-switches .synth-switch{min-width:0;font-size:12px;gap:6px;padding:10px}.synth-display-switches input{flex-shrink:0}#synth-waveform-wrap[hidden],#synth-xy-wrap[hidden]{display:none!important}
+
+
+/* Preview 1.0.39 — Music Toolbox home redesign. Other instrument screens unchanged. */
+:root[data-theme=dark]{
+ --bg:#0b111b;--surface:#172334;--ink:#f4f7fc;--muted:#a2b3ca;--line:#293a50;--accent:#79d7ff;--accent-ink:#071725;--soft:#20344a;--shadow:0 12px 34px #02071338;
+}
+body:has(#home:not([hidden])){background:var(--bg)}
+body:has(#home:not([hidden])) .app-shell{max-width:520px}
+body:has(#home:not([hidden])) .app-header{margin-bottom:35px}
+body:has(#home:not([hidden])) .brand{font-size:16px;letter-spacing:-.35px}
+body:has(#home:not([hidden])) .brand-symbol{background:#1b3044;border:1px solid #304b63;box-shadow:0 7px 20px #020b1b35;overflow:hidden}
+body:has(#home:not([hidden])) .brand-symbol img{border-radius:10px!important}
+body:has(#home:not([hidden])) .brand-sub{font-size:9px;letter-spacing:1.55px;margin-top:5px}
+body:has(#home:not([hidden])) .icon-button{background:var(--surface);border:1px solid var(--line);border-radius:14px}
+.home-view{padding-top:5px}
+.home-view .eyebrow{font-size:10px;letter-spacing:1.8px;font-weight:750;color:var(--accent)}
+.home-view h1{font-size:clamp(33px,8.5vw,43px);letter-spacing:-1.8px;line-height:1.08;margin:14px 0 11px;font-weight:730;max-width:390px}
+.home-view .subtitle{font-size:14px;line-height:1.65;max-width:360px}
+.home-section-label{margin:40px 0 14px;letter-spacing:1.5px}
+.module-grid{gap:12px}
+.module-card{position:relative;min-height:188px;padding:18px 16px 15px;border-radius:19px;box-shadow:0 10px 30px #02071318;transition:border-color .18s,background .18s,transform .18s;overflow:hidden}
+.module-card:active{transform:scale(.985)}
+.module-card:hover{border-color:var(--tool-accent)}
+.module-icon{width:49px;height:49px;border-radius:14px;margin-bottom:21px;background:color-mix(in srgb,var(--tool-accent) 12%,var(--surface));color:var(--tool-accent)}
+.module-icon svg{width:29px;height:29px}
+.module-title{font-size:16px;font-weight:720;line-height:1.2;letter-spacing:-.4px}
+.module-description{font-size:11px;margin-top:6px;line-height:1.4}
+.module-action{font-size:11px;color:var(--tool-accent);padding-top:17px}
+.module-card:nth-child(1){--tool-accent:#c7a4ff}
+.module-card:nth-child(2){--tool-accent:#8faaff}
+.module-card:nth-child(3){--tool-accent:#76ddc5}
+.module-card:nth-child(4){--tool-accent:#ffc481}
+.module-card:nth-child(5){--tool-accent:#79d7ff}
+.module-card:nth-child(6){--tool-accent:#ff9eaf}
+.home-footnote{margin-top:31px;font-size:12px}
+@media(max-width:350px){.module-grid{gap:9px}.module-card{padding:14px 12px;min-height:180px}.module-title{font-size:14px}.module-description{font-size:10px}.module-icon{margin-bottom:17px}}
+@media(prefers-reduced-motion:reduce){.module-card{transition:none}}
