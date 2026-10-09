@@ -83,7 +83,8 @@ function playChord(item){
  const offsets=item.quality==='major'?[0,4,7]:[0,3,7];
  if(item.presentation==='combined'){
   playNotes(offsets,false,item.root);
-  setTimeout(()=>{if(world==='Chords'&&!stage.hidden)playNotes(offsets,true,item.root)},1700);
+  const sequenceToken=playbackToken;
+  setTimeout(()=>{if(sequenceToken===playbackToken&&world==='Chords'&&!stage.hidden)playNotes(offsets,true,item.root)},1700);
  }else playNotes(offsets,item.presentation==='harmonic',item.root);
 }
 
