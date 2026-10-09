@@ -94,4 +94,6 @@ function renderChordQuestion(){
  content.innerHTML=title('Major or Minor?')+'<p class="subtitle">Question '+(question+1)+' of 10</p><div class="ear-quiz-card"><button id="ear-replay" class="ear-play-button">▶</button><p id="ear-audio-status"></p><p>Which chord did you hear?</p><div class="ear-answer-grid"><button class="ear-answer" data-quality="major">Major</button><button class="ear-answer" data-quality="minor">Minor</button></div><div id="ear-feedback"></div><button id="ear-next" class="primary" hidden>Next question →</button></div>';
  document.getElementById('ear-replay').onclick=()=>playChord(item);
  if(getEarPractice().autoPlayNext)playChord(item);
+ content.querySelectorAll('[data-quality]').forEach(b=>b.onclick=()=>answerChord(b.dataset.quality,item));
+ document.getElementById('ear-next').onclick=()=>{question++;renderChordQuestion()};
 }
