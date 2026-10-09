@@ -1,1 +1,22 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="112" fill="#2455d6"/><path d="M112 256c48-124 96-124 144 0s96 124 144 0" fill="none" stroke="#a9e8ff" stroke-width="27" stroke-linecap="round"/><circle cx="256" cy="256" r="12" fill="#ffffff"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
+  <title id="title">Erik’s Music Lab — E with sound waves</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0879ff"/>
+      <stop offset="0.55" stop-color="#0752e7"/>
+      <stop offset="1" stop-color="#0633ae"/>
+    </linearGradient>
+    <linearGradient id="mark" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#b7dcff"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="108" fill="url(#bg)"/>
+  <g fill="none" stroke="url(#mark)" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M294 128H230C151 128 110 184 110 255S151 384 230 384H294" stroke-width="53"/>
+    <path d="M126 263C148 231 178 228 213 228H266" stroke-width="48"/>
+    <path d="M319 222Q354 256 319 290" stroke-width="21"/>
+    <path d="M346 187Q409 256 346 325" stroke-width="21"/>
+    <path d="M372 157Q463 256 372 355" stroke-width="21"/>
+  </g>
+</svg>
