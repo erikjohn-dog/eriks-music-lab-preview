@@ -200,3 +200,5 @@
 .synth-xy-axis-top,.synth-xy-axis-bottom{position:absolute;z-index:1;left:0;right:0;text-align:center;color:#a7c6ef;font-size:10px;font-weight:700;letter-spacing:1px;pointer-events:none}
 .synth-xy-axis-top{top:10px}.synth-xy-axis-bottom{bottom:10px}
 .synth-xy-values{display:flex;justify-content:space-between;margin-top:10px;color:var(--muted);font-size:12px;font-weight:700}
+
+.drums-kit-bar{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:10px;margin:14px 0 6px}.drums-kit-bar button{width:auto;margin:0;padding:11px 12px}.drums-kit-bar select{max-width:100%}
