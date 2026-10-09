@@ -37,10 +37,12 @@ function sineOn(midi){
 const toolbar=document.querySelector('.piano-toolbar');
 const pianoSettingsButton=document.createElement('button');
 pianoSettingsButton.type='button';
-pianoSettingsButton.className='piano-settings-button';
-pianoSettingsButton.textContent='Settings';
+pianoSettingsButton.className='piano-settings-button icon-button';
+pianoSettingsButton.innerHTML='<svg viewBox="0 0 24 24" width="23" height="23" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="m9 3-.7 2.2-2 .9-2.1-.5-2-3.4 1.5-1.7v-2.6L2.2 15l2 3.4 2.1-.5 2 .9L9 21h4l.7-2.2 2-.9 2.1.5 2-3.4-1.5-1.7v-2.6l1.5-1.7-2-3.4-2.1.5-2-.9L13 3Z"/><circle cx="11" cy="12" r="3"/></svg>';
 pianoSettingsButton.setAttribute('aria-label','Piano settings');
 toolbar.querySelector('.piano-toolbar-spacer')?.replaceWith(pianoSettingsButton);
+const portraitSettingsButton=pianoSettingsButton.cloneNode(true);
+document.querySelector('.piano-portrait-nav')?.append(portraitSettingsButton);
 const pianoSettingsDialog=document.createElement('dialog');
 pianoSettingsDialog.className='sheet piano-settings-dialog';
 const pianoSettingsForm=document.createElement('form');
@@ -65,7 +67,7 @@ pianoSettingsSave.textContent='Save settings';
 pianoSettingsForm.append(pianoSettingsHeading,pianoSoundLabel,pianoSettingsSave);
 pianoSettingsDialog.append(pianoSettingsForm);
 document.body.append(pianoSettingsDialog);
-pianoSettingsButton.addEventListener('click',()=>pianoSettingsDialog.showModal());
+for(const button of [pianoSettingsButton,portraitSettingsButton]) button.addEventListener('click',()=>pianoSettingsDialog.showModal());
 function refreshPianoSound(){
   start.hidden=pianoSound==='sine'||engine.buffers.size>0;
   status.textContent=pianoSound==='sine'?'Sine wave · Swipe to explore the keyboard':
