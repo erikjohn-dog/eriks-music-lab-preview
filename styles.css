@@ -385,3 +385,12 @@ body:has(#home:not([hidden])) .icon-button{background:var(--surface);border:1px 
 .ear-sound-choice small{font-size:12px;color:var(--muted);line-height:1.5}
 .ear-settings-help{font-size:13px;color:var(--muted);line-height:1.6}
 #ear-audio-status{font-size:12px;color:#d8b7ff;line-height:1.4;min-height:0}
+
+/* 1.0.45 ear training flow */
+.ear-flow-options{display:grid;gap:10px;margin:20px 0}
+.ear-flow-options h3{font-size:16px;margin:4px 0}
+.ear-flow-choice{display:flex;gap:13px;align-items:flex-start;padding:14px;border-radius:13px;border:1px solid #45516a;background:#1b293b}
+.ear-flow-choice input{width:19px;height:19px;flex-shrink:0;margin-top:3px;accent-color:#c7a4ff}
+.ear-flow-choice span{display:grid;gap:5px}
+.ear-flow-choice strong{font-size:14px}
+.ear-flow-choice small{font-size:12px;color:var(--muted);line-height:1.45}
