@@ -8,7 +8,7 @@ bass:{wave1:'square',wave2:'sawtooth',detune:-5,cutoff:650,resonance:4,attack:.0
 pluck:{wave1:'triangle',wave2:'sine',detune:0,cutoff:3600,resonance:1,attack:.005,decay:.28,sustain:0,release:.22},
 keys:{wave1:'sine',wave2:'triangle',detune:4,cutoff:6000,resonance:.6,attack:.008,decay:.5,sustain:.3,release:.55},
 strings:{wave1:'sawtooth',wave2:'sawtooth',detune:13,cutoff:3000,resonance:1,attack:.6,decay:.4,sustain:.85,release:1.5,lfo:5},
-'808':{on1:true,on2:false,wave1:'sine',wave2:'triangle',mix:0,sub:0,cutoff:10000,resonance:.5,attack:.005,decay:.3,sustain:.85,release:.24,drive:68,filterenv:0,lfo:0,modsource:'off'}
+'808':{on1:true,on2:false,wave1:'sine',wave2:'triangle',mix:0,sub:0,cutoff:10000,resonance:.5,attack:.005,decay:.3,sustain:.85,release:.24,drive:68,filterenv:0,lfo:0,modsource:'off',bass808:true}
 };
 const fields=['on1','on2','wave1','wave2','mix','coarse','detune','sub','filtertype','cutoff','resonance','filterenv','attack','decay','sustain','release','lfo','lforate','modsource','moddest','modamount','drive','delay','delaytime','feedback','reverb'];
 const selects=new Set(['wave1','wave2','filtertype','modsource','moddest']);
@@ -19,7 +19,6 @@ function save(){try{localStorage.setItem(STORE,JSON.stringify({preset:preset.val
 function setPreset(name){if(!presets[name])return;p={...base,...presets[name]};preset.value=name;render();save();}
 function render(){for(const id of fields){const el=document.getElementById('synth-'+id);if(!el)continue;if(id==='on1'||id==='on2')el.checked=!!p[id];else el.value=String(p[id]);const o=document.getElementById('synth-'+id+'-value');if(o)o.textContent=String(p[id])+(id==='cutoff'?' Hz':id==='detune'?' cents':id==='coarse'?' semitones':id==='lforate'?' Hz':'');}drawEnvelope();}
 try{const saved=JSON.parse(localStorage.getItem(STORE)||'null');if(saved){if(saved.preset&&presets[saved.preset])p={...base,...presets[saved.preset]};if(saved.params)p={...p,...saved.params};if(saved.preset)preset.value=saved.preset;if(['1','2','3','4','5'].includes(saved.octave))document.getElementById('synth-octave').value=saved.octave;}}catch{}
-render();
 preset.addEventListener('change',()=>{if(preset.value!=='custom')setPreset(preset.value);});
 for(const id of fields){const el=document.getElementById('synth-'+id);el.addEventListener(el.type==='checkbox'?'change':'input',()=>{if(id==='on1'||id==='on2'){if(!el.checked&&!p[id==='on1'?'on2':'on1']){el.checked=true;return;}p[id]=el.checked;}else p[id]=selects.has(id)?el.value:Number(el.value);preset.value='custom';render();updateEffects();save();});}
 document.querySelectorAll('[data-synth-section]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('[data-synth-section]').forEach(x=>x.setAttribute('aria-selected',String(x===b)));document.querySelectorAll('.synth-section').forEach(x=>x.hidden=x.id!=='synth-section-'+b.dataset.synthSection);}));
@@ -65,4 +64,4 @@ function startVisual(){if(!drawId)drawId=requestAnimationFrame(visual);}
 document.addEventListener('musiclab:synth-hidden',()=>{allOff();if(drawId)cancelAnimationFrame(drawId);drawId=0;if(ctx){const old=ctx;ctx=null;output=null;analyser=null;old.close().catch(()=>{});}status.textContent='Tap a key to start audio.';visual();});
 document.addEventListener('visibilitychange',()=>{if(document.hidden)allOff();});
 window.addEventListener('pagehide',allOff);
-buildKeyboard();visual();
+render();buildKeyboard();visual();
