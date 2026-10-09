@@ -302,3 +302,24 @@ body:has(#home:not([hidden])) .icon-button{background:var(--surface);border:1px 
  #piano-stage:not([hidden]) .piano-key.pressed.black{background:#3458a9}
  #piano-stage:not([hidden]) .piano-credit{text-align:center;font-size:10px;color:var(--muted);margin:12px 0}
 }
+
+/* 1.0.41: portrait sheet music and restrained key labels */
+.piano-notation{display:none}
+@media(orientation:portrait){
+ #piano-stage:not([hidden]) .piano-notation{display:block;margin:10px 0 12px;padding:11px 12px 5px;background:linear-gradient(145deg,#19273b,#142033);border:1px solid #304158;border-radius:17px}
+ .piano-notation-heading{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:11px;color:#a6b9d1;letter-spacing:1px}
+ .piano-notation-heading #piano-current-note{color:#a9c4ff;font-size:14px;font-weight:750;letter-spacing:0}
+ #piano-staff{display:block;width:100%;height:150px;overflow:visible}
+ #piano-stage:not([hidden]) .piano-viewport{height:clamp(225px,37svh,360px)}
+ #piano-stage:not([hidden]) .piano-keyboard{min-height:225px}
+ #piano-stage:not([hidden]) .piano-key .piano-note-label{display:none}
+ #piano-stage:not([hidden]) .piano-key.white[data-midi="60"] .piano-note-label,
+ #piano-stage:not([hidden]) .piano-key.white[data-midi="72"] .piano-note-label,
+ #piano-stage:not([hidden]) .piano-key.white[data-midi="84"] .piano-note-label{display:block;bottom:12px;color:#5a6e88;font-size:11px}
+}
+.pitch-picker{margin:18px 0 22px}
+.pitch-picker>strong{font-size:14px}
+.pitch-picker .section-help{margin:4px 0 12px}
+.pitch-picker-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.pitch-picker-button{min-height:46px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--muted);font-size:15px;font-weight:750}
+.pitch-picker-button[aria-pressed=true]{background:#493363;color:#f1dcff;border-color:#a47bdb;box-shadow:inset 0 0 0 1px #a47bdb55}
