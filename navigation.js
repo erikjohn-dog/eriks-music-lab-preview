@@ -24,7 +24,7 @@ function show(view) {
 document.getElementById('open-perfect-pitch').addEventListener('click', () => show('perfect-pitch'));
 document.getElementById('back-home').addEventListener('click', () => show('home'));
 document.getElementById('open-piano').addEventListener('click', () => show('piano'));
-document.getElementById('piano-back').addEventListener('click', () => show('home'));
+document.querySelectorAll('.piano-return').forEach(button => button.addEventListener('click', () => show('home')));
 brand.addEventListener('click', event => { event.preventDefault(); show('home'); });
 const generalDialog = document.getElementById('general-settings-dialog');
 const generalForm = document.getElementById('general-settings-form');
