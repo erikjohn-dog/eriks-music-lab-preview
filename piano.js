@@ -3,6 +3,82 @@ const viewport = document.getElementById('piano-viewport');
 const keyboard = document.getElementById('piano-keyboard');
 const status = document.getElementById('piano-status');
 const start = document.getElementById('piano-start');
+// Piano-only settings, stored separately from Perfect Pitch statistics.
+const PIANO_SETTINGS_KEY='eriks-music-lab:piano-settings:v1';
+let pianoSound='piano';
+try { if(JSON.parse(localStorage.getItem(PIANO_SETTINGS_KEY))?.sound==='sine') pianoSound='sine'; } catch {}
+const sineContext=window.AudioContext||window.webkitAudioContext;
+let sineAudio=null;
+const sineVoices=new Map();
+function sineOff(midi){
+  const voice=sineVoices.get(midi);
+  if(!voice)return;
+  sineVoices.delete(midi);
+  const now=sineAudio.currentTime;
+  voice.gain.gain.cancelScheduledValues(now);
+  voice.gain.gain.setTargetAtTime(0,now,.018);
+  try{voice.osc.stop(now+.12);}catch{}
+}
+function sineOn(midi){
+  if(!sineContext)return;
+  sineAudio ||= new sineContext({latencyHint:'interactive'});
+  if(sineAudio.state==='suspended')sineAudio.resume().catch(()=>{});
+  sineOff(midi);
+  const now=sineAudio.currentTime;
+  const osc=sineAudio.createOscillator(),gain=sineAudio.createGain();
+  osc.type='sine';osc.frequency.value=440*2**((midi-69)/12);
+  gain.gain.setValueAtTime(0,now);
+  gain.gain.linearRampToValueAtTime(.18,now+.012);
+  osc.connect(gain).connect(sineAudio.destination);
+  osc.onended=()=>{osc.disconnect();gain.disconnect();};
+  sineVoices.set(midi,{osc,gain});
+  osc.start(now);
+}
+const toolbar=document.querySelector('.piano-toolbar');
+const pianoSettingsButton=document.createElement('button');
+pianoSettingsButton.type='button';
+pianoSettingsButton.className='piano-settings-button';
+pianoSettingsButton.textContent='Settings';
+pianoSettingsButton.setAttribute('aria-label','Piano settings');
+toolbar.querySelector('.piano-toolbar-spacer')?.replaceWith(pianoSettingsButton);
+const pianoSettingsDialog=document.createElement('dialog');
+pianoSettingsDialog.className='sheet piano-settings-dialog';
+const pianoSettingsForm=document.createElement('form');
+pianoSettingsForm.method='dialog';
+const pianoSettingsHeading=document.createElement('h2');
+pianoSettingsHeading.textContent='Piano Settings';
+const pianoSoundLabel=document.createElement('label');
+pianoSoundLabel.className='field';
+const pianoSoundTitle=document.createElement('span');
+pianoSoundTitle.textContent='Sound';
+const pianoSoundSelect=document.createElement('select');
+pianoSoundSelect.setAttribute('aria-label','Piano sound');
+for(const [value,title] of [['piano','Grand Piano'],['sine','Sine wave']]){
+  const option=document.createElement('option');
+  option.value=value;option.textContent=title;pianoSoundSelect.append(option);
+}
+pianoSoundSelect.value=pianoSound;
+pianoSoundLabel.append(pianoSoundTitle,pianoSoundSelect);
+const pianoSettingsSave=document.createElement('button');
+pianoSettingsSave.className='primary';
+pianoSettingsSave.textContent='Save settings';
+pianoSettingsForm.append(pianoSettingsHeading,pianoSoundLabel,pianoSettingsSave);
+pianoSettingsDialog.append(pianoSettingsForm);
+document.body.append(pianoSettingsDialog);
+pianoSettingsButton.addEventListener('click',()=>pianoSettingsDialog.showModal());
+function refreshPianoSound(){
+  start.hidden=pianoSound==='sine'||engine.buffers.size>0;
+  status.textContent=pianoSound==='sine'?'Sine wave · Swipe to explore the keyboard':
+    engine.buffers.size?'Grand Piano · Swipe to explore the keyboard':'Tap Load Piano to prepare the instrument.';
+}
+pianoSettingsForm.addEventListener('submit',()=>{
+  for(const midi of [...sineVoices.keys()])sineOff(midi);
+  engine.allNotesOff();
+  pianoSound=pianoSoundSelect.value;
+  try{localStorage.setItem(PIANO_SETTINGS_KEY,JSON.stringify({sound:pianoSound}));}catch{}
+  refreshPianoSound();
+});
+refreshPianoSound();
 const notes = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
 const blackNotes = new Set([1,3,6,8,10]);
 const FIRST = 36; // C3
@@ -48,18 +124,20 @@ function stopPointer(pointerId) {
   if(!state)return;
   pointers.delete(pointerId);
   if(state.playing) {
-    engine.noteOff(state.midi);
+    if(pianoSound==='sine')sineOff(state.midi);
+    else engine.noteOff(state.midi);
     state.key.classList.remove('pressed');
   }
 }
 viewport.addEventListener('pointerdown',event=>{
   if(event.pointerType==='mouse'&&event.button!==0)return;
   const key=event.target.closest('.piano-key');
-  if(!key||!engine.buffers.size)return;
+  if(!key||(pianoSound==='piano'&&!engine.buffers.size))return;
   const midi=Number(key.dataset.midi);
   pointers.set(event.pointerId,{midi,key,x:event.clientX,y:event.clientY,playing:true});
   key.classList.add('pressed');
-  engine.noteOn(midi);
+  if(pianoSound==='sine')sineOn(midi);
+  else engine.noteOn(midi);
 });
 viewport.addEventListener('pointermove',event=>{
   const state=pointers.get(event.pointerId);
@@ -81,7 +159,7 @@ start.addEventListener('click',async()=>{
   try{
     await engine.load((done,total)=>{status.textContent='Loading piano samples '+done+'/'+total+'…';});
     status.textContent='Grand Piano · Swipe to explore the keyboard';
-    start.hidden=true;
+    refreshPianoSound();
   }catch(error){
     status.textContent=error.message;
     start.disabled=false;
@@ -91,6 +169,8 @@ start.addEventListener('click',async()=>{
 document.addEventListener('musiclab:piano-hidden',()=>{
   for(const id of [...pointers.keys()])stopPointer(id);
   engine.allNotesOff();
+  for(const midi of [...sineVoices.keys()])sineOff(midi);
+  if(pianoSettingsDialog.open)pianoSettingsDialog.close();
   keyboard.querySelectorAll('.pressed').forEach(key=>key.classList.remove('pressed'));
 });
 buildKeyboard();
