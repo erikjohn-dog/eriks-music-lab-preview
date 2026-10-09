@@ -23,7 +23,7 @@ export function chooseNote(min, max, previous = null, avoidRepeat = false, rando
   return exclude && value >= previous ? value + 1 : value;
 }
 export const DEFAULT_SETTINGS = Object.freeze({
-  min: 48, max: 83, duration: 1, blind: false, length: 20, details: true,
+  sound: 'sine', min: 48, max: 83, duration: 1, blind: false, length: 20, details: true,
   reference: false, referenceNote: 69, autoplay: false, avoidRepeat: false,
   collect: false, overall: false, byNote: false, current: false, longest: false,
   matrix: false, history: false, saveHistory: false,
@@ -40,6 +40,7 @@ export function sanitizeSettings(input = {}) {
   if (output.min > output.max) { output.min = DEFAULT_SETTINGS.min; output.max = DEFAULT_SETTINGS.max; }
   if ([0.5, 1, 2, 4].includes(input.duration)) output.duration = input.duration;
   if ([10, 20, 50].includes(input.length)) output.length = input.length;
+  if (['sine', 'piano'].includes(input.sound)) output.sound = input.sound;
   if (['light', 'dark', 'system'].includes(input.theme)) output.theme = input.theme;
   return output;
 }
