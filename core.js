@@ -27,6 +27,7 @@ export const DEFAULT_SETTINGS = Object.freeze({
   reference: false, referenceNote: 69, autoplay: false, avoidRepeat: false,
   collect: false, overall: false, byNote: false, current: false, longest: false,
   matrix: false, history: false, saveHistory: false,
+  pitchClasses: [0,1,2,3,4,5,6,7,8,9,10,11],
   theme: 'system', score: false, mainStreak: false, animations: true, feedback: true
 });
 export function sanitizeSettings(input = {}) {
@@ -40,6 +41,7 @@ export function sanitizeSettings(input = {}) {
   if (output.min > output.max) { output.min = DEFAULT_SETTINGS.min; output.max = DEFAULT_SETTINGS.max; }
   if ([0.5, 1, 2, 4].includes(input.duration)) output.duration = input.duration;
   if ([10, 20, 50].includes(input.length)) output.length = input.length;
+  if (Array.isArray(input.pitchClasses) && input.pitchClasses.length && input.pitchClasses.every(n => Number.isInteger(n) && n >= 0 && n < 12)) output.pitchClasses = [...new Set(input.pitchClasses)].sort((a,b)=>a-b);
   if (['sine', 'piano'].includes(input.sound)) output.sound = input.sound;
   if (['light', 'dark', 'system'].includes(input.theme)) output.theme = input.theme;
   return output;
