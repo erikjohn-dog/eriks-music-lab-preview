@@ -4,3 +4,19 @@
 @media(max-width:350px){.app-shell{padding-left:16px;padding-right:16px}.app-header{margin-bottom:25px}.tone-card{margin:20px 0;padding:20px}.note-button{height:53px}.note-grid{gap:7px}.answer-heading .micro{font-size:10px}.field{gap:7px;font-size:12px}.field select{max-width:125px}.sheet{padding:16px}}
 @media(max-height:720px){.app-header{margin-bottom:22px}.tone-card{margin:18px 0;padding-top:16px}.wave-mark{margin-bottom:14px;height:54px}.note-button{height:52px}footer{margin-top:10px}}
 @media(prefers-reduced-motion:no-preference){:root[data-animations=true] button{transition:background .15s,transform .15s}:root[data-animations=true] button:active:not(:disabled){transform:scale(.98)}:root[data-animations=true] .playing .wave-mark span{animation:wave .7s ease-in-out infinite alternate}:root[data-animations=true] .playing .wave-mark span:nth-child(even){animation-delay:.2s}@keyframes wave{to{transform:scaleY(.62);opacity:.45}}}
+
+/* Music Lab home and module navigation */
+.home-view{padding-top:6px}
+.home-section-label{display:flex;justify-content:space-between;margin:39px 0 13px;font-size:10px;letter-spacing:1.6px;font-weight:700;color:var(--muted)}
+.home-section-label span{font-weight:500;letter-spacing:1px}
+.module-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.module-card{display:flex;flex-direction:column;align-items:flex-start;text-align:left;min-width:0;min-height:224px;padding:19px 16px 15px;background:var(--surface);border:1px solid var(--line);border-radius:22px;color:var(--ink);box-shadow:var(--shadow)}
+.module-icon{display:grid;place-items:center;width:53px;height:53px;background:var(--soft);color:var(--accent);border-radius:16px;margin-bottom:24px}
+.module-icon svg{width:32px;height:32px}
+.module-title{font-size:17px;font-weight:700;letter-spacing:-.45px;line-height:1.2}
+.module-description{font-size:12px;line-height:1.45;color:var(--muted);margin-top:7px}
+.module-action{display:flex;justify-content:space-between;align-items:center;width:100%;font-size:11px;color:var(--accent);font-weight:650;margin-top:auto;padding-top:20px}
+.home-footnote{text-align:center;color:var(--muted);font-size:12px;margin-top:35px}
+.training-navigation{margin:-17px 0 19px}
+.back-home{background:transparent;color:var(--accent);font-weight:650;font-size:13px;min-height:44px;padding:7px 0}
+@media(max-width:350px){.module-card{padding:15px 12px;min-height:216px}.module-title{font-size:15px}.module-description{font-size:11px}}
