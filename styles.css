@@ -394,3 +394,15 @@ body:has(#home:not([hidden])) .icon-button{background:var(--surface);border:1px 
 .ear-flow-choice span{display:grid;gap:5px}
 .ear-flow-choice strong{font-size:14px}
 .ear-flow-choice small{font-size:12px;color:var(--muted);line-height:1.45}
+
+/* 1.0.46 Ear Trainer navigation alignment and custom instrument icons */
+.ear-menu-topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:27px}
+.ear-trainer-menu .ear-menu-topbar .back-home{margin:0;min-height:44px}
+.ear-menu-topbar .ear-settings-trigger{min-height:44px;padding:9px 13px}
+.ear-menu-topbar .ear-settings-trigger svg{flex-shrink:0}
+.ear-exercise-symbol svg{width:35px;height:35px;display:block}
+.ear-exercise-card:nth-child(1) .ear-exercise-symbol{color:#d7b2ff}
+.ear-exercise-card:nth-child(2) .ear-exercise-symbol{color:#9fd8ff}
+.ear-exercise-card:nth-child(3) .ear-exercise-symbol{color:#ffd19c}
+.ear-exercise-card:nth-child(4) .ear-exercise-symbol{color:#9de8d4}
+@media(max-width:370px){.ear-menu-topbar{gap:6px}.ear-menu-topbar .ear-settings-trigger{padding:8px 10px}.ear-exercise-symbol svg{width:30px;height:30px}}
