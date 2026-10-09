@@ -86,3 +86,18 @@
 /* Matching gear buttons in landscape and portrait piano headers. */
 .piano-toolbar .piano-settings-button,.piano-portrait-nav .piano-settings-button{width:44px;height:44px;min-width:44px;min-height:44px;padding:0;display:grid;place-items:center;border-radius:50%;background:var(--soft);color:var(--ink);border:0;flex-shrink:0}
 .piano-portrait-nav{align-items:center;justify-content:space-between!important;gap:12px}
+
+/* Chromatic tuner and About status */
+.tuner-panel{margin:26px 0 12px;padding:24px 18px;border:1px solid var(--line);border-radius:24px;background:var(--surface);text-align:center;box-shadow:var(--shadow)}
+#tuner-status{font-size:12px;color:var(--muted);min-height:38px;margin:0}
+.tuner-note{font-size:clamp(72px,20vw,108px);font-weight:700;line-height:1.2;letter-spacing:-4px;color:var(--accent);margin:14px 0 0}
+.tuner-frequency{color:var(--muted);font-size:15px;font-variant-numeric:tabular-nums;min-height:23px}
+.tuner-meter{height:35px;position:relative;margin:32px 8px 0;border-radius:20px;background:linear-gradient(90deg,var(--soft),var(--line),var(--soft))}
+.tuner-meter-center{position:absolute;left:50%;height:100%;width:3px;background:var(--correct);transform:translateX(-50%)}
+.tuner-needle{position:absolute;left:50%;top:-7px;height:49px;width:4px;background:var(--accent);border-radius:4px;transform:translateX(-50%);transition:left .1s linear}
+.tuner-scale{display:flex;justify-content:space-between;color:var(--muted);font-size:11px;margin:15px 8px}
+.tuner-cents{font-size:15px;font-weight:600;min-height:24px;margin:24px 0}
+.tuner-privacy{line-height:1.6}
+.about-detail{border-top:1px solid var(--line);padding-top:12px;margin-top:12px;font-size:13px}
+.about-detail p{margin:6px 0 9px}
+.about-detail .text-button{color:var(--accent);padding:4px 0;min-height:44px}
