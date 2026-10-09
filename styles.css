@@ -60,3 +60,16 @@
   #piano-stage:not([hidden]) .piano-portrait-nav{display:flex;justify-content:flex-start;margin:0 0 52px}
   #piano-stage:not([hidden]) .piano-portrait-nav .piano-return{display:inline-flex!important;align-items:center;justify-content:center;visibility:visible;opacity:1;min-height:44px;margin:0;background:var(--soft);color:var(--accent);border:1px solid var(--line);border-radius:12px;padding:10px 16px;font-size:14px;font-weight:700}
 }
+
+/* Scrollable 5-octave keyboard and pitch labels */
+@media(orientation:landscape){
+  .piano-viewport{width:100%;height:calc(100dvh - 116px - env(safe-area-inset-bottom));min-height:110px;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;touch-action:pan-x}
+  .piano-viewport .piano-keyboard{position:relative;display:block;height:100%;min-height:110px;touch-action:pan-x}
+  .piano-viewport .piano-key{position:absolute;top:0;display:block;touch-action:pan-x;user-select:none;-webkit-user-select:none}
+  .piano-viewport .piano-key.white{height:100%;background:#fff;border:1px solid #a6adbb;border-radius:0 0 5px 5px}
+  .piano-viewport .piano-key.black{height:60%;background:#182236;border-radius:0 0 4px 4px;z-index:2}
+  .piano-viewport .piano-key.pressed.white{background:#c7d9ff}
+  .piano-viewport .piano-key.pressed.black{background:#3458a9}
+  .piano-note-label{position:absolute;bottom:9px;left:0;right:0;text-align:center;font-size:10px;font-weight:600;pointer-events:none;color:#667085;white-space:nowrap}
+  .piano-key.black .piano-note-label{bottom:7px;color:#e5eaf5;font-size:9px}
+}
