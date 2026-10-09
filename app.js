@@ -183,9 +183,8 @@ function buildSettings() {
       }
     }); resetRow.append(button);
   }); parent.append(resetRow);
-  parent = section('Appearance');
-  field(parent, 'theme', 'Theme', [['system', 'Follow system'], ['light', 'Light'], ['dark', 'Dark']]);
-  [['score', 'Score on main screen'], ['mainStreak', 'Streak on main screen'], ['animations', 'Subtle animations'], ['feedback', 'Visual feedback colors']].forEach(([key, label]) => field(parent, key, label));
+  parent = section('Training display');
+  [['score', 'Score on main screen'], ['mainStreak', 'Streak on main screen'], ['feedback', 'Visual feedback colors']].forEach(([key, label]) => field(parent, key, label));
   parent = section('About'); parent.classList.add('about');
   parent.innerHTML += `<p><strong>Perfect Pitch Trainer · Version 1.0.0</strong></p><p>Identify one of twelve pitch classes. Every octave of C counts as C. Tones are pure sine waves in equal temperament, tuned to A4 = 440 Hz. This is a practice tool, not a guarantee of acquiring perfect pitch.</p><p>Offline: once “Ready for offline use” appears, the app’s essential files are cached. Install it from Safari’s Share menu → Add to Home Screen. Check this status again inside the installed app.</p><p>Privacy: settings and statistics stay in your browser on this device. No accounts, advertising, analytics, external APIs, or uploaded training data. The host receives ordinary requests for app files when online. Clearing website data, removing the app, or browser cache eviction can remove local progress and offline access. Devices do not sync.</p><p>Updates: a new version downloads in the background while online. Tap “Update available” when you are ready to restart. Settings and statistics are preserved.</p><p>History stores up to 100 completed sessions when collection stayed on for every answer and saving history is on at completion. Partially uncollected sessions are never saved. Turning collection off resets the current persistent streak. Statistics resets are independent; resetting one does not rewrite others.</p>`;
   validateRange();
@@ -309,4 +308,14 @@ async function setupOffline() {
   } catch { $('offline-status').textContent = 'Offline setup failed. Reopen online using HTTPS.'; }
 }
 window.addEventListener('online', () => { checkUpdates(); checkOffline(); });
+document.addEventListener('musiclab:request-general-settings', () => {
+  document.dispatchEvent(new CustomEvent('musiclab:general-settings', { detail: { theme: settings.theme, animations: settings.animations } }));
+});
+document.addEventListener('musiclab:save-general-settings', event => {
+  const { theme, animations } = event.detail || {};
+  if (!['system', 'light', 'dark'].includes(theme) || typeof animations !== 'boolean') return;
+  settings = { ...settings, theme, animations };
+  persist();
+  applyAppearance();
+});
 applyAppearance(); render(); setupOffline();
