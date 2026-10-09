@@ -4,6 +4,7 @@
 // Preview: 30 original-pitch MP3s hosted by Tone.js; audio requires a network connection.
 // One recorded velocity per original pitch; 30 Tone.js-hosted MP3 files.
 const BASE = 'https://tonejs.github.io/audio/salamander/';
+const SAMPLE_CACHE = 'eriks-music-lab-piano-samples-v1';
 // Every original pitch position published in the Tone.js Salamander set.
 // The intervening semitones are generated from the nearest recording.
 const SAMPLES = [
@@ -32,8 +33,21 @@ export class PianoEngine {
         while(next<SAMPLES.length){
           const [midi,name]=SAMPLES[next++];
           try{
-            const response=await fetch(BASE+name+'.mp3');
-            if(!response.ok)throw new Error('HTTP '+response.status);
+            const url=BASE+name+'.mp3';
+            let cache=null, response=null;
+            try {
+              if('caches' in globalThis){
+                cache=await caches.open(SAMPLE_CACHE);
+                response=await cache.match(url);
+              }
+            }catch { cache=null; }
+            if(!response){
+              response=await fetch(url);
+              if(!response.ok)throw new Error('HTTP '+response.status);
+              if(cache) {
+                try { await cache.put(url,response.clone()); } catch { /* Storage full: play without persistence. */ }
+              }
+            }
             const bytes=await response.arrayBuffer();
             this.buffers.set(midi,await this.context.decodeAudioData(bytes));
           }catch(e){errors.push(name);}
