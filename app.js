@@ -12,7 +12,7 @@ const audio = new TonePlayer();
 let question = null, previous = null, answers = [], session = null, completed = false;
 let audioBusy = false, playbackId = 0, animationTimer, playingReference = null;
 let pianoTrainingNote = null, pianoTrainingTimer = null;
-const trainingKeys = ['min', 'max', 'duration', 'blind', 'length', 'details', 'reference', 'referenceNote', 'autoplay', 'avoidRepeat', 'sound'];
+const trainingKeys = ['min', 'max', 'duration', 'blind', 'length', 'details', 'reference', 'referenceNote', 'autoplay', 'avoidRepeat', 'sound', 'pitchClasses'];
 const persist = () => store.save(settings, stats);
 const systemTheme = matchMedia('(prefers-color-scheme: dark)');
 function applyAppearance() {
@@ -32,7 +32,9 @@ function stopAudio() {
 function beginQuestion() {
   stopAudio();
   if (!session) session = { blind: settings.blind, length: settings.length, details: settings.details, started: new Date().toISOString() };
-  const note = chooseNote(settings.min, settings.max, previous, settings.avoidRepeat);
+  const candidates=Array.from({length:settings.max-settings.min+1},(_,i)=>settings.min+i).filter(midi=>settings.pitchClasses.includes(pitchClass(midi)));
+  const pool=settings.avoidRepeat&&candidates.length>1?candidates.filter(midi=>midi!==previous):candidates;
+  const note=pool[Math.floor(crypto.getRandomValues(new Uint32Array(1))[0]/4294967296*pool.length)] ?? chooseNote(settings.min,settings.max,previous,settings.avoidRepeat);
   previous = note;
   question = { note, played: false, answered: false, answer: null };
   render();
@@ -194,6 +196,12 @@ function buildSettings() {
   let parent = section('Training');
   field(parent, 'sound', 'Sound', [['sine', 'Sine wave'], ['piano', 'Grand Piano']]);
   field(parent, 'min', 'Minimum note', noteOptions); field(parent, 'max', 'Maximum note', noteOptions);
+  const pitchBox=document.createElement('div'); pitchBox.className='pitch-picker';
+  const pitchTitle=document.createElement('strong'); pitchTitle.textContent='Notes to test';
+  const pitchHelp=document.createElement('p'); pitchHelp.className='section-help'; pitchHelp.textContent='Choose which notes can be played. At least one must stay selected.';
+  const pitchGrid=document.createElement('div'); pitchGrid.className='pitch-picker-grid';
+  NOTES.forEach((name,i)=>{const b=document.createElement('button');b.type='button';b.className='pitch-picker-button';b.textContent=name;b.dataset.pitch=String(i);b.setAttribute('aria-pressed',String(settings.pitchClasses.includes(i)));b.addEventListener('click',()=>{const selected=[...pitchGrid.children].filter(x=>x.getAttribute('aria-pressed')==='true');if(b.getAttribute('aria-pressed')==='true'&&selected.length===1)return;b.setAttribute('aria-pressed',String(b.getAttribute('aria-pressed')!=='true'));});pitchGrid.append(b);});
+  pitchBox.append(pitchTitle,pitchHelp,pitchGrid);parent.append(pitchBox);
   field(parent, 'duration', 'Tone duration', [[0.5, '0.5 seconds'], [1, '1 second'], [2, '2 seconds'], [4, '4 seconds']]);
   field(parent, 'blind', 'Blind training mode'); field(parent, 'length', 'Blind session length', [[10, '10 questions'], [20, '20 questions'], [50, '50 questions']]);
   field(parent, 'details', 'Detailed session results'); field(parent, 'reference', 'Enable reference note'); field(parent, 'referenceNote', 'Reference note', noteOptions);
@@ -236,7 +244,10 @@ $('settings-form').addEventListener('submit', event => {
     if (!(input.name in settings)) continue;
     next[input.name] = input.type === 'checkbox' ? input.checked : typeof settings[input.name] === 'number' ? Number(input.value) : input.value;
   }
-  const draftTraining = trainingKeys.some(key => next[key] !== settings[key]);
+  next.pitchClasses=[...document.querySelectorAll('.pitch-picker-button[aria-pressed="true"]')].map(b=>Number(b.dataset.pitch));
+  if(!next.pitchClasses.length)return;
+  if(!Array.from({length:next.max-next.min+1},(_,i)=>next.min+i).some(m=>next.pitchClasses.includes(pitchClass(m)))){alert('No selected notes fall within your minimum and maximum note range.');return;}
+  const draftTraining = trainingKeys.some(key => key==='pitchClasses' ? next.pitchClasses.join(',')!==settings.pitchClasses.join(',') : next[key] !== settings[key]);
   if (draftTraining && (question?.played || answers.length) && !completed) {
     if (!confirm('Changing training settings starts a fresh session. Current session results will be cleared; already collected statistics remain. Apply these settings?')) return;
   }
