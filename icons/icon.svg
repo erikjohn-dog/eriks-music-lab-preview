@@ -2,13 +2,13 @@
   <title id="title">Erik’s Music Lab — E with sound waves</title>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#0879ff"/>
-      <stop offset="0.55" stop-color="#0752e7"/>
-      <stop offset="1" stop-color="#0633ae"/>
+      <stop offset="0" stop-color="#233f58"/>
+      <stop offset="0.55" stop-color="#152b41"/>
+      <stop offset="1" stop-color="#0b192b"/>
     </linearGradient>
     <linearGradient id="mark" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#ffffff"/>
-      <stop offset="1" stop-color="#b7dcff"/>
+      <stop offset="1" stop-color="#79d7ff"/>
     </linearGradient>
   </defs>
   <rect width="512" height="512" rx="108" fill="url(#bg)"/>
