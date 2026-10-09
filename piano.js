@@ -76,8 +76,6 @@ window.addEventListener('pointercancel',event=>stopPointer(event.pointerId));
 viewport.addEventListener('scroll',()=>{
   for(const id of [...pointers.keys()])stopPointer(id);
 },{passive:true});
-document.getElementById('piano-lower').addEventListener('click',()=>centerOn(60));
-document.getElementById('piano-higher').addEventListener('click',()=>centerOn(72));
 start.addEventListener('click',async()=>{
   start.disabled=true;
   status.textContent='Loading piano samples…';
