@@ -4,6 +4,8 @@ const viewport = document.getElementById('piano-viewport');
 const keyboard = document.getElementById('piano-keyboard');
 const status = document.getElementById('piano-status');
 const start = document.getElementById('piano-start');
+const touch = document.getElementById('piano-touch');
+touch.addEventListener('change',()=>{engine.velocityLayer=Number(touch.value);});
 const notes = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
 const blackNotes = new Set([1,3,6,8,10]);
 const FIRST = 36; // C3
