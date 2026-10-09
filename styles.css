@@ -53,3 +53,10 @@
   .piano-toolbar .piano-return{position:relative;z-index:5;flex-shrink:0;min-height:40px;padding:7px 12px;font-weight:700;background:var(--accent);color:var(--accent-ink)}
   .piano-keyboard{height:calc(100dvh - 116px - env(safe-area-inset-bottom));}
 }
+
+/* Portrait navigation must remain visible independently of piano controls. */
+@media(orientation:portrait){
+  #piano-stage:not([hidden]) .piano-portrait{display:flex;flex-direction:column;align-items:stretch;text-align:center;padding:0 12px 36px}
+  #piano-stage:not([hidden]) .piano-portrait-nav{display:flex;justify-content:flex-start;margin:0 0 52px}
+  #piano-stage:not([hidden]) .piano-portrait-nav .piano-return{display:inline-flex!important;align-items:center;justify-content:center;visibility:visible;opacity:1;min-height:44px;margin:0;background:var(--soft);color:var(--accent);border:1px solid var(--line);border-radius:12px;padding:10px 16px;font-size:14px;font-weight:700}
+}
