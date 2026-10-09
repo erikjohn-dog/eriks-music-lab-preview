@@ -76,3 +76,6 @@ export class PianoEngine {
   }
   allNotesOff(){for(const midi of [...this.active.keys()])this.noteOff(midi,.08);}
 }
+
+// Shared by Piano and Perfect Pitch to avoid decoding the same samples twice.
+export const sharedPiano = new PianoEngine();
