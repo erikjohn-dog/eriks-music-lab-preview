@@ -195,7 +195,11 @@ function validateRange() {
   min.setCustomValidity(invalid ? 'The minimum note must not be higher than the maximum note.' : '');
   max.setCustomValidity(invalid ? 'The maximum note must not be lower than the minimum note.' : '');
 }
-$('settings-open').addEventListener('click', () => { stopAudio(); buildSettings(); $('settings-dialog').showModal(); });
+$('settings-open').addEventListener('click', () => {
+  // This handler belongs exclusively to the Perfect Pitch module.
+  if ($('training').hidden) return;
+  stopAudio(); buildSettings(); $('settings-dialog').showModal();
+});
 $('settings-close').addEventListener('click', () => $('settings-dialog').close());
 $('settings-fields').addEventListener('change', validateRange);
 $('settings-form').addEventListener('submit', event => {
