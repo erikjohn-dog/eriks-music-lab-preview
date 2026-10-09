@@ -2,8 +2,10 @@
 // Salamander Grand Piano V3 by Alexander Holm, CC BY 3.0.
 // https://archive.org/details/SalamanderGrandPianoV3
 // Preview: 30 original-pitch MP3s hosted by Tone.js; audio requires a network connection.
-// These files are one sampled velocity layer, not three distinct recordings.
-const BASE = 'https://tonejs.github.io/audio/salamander/';
+// Three genuine velocity layers (3, 9, 16), loaded remotely on demand.
+// Genuine Salamander V3 velocity recordings, hosted as MP3 packages.
+const VELOCITY_LAYERS = [3,9,16];
+const sampleUrl=(name,layer)=>`https://unpkg.com/@audio-samples/piano-mp3-velocity${layer}@1.0.5/audio/${encodeURIComponent(name)}v${layer}.mp3`;
 // Every original pitch position published in the Tone.js Salamander set.
 // The intervening semitones are generated from the nearest recording.
 const SAMPLES = [
@@ -16,7 +18,7 @@ const SAMPLES = [
   [96,'C7'],[99,'Ds7'],[102,'Fs7'],[105,'A7'],[108,'C8']
 ];
 export class PianoEngine {
-  constructor() { this.context=null; this.buffers=new Map(); this.active=new Map(); this.loading=null; this.maxVoices=24; }
+  constructor() { this.context=null; this.buffers=new Map(); this.active=new Map(); this.loading=null; this.maxVoices=24; this.velocityLayer=9; }
   async load(onProgress=()=>{}) {
     if(this.loading) return this.loading;
     this.loading=(async()=>{
@@ -24,18 +26,24 @@ export class PianoEngine {
       if(!AudioContext) throw new Error('Web Audio is not supported on this device.');
       this.context ||= new AudioContext({latencyHint:'interactive'});
       await this.context.resume();
-      let done=0;
+      const jobs=VELOCITY_LAYERS.flatMap(layer=>SAMPLES.map(([midi,name])=>({midi,name,layer})));
+      let done=0, next=0;
       const errors=[];
-      await Promise.all(SAMPLES.map(async ([midi,name])=>{
-        try {
-          const response=await fetch(BASE+name+'.mp3');
-          if(!response.ok) throw new Error('HTTP '+response.status);
-          const bytes=await response.arrayBuffer();
-          this.buffers.set(midi,await this.context.decodeAudioData(bytes));
-        } catch(e) { errors.push(name); }
-        finally {onProgress(++done,SAMPLES.length);}
+      // Limit simultaneous downloads and decodes on iPhone.
+      await Promise.all(Array.from({length:6},async()=>{
+        while(next<jobs.length){
+          const {midi,name,layer}=jobs[next++];
+          try{
+            const response=await fetch(sampleUrl(name,layer));
+            if(!response.ok)throw new Error('HTTP '+response.status);
+            const bytes=await response.arrayBuffer();
+            this.buffers.set(layer+':'+midi,await this.context.decodeAudioData(bytes));
+          }catch(e){errors.push(name+'v'+layer);}
+          finally{onProgress(++done,jobs.length);}
+        }
       }));
-      if(errors.length) throw new Error('Could not load piano samples: '+errors.join(', ')+'. Check your connection.');
+      if(errors.length)throw new Error('Could not load '+errors.length+' piano samples. Check your connection and try again.');
+
     })();
     try {await this.loading;} catch(e){this.loading=null;throw e;}
   }
@@ -44,14 +52,17 @@ export class PianoEngine {
     if(!this.context||!this.buffers.size) return;
     this.noteOff(midi);
     if(this.active.size>=this.maxVoices) this.noteOff(this.active.keys().next().value,.035);
-    const nearest=[...this.buffers.keys()].reduce((a,b)=>Math.abs(b-midi)<Math.abs(a-midi)?b:a);
+    const layer=this.velocityLayer;
+    const nearest=SAMPLES.reduce((best,[pitch])=>Math.abs(pitch-midi)<Math.abs(best-midi)?pitch:best,SAMPLES[0][0]);
     const source=this.context.createBufferSource();
-    source.buffer=this.buffers.get(nearest);
+    source.buffer=this.buffers.get(layer+':'+nearest);
+    if(!source.buffer)return;
     source.playbackRate.value=2**((midi-nearest)/12);
     const gain=this.context.createGain();
     const now=this.context.currentTime;
     gain.gain.setValueAtTime(0,now);
-    gain.gain.linearRampToValueAtTime(Math.max(.01,Math.min(1,velocity))*.7,now+.008);
+    const layerVolume={3:.95,9:.78,16:.62}[layer];
+    gain.gain.linearRampToValueAtTime(Math.max(.01,Math.min(1,velocity))*layerVolume,now+.008);
     source.connect(gain).connect(this.context.destination);
     const voice={source,gain};
     this.active.set(midi,voice);
