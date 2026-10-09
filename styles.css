@@ -45,3 +45,11 @@
   .piano-key.pressed.white{background:#c7d9ff}.piano-key.pressed.black{background:#3458a9}
   .piano-credit{text-align:center;font-size:9px;color:var(--muted);margin:2px}
 }
+
+/* Persistent, reachable return controls in both piano orientations. */
+.piano-portrait .piano-return{display:block;background:var(--soft);color:var(--accent);padding:10px 14px;border-radius:12px;min-height:44px;margin-bottom:26px;font-weight:650}
+@media(orientation:landscape){
+  .piano-toolbar{padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right)}
+  .piano-toolbar .piano-return{position:relative;z-index:5;flex-shrink:0;min-height:40px;padding:7px 12px;font-weight:700;background:var(--accent);color:var(--accent-ink)}
+  .piano-keyboard{height:calc(100dvh - 116px - env(safe-area-inset-bottom));}
+}
