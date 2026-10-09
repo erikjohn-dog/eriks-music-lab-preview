@@ -3,7 +3,7 @@ export const TRIADS = { major: [0, 4, 7], minor: [0, 3, 7] };
 export const CHORD_MODES = ['combined','combined','harmonic','arpeggiated','random','random'];
 export const CHORD_LESSONS = ['Major: root, major third (4 semitones), fifth (7).','Minor: root, minor third (3 semitones), fifth (7).','The third changes by one semitone.','Arpeggios play notes in sequence.','Identify triads in different keys.','Identify triads in mixed presentations.'];
 export function makeChordQuestions(level,count=10){
- const focus=level<2?(level===0?'major':'minor'):'both';
+ const focus='both';
  const result=[];let last=-1;
  for(let i=0;i<count;i++){
   const quality=focus==='both'?(i%2?'minor':'major'):focus;
