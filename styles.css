@@ -82,3 +82,7 @@
 .piano-settings-dialog form{display:grid;gap:20px}
 .piano-settings-dialog h2{margin:0;font-size:23px}
 .piano-settings-dialog .field{margin:0}
+
+/* Matching gear buttons in landscape and portrait piano headers. */
+.piano-toolbar .piano-settings-button,.piano-portrait-nav .piano-settings-button{width:44px;height:44px;min-width:44px;min-height:44px;padding:0;display:grid;place-items:center;border-radius:50%;background:var(--soft);color:var(--ink);border:0;flex-shrink:0}
+.piano-portrait-nav{align-items:center;justify-content:space-between!important;gap:12px}
