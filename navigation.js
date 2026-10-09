@@ -1,15 +1,19 @@
 // Standalone navigation: leave the Perfect Pitch training engine and storage untouched.
 const home = document.getElementById('home');
 const training = document.getElementById('training');
+const piano = document.getElementById('piano-stage');
 const navigation = document.getElementById('training-navigation');
 const settingsButton = document.getElementById('settings-open');
 const brand = document.querySelector('.brand');
 function show(view) {
   const inTraining = view === 'perfect-pitch';
-  home.hidden = inTraining;
+  const inPiano = view === 'piano';
+  home.hidden = inTraining || inPiano;
   training.hidden = !inTraining;
+  piano.hidden = !inPiano;
   navigation.hidden = !inTraining;
-  settingsButton.hidden = false;
+  settingsButton.hidden = inPiano;
+  if (!inPiano) document.dispatchEvent(new Event('musiclab:piano-hidden'));
   settingsButton.setAttribute('aria-label', inTraining ? 'Perfect Pitch settings' : 'General settings');
   if (!inTraining) {
     // Close settings/stats/results sheets if navigating home.
@@ -19,15 +23,14 @@ function show(view) {
 }
 document.getElementById('open-perfect-pitch').addEventListener('click', () => show('perfect-pitch'));
 document.getElementById('back-home').addEventListener('click', () => show('home'));
-document.getElementById('open-piano').addEventListener('click', () => {
-  // Piano will be implemented after the home design has been approved.
-  document.getElementById('open-piano').blur();
-});
+document.getElementById('open-piano').addEventListener('click', () => show('piano'));
+document.getElementById('piano-back').addEventListener('click', () => show('home'));
 brand.addEventListener('click', event => { event.preventDefault(); show('home'); });
 const generalDialog = document.getElementById('general-settings-dialog');
 const generalForm = document.getElementById('general-settings-form');
 settingsButton.addEventListener('click', () => {
-  if (training.hidden) {
+  if (!training.hidden || !piano.hidden) return;
+  {
     document.dispatchEvent(new Event('musiclab:request-general-settings'));
     generalDialog.showModal();
   }
