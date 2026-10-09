@@ -1,7 +1,7 @@
 // Change this version for EVERY deployment that changes any app-shell file.
 // Installation is atomic: a missing file prevents activation of a broken shell.
-const VERSION = '1.0.1';
-const PREFIX = 'perfect-pitch-trainer-';
+const VERSION = '1.0.2';
+const PREFIX = 'eriks-music-lab-preview-';
 const CACHE = PREFIX + VERSION;
 const FILES = ['./', './index.html', './styles.css', './app.js', './core.js', './audio.js', './storage.js', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png', './icons/icon-maskable-512.png', './icons/apple-touch-icon.png'];
 const URLS = FILES.map(file => new URL(file, self.registration.scope).href);
