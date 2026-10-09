@@ -1,7 +1,7 @@
 {
   "id": "./",
-  "name": "Eriks Music Lab",
-  "short_name": "Music Lab",
+  "name": "Erik’s Music Lab",
+  "short_name": "Erik’s Music Lab",
   "description": "Music tools and ear training, including Perfect Pitch Trainer. Works offline.",
   "lang": "en",
   "start_url": "./",
