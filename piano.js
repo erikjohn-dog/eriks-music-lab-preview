@@ -1,5 +1,4 @@
-import {PianoEngine} from './piano-audio.js';
-const engine = new PianoEngine();
+import {sharedPiano as engine} from './piano-audio.js';
 const viewport = document.getElementById('piano-viewport');
 const keyboard = document.getElementById('piano-keyboard');
 const status = document.getElementById('piano-status');
