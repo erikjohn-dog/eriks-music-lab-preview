@@ -20,3 +20,28 @@
 .training-navigation{margin:-17px 0 19px}
 .back-home{background:transparent;color:var(--accent);font-weight:650;font-size:13px;min-height:44px;padding:7px 0}
 @media(max-width:350px){.module-card{padding:15px 12px;min-height:216px}.module-title{font-size:15px}.module-description{font-size:11px}}
+
+/* Piano preview: landscape-only instrument */
+.piano-portrait{text-align:center;padding:36px 12px;color:var(--muted)}
+.piano-landscape{display:none}
+@media(orientation:landscape){
+  body:has(#piano-stage:not([hidden])){overflow:hidden}
+  body:has(#piano-stage:not([hidden])) .app-shell{max-width:none;padding:8px 12px;min-height:100dvh}
+  body:has(#piano-stage:not([hidden])) .app-header,body:has(#piano-stage:not([hidden])) footer{display:none}
+  .piano-portrait{display:none}.piano-landscape{display:block}
+  .piano-toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;height:38px}
+  .piano-toolbar button{background:var(--soft);color:var(--accent);border-radius:9px;padding:5px 12px;min-height:32px}
+  .piano-octaves{display:flex;gap:8px;align-items:center;font-size:12px}
+  #piano-status{font-size:11px;text-align:center;margin:4px}
+  #piano-start{position:absolute;z-index:4;left:50%;top:45%;transform:translate(-50%,-50%);width:190px}
+  .piano-keyboard{display:flex;position:relative;width:100%;height:calc(100dvh - 108px);min-height:110px;touch-action:none;user-select:none;-webkit-user-select:none}
+  .piano-key{position:relative;touch-action:none;padding:0;border-radius:0}
+  .piano-key.white{flex:1;background:#fff;border:1px solid #a6adbb;border-radius:0 0 5px 5px}
+  .piano-key.black{position:absolute;z-index:2;top:0;height:60%;width:4%;background:#182236;border-radius:0 0 4px 4px}
+  .piano-key.black:nth-child(2){left:4.25%}.piano-key.black:nth-child(4){left:10.5%}
+  .piano-key.black:nth-child(7){left:23%}.piano-key.black:nth-child(9){left:29.25%}.piano-key.black:nth-child(11){left:35.5%}
+  .piano-key.black:nth-child(14){left:41.75%}.piano-key.black:nth-child(16){left:48%}
+  .piano-key.black:nth-child(19){left:60.5%}.piano-key.black:nth-child(21){left:66.75%}.piano-key.black:nth-child(23){left:73%}
+  .piano-key.pressed.white{background:#c7d9ff}.piano-key.pressed.black{background:#3458a9}
+  .piano-credit{text-align:center;font-size:9px;color:var(--muted);margin:2px}
+}
