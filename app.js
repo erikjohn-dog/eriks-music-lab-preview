@@ -95,7 +95,10 @@ async function playTone(reference = false) {
     let played;
     if (settings.sound === 'piano') {
       audio.stop();
-      await sharedPiano.load();
+      $('play-help').textContent = 'Preparing Grand Piano samples (first use may take a while)…';
+      await sharedPiano.load((done,total)=>{
+        if(id===playbackId) $('play-help').textContent = 'Preparing Grand Piano samples '+done+'/'+total+'…';
+      });
       if (id !== playbackId || document.hidden) return;
       await sharedPiano.resume();
       if (id !== playbackId || document.hidden) return;
@@ -119,7 +122,7 @@ async function playTone(reference = false) {
     render();
     $('play-help').textContent = reference ? `Playing reference ${noteName(settings.referenceNote)}.` : 'Playing the training note…';
     animationTimer = setTimeout(() => { if (id === playbackId) { playingReference = null; $('training').classList.remove('playing'); render(); } }, settings.duration * 1000 + 50);
-  } catch (error) { if (id === playbackId) warning(error.message || 'Audio could not start. Tap Play Note again.'); }
+  } catch (error) { if (id === playbackId) { warning(error.message || 'Audio could not start. Tap Play Note again.'); $('play-help').textContent = 'Piano samples unavailable. Check your connection and try again.'; } }
   finally { if (id === playbackId) { audioBusy = false; render(); } }
 }
 function submitAnswer(answer) {
