@@ -74,3 +74,11 @@
   .piano-key.black .piano-note-label{bottom:7px;color:#e5eaf5;font-size:9px}
 }
 
+
+/* Piano-specific settings: compact landscape toolbar action. */
+.piano-settings-button{min-height:36px;padding:7px 12px;border-radius:10px;background:var(--soft);color:var(--accent);border:1px solid var(--line);font-size:12px;font-weight:700;white-space:nowrap}
+.piano-settings-dialog{max-width:min(420px,calc(100vw - 32px));width:100%;border:1px solid var(--line);border-radius:20px;background:var(--surface);color:var(--ink);padding:24px;box-shadow:var(--shadow)}
+.piano-settings-dialog::backdrop{background:#0008}
+.piano-settings-dialog form{display:grid;gap:20px}
+.piano-settings-dialog h2{margin:0;font-size:23px}
+.piano-settings-dialog .field{margin:0}
