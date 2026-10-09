@@ -1,9 +1,9 @@
 // Change this version for EVERY deployment that changes any app-shell file.
 // Installation is atomic: a missing file prevents activation of a broken shell.
-const VERSION = '1.0.24';
+const VERSION = '1.0.25';
 const PREFIX = 'eriks-music-lab-preview-';
 const CACHE = PREFIX + VERSION;
-const FILES = ['./', './index.html', './styles.css', './app.js', './navigation.js', './piano.js', './piano-audio.js', './core.js', './audio.js', './storage.js', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png', './icons/icon-maskable-512.png', './icons/apple-touch-icon.png', './icons/icon.svg'];
+const FILES = ['./', './index.html', './styles.css', './app.js', './navigation.js', './piano.js', './piano-audio.js', './tuner.js', './about.js', './core.js', './audio.js', './storage.js', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png', './icons/icon-maskable-512.png', './icons/apple-touch-icon.png', './icons/icon.svg'];
 const URLS = FILES.map(file => new URL(file, self.registration.scope).href);
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(URLS.map(url => new Request(url, { cache: 'reload' })))));
