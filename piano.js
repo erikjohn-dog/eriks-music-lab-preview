@@ -4,21 +4,6 @@ const viewport = document.getElementById('piano-viewport');
 const keyboard = document.getElementById('piano-keyboard');
 const status = document.getElementById('piano-status');
 const start = document.getElementById('piano-start');
-// Create the compact touch selector without changing the training interface.
-const touchLabel=document.createElement('label');
-touchLabel.className='piano-touch-label';
-touchLabel.textContent='Touch ';
-const touch=document.createElement('select');
-touch.id='piano-touch';
-touch.setAttribute('aria-label','Piano touch intensity');
-for(const [value,name] of [['3','Soft'],['9','Medium'],['16','Strong']]){
-  const option=document.createElement('option');
-  option.value=value;option.textContent=name;option.selected=value==='9';
-  touch.append(option);
-}
-touchLabel.append(touch);
-document.querySelector('.piano-toolbar-spacer')?.replaceWith(touchLabel);
-touch.addEventListener('change',()=>{engine.velocityLayer=Number(touch.value);});
 const notes = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
 const blackNotes = new Set([1,3,6,8,10]);
 const FIRST = 36; // C3
