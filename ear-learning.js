@@ -57,7 +57,7 @@ function renderResults(){const stars=grade(correct,10);saveResult(levelId(world,
 document.querySelectorAll('[data-ear-world]').forEach(b=>b.addEventListener('click',()=>{world=b.dataset.earWorld;open()}));
 document.getElementById('ear-learning-back').addEventListener('click',()=>{if(content.querySelector('.ear-quiz-card,.ear-lesson-card,.ear-results-card'))renderChapter();else if(content.querySelector('.ear-level-list'))renderWorld();else document.dispatchEvent(new Event('musiclab:ear-learning-close'))});
 
-content.addEventListener('click',event=>{if(!answered||!getEarPractice().tapAnywhereNext||!content.querySelector('.ear-quiz-card'))return;if(event.target.closest('button,a,input,select,label'))return;answered=false;question++;renderQuestion();});
+content.addEventListener('click',event=>{if(!answered||!getEarPractice().tapAnywhereNext||!content.querySelector('.ear-quiz-card'))return;if(event.target.closest('button,a,input,select,label'))return;answered=false;question++;if(world==='Chords')renderChordQuestion();else renderQuestion();});
 const soundDialog=document.getElementById('ear-settings-dialog');
 const soundForm=document.getElementById('ear-settings-form');
 document.addEventListener('musiclab:ear-settings-open',()=>{
