@@ -344,3 +344,30 @@ body:has(#home:not([hidden])) .icon-button{background:var(--surface);border:1px 
 .ear-exercise-card.upcoming{opacity:.63;cursor:default;background:var(--surface);box-shadow:none}
 .ear-soon{font-size:9px;font-weight:800;letter-spacing:.7px;color:#b9a4d5;white-space:nowrap;align-self:flex-start}
 @media(max-width:370px){.ear-exercise-card{gap:10px;padding:12px}.ear-exercise-symbol{width:43px;height:43px}.ear-soon{font-size:8px}}
+
+/* 1.0.43 guided Ear Trainer */
+.ear-learning-stage{--accent:#c7a4ff;--soft:#29233d;padding-bottom:30px}
+.ear-learning-stage>.back-home{min-height:44px;margin-bottom:15px}
+.ear-learning-stage h1{letter-spacing:-1.4px;margin-bottom:10px}
+.ear-course-progress{color:#c9b3e4;font-size:12px;margin:20px 0}
+.ear-chapter-list,.ear-level-list{display:grid;gap:10px;margin:23px 0}
+.ear-chapter-card,.ear-level-card{display:flex;align-items:center;gap:14px;text-align:left;width:100%;min-height:83px;padding:15px;border-radius:16px;background:#1c283a;border:1px solid #37415a;color:#f1f5fc}
+.ear-chapter-card:disabled{opacity:.56}
+.ear-chapter-card>span:nth-child(2),.ear-level-card>span:nth-child(2){flex:1;display:grid;gap:5px}
+.ear-chapter-card strong,.ear-level-card strong{font-size:15px}
+.ear-chapter-card small,.ear-level-card small{font-size:12px;color:#a7b5c8}
+.ear-chapter-index,.ear-level-number{display:grid;place-items:center;width:39px;height:39px;flex-shrink:0;border-radius:12px;background:#342a4a;color:#d4b4ff;font-size:14px;font-weight:750}
+.ear-chapter-state,.ear-level-stars{font-size:11px;color:#e7c18d;white-space:nowrap}
+.ear-lesson-card,.ear-quiz-card,.ear-results-card{padding:22px 18px;border-radius:20px;background:linear-gradient(145deg,#28213d,#18263a);border:1px solid #4a3b60;margin:25px 0 16px}
+.ear-lesson-card p{line-height:1.7;color:#d8dfed;font-size:15px}
+.ear-lesson-label{font-size:10px;letter-spacing:1.6px;color:#c7a4ff;font-weight:750}
+.ear-lesson-tip{font-size:13px!important;color:#a8b9ce!important}
+.ear-learning-stage .primary,.ear-learning-stage .secondary{min-height:47px;border-radius:13px;margin:8px 7px 0 0}
+.ear-learning-stage .primary{background:#c7a4ff;color:#1d152d}
+.ear-answer-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:22px 0}
+.ear-answer{min-height:66px;background:#29334b;border:1px solid #536078;border-radius:13px;color:#f5f2ff;font-weight:700;padding:10px}
+.ear-answer:disabled{opacity:.65}
+.ear-play-button{display:block;margin:5px auto 15px;width:88px;height:88px;border-radius:50%;background:#4c3569;color:#f1ddff;font-size:30px;border:1px solid #9b76c4}
+#ear-feedback{min-height:38px;color:#e0d0f0;font-size:14px;line-height:1.5}
+.ear-results-card{text-align:center}
+.ear-big-stars{color:#ffc481;font-size:40px;letter-spacing:5px;margin-bottom:15px}
