@@ -19,6 +19,7 @@
   <script type="module" src="./tuner.js"></script>
   <script type="module" src="./about.js"></script>
   <script type="module" src="./metronome.js"></script>
+  <script type="module" src="./synth.js"></script>
 </head>
 <body>
 <div class="app-shell">
@@ -30,7 +31,7 @@
     <div class="eyebrow">WELCOME TO ERIK’S MUSIC LAB</div>
     <h1>Your Musical Companion.</h1>
     <p class="subtitle">Explore, practice, and create — all in one place.</p>
-    <div class="home-section-label">YOUR TOOLS <span>04 MODULES</span></div>
+    <div class="home-section-label">YOUR TOOLS <span>05 MODULES</span></div>
     <div class="module-grid">
       <button type="button" class="module-card" id="open-perfect-pitch">
         <span class="module-icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17C12 8 19 4 27 5c9 1 14 8 13 17-.5 7-5 10-9 14-3 3-4 8-11 8-6 0-10-4-10-10"/><path d="M19 28c-2-3-3-7-2-11 1-5 5-8 10-8 6 0 10 5 10 11 0 5-3 7-7 10-2 2-3 5-5 7"/><path d="M21 23c-1-4 1-8 5-8 4 0 6 3 6 6"/></svg></span>
@@ -46,6 +47,7 @@
       </button>
       <button type="button" class="module-card" id="open-tuner"><span class="module-icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M7 29a19 19 0 0 1 34 0"/><path d="M24 34l9-17"/><circle cx="24" cy="34" r="3"/></svg></span><span class="module-title">Chromatic Tuner</span><span class="module-description">Tune with precision.</span><span class="module-action">Start tuning <span aria-hidden="true">↗</span></span></button>
       <button type="button" class="module-card" id="open-metronome"><span class="module-icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h14l9 32H8L17 8Z"/><path d="M24 32l8-19"/><circle cx="24" cy="32" r="2" fill="currentColor"/></svg></span><span class="module-title">Metronome</span><span class="module-description">Find your rhythm.</span><span class="module-action">Start practicing <span aria-hidden="true">↗</span></span></button>
+      <button type="button" class="module-card" id="open-synth"><span class="module-icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="5" y="9" width="38" height="30" rx="6"/><path d="M11 24h5l4-9 7 18 5-9h5"/><circle cx="37" cy="17" r="2" fill="currentColor"/></svg></span><span class="module-title">Erik’s Synth</span><span class="module-description">Shape your own sound.</span><span class="module-action">Play synth <span aria-hidden="true">↗</span></span></button>
     </div>
     <p class="home-footnote">A little space for big musical ideas.</p>
   </main>
@@ -61,6 +63,32 @@
     </div>
   </main>
   <main id="tuner-stage" hidden><button type="button" id="tuner-back" class="back-home">← All tools</button><div class="eyebrow">LISTEN · TUNE · PLAY</div><h1>Chromatic Tuner.</h1><p class="subtitle">Tune your instrument using the microphone.</p><section class="tuner-panel"><p id="tuner-status" role="status">Tap Start Tuning to enable your microphone.</p><div class="tuner-note" id="tuner-note" aria-live="off">—</div><p class="tuner-frequency" id="tuner-frequency">A4 = 440 Hz</p><div class="tuner-meter" aria-label="Pitch deviation from minus 50 to plus 50 cents"><div class="tuner-meter-center"></div><div class="tuner-needle" id="tuner-needle"></div></div><div class="tuner-scale"><span>−50</span><span>In tune</span><span>+50</span></div><p id="tuner-cents" class="tuner-cents">Waiting for a note</p><button id="tuner-toggle" class="primary" type="button">Start Tuning</button></section><p class="micro tuner-privacy">Microphone audio is analyzed on your device and is not uploaded. Use a quiet room for best results.</p></main>
+  <main id="synth-stage" hidden>
+    <button id="synth-back" type="button" class="back-home">← All tools</button>
+    <div class="eyebrow">CREATE YOUR SOUND</div><h1>Erik’s Synth.</h1><p class="subtitle">Play it. Shape it. Make it yours.</p>
+    <div class="synth-tabs" role="tablist" aria-label="Synth views"><button id="synth-tab-play" role="tab" aria-selected="true" type="button">Play</button><button id="synth-tab-design" role="tab" aria-selected="false" type="button">Sound Design</button></div>
+    <section class="synth-panel" id="synth-play" role="tabpanel" aria-labelledby="synth-tab-play">
+      <label class="synth-label">Sound preset<select id="synth-preset"><option value="warm">Warm Pad</option><option value="lead">Analog Lead</option><option value="bass">Deep Bass</option><option value="pluck">Soft Pluck</option><option value="keys">Glass Keys</option><option value="strings">Synth Strings</option><option value="custom">Custom Sound</option></select></label>
+      <div class="synth-toolbar"><label class="synth-label">Octave<select id="synth-octave"><option value="3">C3–B4</option><option value="4" selected>C4–B5</option><option value="5">C5–B6</option></select></label><button type="button" id="synth-panic" class="secondary">All notes off</button></div>
+      <p id="synth-status" role="status" class="micro">Tap a key to start audio.</p>
+      <div class="synth-keyboard-scroll"><div id="synth-keyboard" class="synth-keyboard" aria-label="Two octave synthesizer keyboard"></div></div>
+      <p class="micro">Hold keys to sustain notes. Up to 8 voices at once.</p>
+    </section>
+    <section class="synth-panel" id="synth-design" role="tabpanel" aria-labelledby="synth-tab-design" hidden>
+      <div class="synth-controls">
+        <label class="synth-label">Oscillator 1<select id="synth-wave1"><option value="sawtooth">Sawtooth</option><option value="sine">Sine</option><option value="triangle">Triangle</option><option value="square">Square</option></select></label>
+        <label class="synth-label">Oscillator 2<select id="synth-wave2"><option value="sawtooth">Sawtooth</option><option value="sine">Sine</option><option value="triangle">Triangle</option><option value="square">Square</option></select></label>
+        <label class="synth-label">Oscillator 2 detune <output id="synth-detune-value"></output><input id="synth-detune" type="range" min="-30" max="30" value="7"></label>
+        <label class="synth-label">Filter cutoff <output id="synth-cutoff-value"></output><input id="synth-cutoff" type="range" min="100" max="10000" step="10" value="2200"></label>
+        <label class="synth-label">Resonance <output id="synth-resonance-value"></output><input id="synth-resonance" type="range" min="0.1" max="18" step="0.1" value="2"></label>
+        <label class="synth-label">Attack <output id="synth-attack-value"></output><input id="synth-attack" type="range" min="0.005" max="2" step="0.005" value="0.2"></label>
+        <label class="synth-label">Decay <output id="synth-decay-value"></output><input id="synth-decay" type="range" min="0.02" max="2" step="0.01" value="0.4"></label>
+        <label class="synth-label">Sustain <output id="synth-sustain-value"></output><input id="synth-sustain" type="range" min="0" max="1" step="0.01" value="0.7"></label>
+        <label class="synth-label">Release <output id="synth-release-value"></output><input id="synth-release" type="range" min="0.02" max="3" step="0.01" value="0.7"></label>
+        <label class="synth-label">LFO vibrato <output id="synth-lfo-value"></output><input id="synth-lfo" type="range" min="0" max="25" step="1" value="0"></label>
+      </div><p class="micro">Changes are applied to newly played notes. Your Custom Sound is saved on this device.</p>
+    </section>
+  </main>
   <main id="metronome-stage" hidden><button type="button" id="metronome-back" class="back-home">← All tools</button><div class="eyebrow">FEEL · COUNT · PLAY</div><h1>Metronome.</h1><p class="subtitle">Keep your rhythm steady.</p><section class="metronome-panel"><div class="metronome-tempo"><output id="metronome-bpm">120</output><span>BPM</span></div><div class="metronome-adjust"><button type="button" id="metronome-minus" aria-label="Decrease tempo">−</button><input type="range" id="metronome-slider" min="30" max="240" value="120" step="1" aria-label="Tempo in beats per minute"><button type="button" id="metronome-plus" aria-label="Increase tempo">+</button></div><div id="metronome-beats" class="metronome-beats" aria-label="Beat indicators"></div><label class="metronome-field">Time signature<select id="metronome-signature"><option value="2">2/4</option><option value="3">3/4</option><option value="4" selected>4/4</option><option value="6">6/8</option></select></label><label class="metronome-field">Accent first beat<input id="metronome-accent" type="checkbox" checked></label><button type="button" class="primary" id="metronome-toggle">Start Metronome</button><button type="button" class="secondary metronome-tap" id="metronome-tap">Tap Tempo</button><p id="metronome-status" class="micro" role="status">Ready to play.</p></section></main>
   <main id="training" hidden>
     <div class="eyebrow" id="mode-label">LISTEN · RECOGNIZE · REPEAT</div>
@@ -87,7 +115,7 @@
   <form id="general-settings-form">
     <div class="sheet-header"><div><div class="eyebrow">ERIK’S MUSIC LAB</div><h2 id="general-settings-title">General Settings</h2></div><button type="button" class="icon-button" id="general-settings-close" aria-label="Close general settings">✕</button></div>
     <section class="settings-section"><h3>Appearance</h3><label class="field"><span>App theme</span><select name="theme"><option value="system">Follow system</option><option value="light">Light</option><option value="dark">Dark</option></select></label><label class="field"><span>Subtle animations</span><input name="animations" type="checkbox"></label></section>
-    <section class="settings-section about"><h3>About</h3><p><strong>Erik’s Music Lab · Preview</strong></p><p>Your settings and Perfect Pitch statistics are stored locally on this device. Clearing website data may erase them.</p><p>Offline status is shown at the bottom of the app.</p><div class="about-detail"><strong>Grand Piano samples</strong><p id="sample-cache-status" role="status">Checking local audio cache…</p><button type="button" id="sample-cache-refresh" class="text-button">Refresh audio status</button></div><div class="about-detail"><strong>App version</strong><p>Preview 1.0.27</p><strong>What’s new</strong><p>1.0.27 · Metronome with BPM, time signatures, beat accents and Tap Tempo.</p><p>1.0.26 · Refined Chromatic Tuner icon.</p><p>1.0.25 · Chromatic Tuner with microphone pitch detection; Grand Piano cache status; version information and changelog.</p><p>1.0.24 · Piano settings icon aligned with the home screen.</p></div></section>
+    <section class="settings-section about"><h3>About</h3><p><strong>Erik’s Music Lab · Preview</strong></p><p>Your settings and Perfect Pitch statistics are stored locally on this device. Clearing website data may erase them.</p><p>Offline status is shown at the bottom of the app.</p><div class="about-detail"><strong>Grand Piano samples</strong><p id="sample-cache-status" role="status">Checking local audio cache…</p><button type="button" id="sample-cache-refresh" class="text-button">Refresh audio status</button></div><div class="about-detail"><strong>App version</strong><p>Preview 1.0.28</p><strong>What’s new</strong><p>1.0.28 · Erik’s Synth: Play and Sound Design, 6 presets, two oscillators, filter, ADSR and vibrato.</p><p>1.0.27 · Metronome with BPM, time signatures, beat accents and Tap Tempo.</p><p>1.0.26 · Refined Chromatic Tuner icon.</p><p>1.0.25 · Chromatic Tuner with microphone pitch detection; Grand Piano cache status; version information and changelog.</p><p>1.0.24 · Piano settings icon aligned with the home screen.</p></div></section>
     <div class="sheet-actions"><button class="primary" type="submit">Save settings</button></div>
   </form>
 </dialog>
