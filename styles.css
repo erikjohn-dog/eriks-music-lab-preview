@@ -120,3 +120,23 @@
 .metronome-panel .primary{margin-top:14px}
 .metronome-tap{margin-top:10px}
 #metronome-status{min-height:20px;margin:12px 0 0}
+
+/* Erik's Synth */
+.synth-tabs{display:flex;gap:6px;background:var(--soft);border-radius:15px;padding:5px;margin:22px 0 14px}
+.synth-tabs button{flex:1;padding:13px 10px;border-radius:11px;color:var(--muted);font-weight:700;background:transparent}
+.synth-tabs button[aria-selected=true]{background:var(--surface);color:var(--accent);box-shadow:0 2px 9px #0001}
+.synth-panel{padding:20px;border:1px solid var(--line);border-radius:22px;background:var(--surface);margin-bottom:25px}
+.synth-label{display:flex;flex-direction:column;gap:8px;font-size:13px;font-weight:650;color:var(--muted)}
+.synth-label select{min-height:44px;border:1px solid var(--line);border-radius:11px;background:var(--bg);color:var(--ink);padding:9px;font-size:15px}
+.synth-label input{width:100%;accent-color:var(--accent);min-height:26px}
+.synth-label output{color:var(--accent);font-weight:600}
+.synth-toolbar{display:flex;justify-content:space-between;align-items:end;gap:12px;margin:17px 0}
+.synth-toolbar .secondary{width:auto;min-height:44px;padding:9px 13px;margin:0}
+.synth-keyboard-scroll{overflow-x:auto;overflow-y:hidden;touch-action:pan-x;margin:16px -10px 8px;padding:0 10px 9px}
+.synth-keyboard{position:relative;width:672px;height:208px;user-select:none;-webkit-user-select:none;touch-action:none}
+.synth-key{position:absolute;top:0;touch-action:none;border:1px solid #9ba9bd;border-radius:0 0 6px 6px;padding:0;display:flex;align-items:end;justify-content:center;font-size:10px;cursor:pointer}
+.synth-key.white{height:206px;width:48px;background:#fafcff;color:#475569;z-index:1;padding-bottom:10px}
+.synth-key.black{height:126px;width:29px;background:#1b2b44;border-color:#0d172a;z-index:2;color:white}
+.synth-key.pressed.white{background:#aac2ff}.synth-key.pressed.black{background:#2455d6}
+.synth-controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 15px}
+@media(max-width:390px){.synth-controls{grid-template-columns:1fr}}
