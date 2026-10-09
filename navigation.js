@@ -2,6 +2,7 @@
 const home = document.getElementById('home');
 const training = document.getElementById('training');
 const earMenu = document.getElementById('ear-trainer-menu');
+const earLearning = document.getElementById('ear-learning-stage');
 const piano = document.getElementById('piano-stage');
 const tuner = document.getElementById('tuner-stage');
 const metronome = document.getElementById('metronome-stage');
@@ -13,21 +14,23 @@ const brand = document.querySelector('.brand');
 function show(view) {
   const inTraining = view === 'perfect-pitch';
   const inEarMenu = view === 'ear-trainer';
+  const inEarLearning = view === 'ear-learning';
   const inPiano = view === 'piano';
   const inTuner = view === 'tuner';
   const inMetronome = view === 'metronome';
   const inSynth = view === 'synth';
   const inDrums = view === 'drums';
-  home.hidden = inEarMenu || inTraining || inPiano || inTuner || inMetronome || inSynth || inDrums;
+  home.hidden = inEarLearning || inEarMenu || inTraining || inPiano || inTuner || inMetronome || inSynth || inDrums;
   training.hidden = !inTraining;
   earMenu.hidden = !inEarMenu;
+  earLearning.hidden = !inEarLearning;
   piano.hidden = !inPiano;
   tuner.hidden = !inTuner;
   metronome.hidden = !inMetronome;
   synth.hidden = !inSynth;
   drums.hidden = !inDrums;
   navigation.hidden = !inTraining;
-  settingsButton.hidden = inEarMenu || inPiano || inTuner || inMetronome || inSynth || inDrums;
+  settingsButton.hidden = inEarLearning || inEarMenu || inPiano || inTuner || inMetronome || inSynth || inDrums;
   if (!inMetronome) document.dispatchEvent(new Event('musiclab:metronome-hidden'));
   if (!inSynth) document.dispatchEvent(new Event('musiclab:synth-hidden'));
   if (!inDrums) document.dispatchEvent(new Event('musiclab:drums-hidden'));
@@ -40,6 +43,8 @@ function show(view) {
   }
   window.scrollTo(0, 0);
 }
+document.addEventListener('musiclab:ear-learning-open', () => show('ear-learning'));
+document.addEventListener('musiclab:ear-learning-close', () => show('ear-trainer'));
 document.getElementById('open-perfect-pitch').addEventListener('click', () => show('ear-trainer'));
 document.getElementById('open-ear-perfect-pitch').addEventListener('click', () => show('perfect-pitch'));
 document.getElementById('ear-menu-back').addEventListener('click', () => show('home'));
