@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#f5f4ef">
+  <meta name="theme-color" content="#0b111b">
   <meta name="description" content="Erik’s Music Lab — music tools and ear training, starting with Perfect Pitch Trainer. Works offline.">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Erik’s Music Lab">
   <title>Erik’s Music Lab</title>
   <link rel="manifest" href="./manifest.webmanifest">
@@ -25,7 +25,7 @@
 <body>
 <div class="app-shell">
   <header class="app-header">
-    <a class="brand" href="./" aria-label="Erik’s Music Lab home"><span class="brand-symbol" aria-hidden="true"><img src="./icons/icon.svg" alt="" width="39" height="39" style="display:block;width:39px;height:39px;border-radius:13px"></span><span>Erik’s Music Lab<span class="brand-sub">MUSIC TOOLKIT</span></span></a>
+    <a class="brand" href="./" aria-label="Erik’s Music Lab home"><span class="brand-symbol" aria-hidden="true"><img src="./icons/icon.svg" alt="" width="39" height="39" style="display:block;width:39px;height:39px;border-radius:13px"></span><span>Erik’s Music Lab<span class="brand-sub">MUSIC TOOLS & INSTRUMENTS</span></span></a>
     <button id="settings-open" class="icon-button" aria-label="Open settings"><svg viewBox="0 0 24 24" width="23" height="23" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="m9 3-.7 2.2-2 .9-2.1-.5-2 3.4 1.5 1.7v2.6L2.2 15l2 3.4 2.1-.5 2 .9L9 21h4l.7-2.2 2-.9 2.1.5 2-3.4-1.5-1.7v-2.6l1.5-1.7-2-3.4-2.1.5-2-.9L13 3Z"/><circle cx="11" cy="12" r="3"/></svg></button>
   </header>
   <main id="home" class="home-view">
@@ -117,7 +117,7 @@
   <form id="general-settings-form">
     <div class="sheet-header"><div><div class="eyebrow">ERIK’S MUSIC LAB</div><h2 id="general-settings-title">General Settings</h2></div><button type="button" class="icon-button" id="general-settings-close" aria-label="Close general settings">✕</button></div>
     <section class="settings-section"><h3>Appearance</h3><label class="field"><span>App theme</span><select name="theme"><option value="system">Follow system</option><option value="light">Light</option><option value="dark">Dark</option></select></label><label class="field"><span>Subtle animations</span><input name="animations" type="checkbox"></label></section>
-    <section class="settings-section about"><h3>About</h3><p><strong>Erik’s Music Lab · Preview</strong></p><p>Your settings and Perfect Pitch statistics are stored locally on this device. Clearing website data may erase them.</p><p>Offline status is shown at the bottom of the app.</p><div class="about-detail"><strong>Grand Piano samples</strong><p id="sample-cache-status" role="status">Checking local audio cache…</p><button type="button" id="sample-cache-refresh" class="text-button">Refresh audio status</button></div><div class="about-detail"><strong>App version</strong><p>Preview 1.0.38</p><strong>What’s new</strong><p>1.0.38 · Faster warm audio note triggering for Synth and Drum Pads; removed extra pad scheduling offset.</p><p>1.0.32 · Genre-based beat generator, 16/32/64-step patterns and preset-aware synth macros.</p><p>1.0.31 · Drum Machine, 16-step sequencer, neon ripple visuals, expanded synth presets, macros and glide.</p><p>1.0.30 · Synth 2.0: 808 Destroyer, oscillator switches, interactive ADSR, modulation matrix, effects and live waveform.</p><p>1.0.29 · Improved synth key release handling.</p><p>1.0.28 · Erik’s Synth: Play and Sound Design, 6 presets, two oscillators, filter, ADSR and vibrato.</p><p>1.0.27 · Metronome with BPM, time signatures, beat accents and Tap Tempo.</p><p>1.0.26 · Refined Chromatic Tuner icon.</p><p>1.0.25 · Chromatic Tuner with microphone pitch detection; Grand Piano cache status; version information and changelog.</p><p>1.0.24 · Piano settings icon aligned with the home screen.</p></div></section>
+    <section class="settings-section about"><h3>About</h3><p><strong>Erik’s Music Lab · Preview</strong></p><p>Your settings and Perfect Pitch statistics are stored locally on this device. Clearing website data may erase them.</p><p>Offline status is shown at the bottom of the app.</p><div class="about-detail"><strong>Grand Piano samples</strong><p id="sample-cache-status" role="status">Checking local audio cache…</p><button type="button" id="sample-cache-refresh" class="text-button">Refresh audio status</button></div><div class="about-detail"><strong>App version</strong><p>Preview 1.0.39</p><strong>What’s new</strong><p>1.0.39 · Premium Music Toolbox home redesign with refreshed original E-and-sound logo.</p><p>1.0.38 · Faster warm audio note triggering for Synth and Drum Pads; removed extra pad scheduling offset.</p><p>1.0.32 · Genre-based beat generator, 16/32/64-step patterns and preset-aware synth macros.</p><p>1.0.31 · Drum Machine, 16-step sequencer, neon ripple visuals, expanded synth presets, macros and glide.</p><p>1.0.30 · Synth 2.0: 808 Destroyer, oscillator switches, interactive ADSR, modulation matrix, effects and live waveform.</p><p>1.0.29 · Improved synth key release handling.</p><p>1.0.28 · Erik’s Synth: Play and Sound Design, 6 presets, two oscillators, filter, ADSR and vibrato.</p><p>1.0.27 · Metronome with BPM, time signatures, beat accents and Tap Tempo.</p><p>1.0.26 · Refined Chromatic Tuner icon.</p><p>1.0.25 · Chromatic Tuner with microphone pitch detection; Grand Piano cache status; version information and changelog.</p><p>1.0.24 · Piano settings icon aligned with the home screen.</p></div></section>
     <div class="sheet-actions"><button class="primary" type="submit">Save settings</button></div>
   </form>
 </dialog>
