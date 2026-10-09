@@ -241,3 +241,64 @@ body:has(#home:not([hidden])) .icon-button{background:var(--surface);border:1px 
 .home-footnote{margin-top:31px;font-size:12px}
 @media(max-width:350px){.module-grid{gap:9px}.module-card{padding:14px 12px;min-height:180px}.module-title{font-size:14px}.module-description{font-size:10px}.module-icon{margin-bottom:17px}}
 @media(prefers-reduced-motion:reduce){.module-card{transition:none}}
+
+
+/* 1.0.40: Instrument-specific visual language and portrait piano */
+#training{--accent:#c7a4ff;--soft:#29233d}
+#piano-stage{--accent:#8faaff;--soft:#222f47}
+#tuner-stage{--accent:#76ddc5;--soft:#1b383a;--correct:#76ddc5}
+#metronome-stage{--accent:#ffc481;--soft:#3a2e26}
+#synth-stage{--accent:#79d7ff;--soft:#1b3448}
+#drums-stage{--accent:#ff9eaf;--soft:#382637}
+:is(#training,#tuner-stage,#metronome-stage,#synth-stage,#drums-stage)>.eyebrow{font-size:10px;letter-spacing:1.9px}
+:is(#tuner-stage,#metronome-stage,#synth-stage,#drums-stage)>h1{font-weight:740;letter-spacing:-1.5px}
+:is(#training,#tuner-stage,#metronome-stage,#synth-stage,#drums-stage) .back-home{display:inline-flex;align-items:center;min-height:44px;margin-bottom:8px}
+:is(#training,#tuner-stage,#metronome-stage,#synth-stage,#drums-stage) .primary{background:var(--accent);color:#0b1522;border-radius:14px;font-weight:750}
+:is(#training,#tuner-stage,#metronome-stage,#synth-stage,#drums-stage) :is(select,input[type=number]){color:var(--ink)}
+:is(#training,#tuner-stage,#metronome-stage,#synth-stage,#drums-stage) input[type=range]{accent-color:var(--accent)}
+:is(.tone-card,.tuner-panel,.metronome-panel,.synth-panel){border-radius:22px;box-shadow:0 14px 40px #03091530;border-color:var(--line)}
+#training .tone-card{background:radial-gradient(ellipse at top,#29203d,var(--surface) 68%)}
+#training .wave-mark span{background:#c7a4ff}
+#training .note-button{border-radius:13px;font-weight:680}
+#tuner-stage .tuner-panel{background:radial-gradient(ellipse at 50% 10%,#1a383b,var(--surface) 70%);padding:26px 18px}
+#tuner-stage .tuner-note{color:#8cebd6;text-shadow:0 0 35px #76ddc522}
+#tuner-stage .tuner-meter{height:23px;background:linear-gradient(90deg,#25364c,#21443e 45%,#21443e 55%,#25364c);border:1px solid #36525a;margin-top:35px}
+#tuner-stage .tuner-meter-center{background:#76ddc5}
+#tuner-stage .tuner-needle{top:-10px;height:42px;background:#f5fafc;box-shadow:0 0 10px #76ddc588}
+#metronome-stage .metronome-panel{background:radial-gradient(ellipse at 50% 0%,#3a2b23,var(--surface) 64%)}
+#metronome-stage .metronome-tempo output{color:#ffd097}
+#metronome-stage .metronome-beat{border-color:#ffc481}
+#metronome-stage .metronome-beat.active{background:#ffc481;box-shadow:0 0 16px #ffc48166}
+#synth-stage .synth-panel{background:linear-gradient(160deg,#192b3d,var(--surface) 42%);padding:18px}
+#synth-stage .synth-tabs{background:#182a3a;border:1px solid #2b4659}
+#synth-stage .synth-tabs button[aria-selected=true]{background:#25465a;color:#9ae6ff}
+#synth-stage .synth-macros label{background:#21384b;border:1px solid #304b5e}
+#synth-stage .synth-visual{background:linear-gradient(145deg,#0b1d2a,#143a4a);border-color:#30576a}
+#synth-stage .synth-subtab[aria-selected=true]{color:#0b1522}
+#drums-stage .drums-pad{background:linear-gradient(145deg,#392b48,#22243c);border-color:#6c5075;color:#ffe3eb;box-shadow:inset 0 1px 2px #e5b1d333,0 4px 12px #0003}
+#drums-stage .drums-pad:active,#drums-stage .drums-pad.hit{background:linear-gradient(145deg,#ed739e,#9c5cbb);box-shadow:0 0 22px #ff9eaf88}
+#drums-stage .drums-light-stage{background:radial-gradient(ellipse at center,#342343,#121627 80%);border-color:#62466b}
+#drums-stage .drums-light-title{color:#f3b6db;text-shadow:0 0 18px #e67bad}
+#drums-stage .drums-neon-grid{background-image:linear-gradient(#d889d31a 1px,transparent 1px),linear-gradient(90deg,#d889d31a 1px,transparent 1px)}
+#drums-stage .drums-step.active{background:#ff9eaf;border-color:#ff9eaf}
+#drums-stage .drums-step.playhead{box-shadow:0 0 0 2px #ffbdd0,0 0 12px #ff9eaf}
+
+/* The same sampled 60-key piano now works in both orientations. */
+@media(orientation:portrait){
+ #piano-stage:not([hidden]) .piano-portrait{display:none}
+ #piano-stage:not([hidden]) .piano-landscape{display:block}
+ #piano-stage:not([hidden]) .piano-toolbar{display:flex;align-items:center;justify-content:space-between;gap:9px;min-height:52px}
+ #piano-stage:not([hidden]) .piano-toolbar strong{font-size:15px;color:var(--ink)}
+ #piano-stage:not([hidden]) .piano-toolbar .piano-return{min-height:44px;border-radius:12px;background:var(--soft);color:var(--accent);font-size:13px;font-weight:700;padding:9px 12px}
+ #piano-stage:not([hidden]) .piano-toolbar .piano-settings-button{width:44px;height:44px;min-width:44px;display:grid;place-items:center;background:var(--soft);border:1px solid var(--line);border-radius:13px;padding:0}
+ #piano-stage:not([hidden]) #piano-status{font-size:12px;color:var(--muted);text-align:center;margin:10px 0 12px;min-height:18px}
+ #piano-stage:not([hidden]) #piano-start{position:relative;z-index:3;left:auto;top:auto;transform:none;width:100%;margin:0 0 14px}
+ #piano-stage:not([hidden]) .piano-viewport{position:relative;width:100%;height:clamp(270px,48svh,440px);overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;touch-action:pan-x;border-radius:12px;border:1px solid #38455a;background:#111c2c}
+ #piano-stage:not([hidden]) .piano-keyboard{position:relative;display:block;height:100%;min-height:270px;touch-action:pan-x}
+ #piano-stage:not([hidden]) .piano-key{position:absolute;top:0;display:block;touch-action:pan-x;user-select:none;-webkit-user-select:none;padding:0}
+ #piano-stage:not([hidden]) .piano-key.white{height:100%;background:#f8fafc;border:1px solid #a6adbb;border-radius:0 0 5px 5px}
+ #piano-stage:not([hidden]) .piano-key.black{height:60%;background:#182236;border:1px solid #0c1728;border-radius:0 0 4px 4px;z-index:2}
+ #piano-stage:not([hidden]) .piano-key.pressed.white{background:#c7d9ff}
+ #piano-stage:not([hidden]) .piano-key.pressed.black{background:#3458a9}
+ #piano-stage:not([hidden]) .piano-credit{text-align:center;font-size:10px;color:var(--muted);margin:12px 0}
+}
