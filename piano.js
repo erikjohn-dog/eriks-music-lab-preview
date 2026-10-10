@@ -125,7 +125,7 @@ function drawNotation(){
   for(const [i,note] of active.entries()){
   const {y,top,sharp}=staffPosition(note);
   const nearby=active.slice(0,i).filter(previous=>Math.abs(staffPosition(previous).y-y)<9&&staffPosition(previous).top===top).length;
-  const x=214+(nearby%2?19:0);
+  const x=214+nearby*19;
   for(let line=top-11;line>=y-2;line-=11)svgEl('line',{x1:x-18,x2:x+18,y1:line,y2:line,stroke:'#a3b7d0','stroke-width':1.5},staffNotes);
   for(let line=top+55;line<=y+2;line+=11)svgEl('line',{x1:x-18,x2:x+18,y1:line,y2:line,stroke:'#a3b7d0','stroke-width':1.5},staffNotes);
   if(sharp)svgEl('text',{x:x-29,y:y+7,fill:'#8faaff','font-size':25,'font-family':'serif'},staffNotes).textContent='♯';
