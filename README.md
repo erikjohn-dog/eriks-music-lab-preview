@@ -14,6 +14,9 @@ A free, installable music practice web app with **Grand Piano**, **Chromatic Tun
 
 ## Changelog
 
+- 1.1.14 · Added optional detailed vocal note measurements showing note name, time interval, estimated frequency in Hz, and cents deviation from nearest equal-tempered note (A4=440 Hz). Existing detection, key ranking and experimental SoundTouch tools retained; no audio edits.
+
+
 - 1.1.13 · Finalized analysis-first Vocal Pitch panel: scale/key detection remains prominent; experimental real-time pitch correction is retained in a collapsible advanced section with explicit limitations. Re-analysis turns off active correction, and pitch/speed reset also disables correction. Existing transpose and SoundTouch engine remain available; recordings and exports unchanged.
 
 
