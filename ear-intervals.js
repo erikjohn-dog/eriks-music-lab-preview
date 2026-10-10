@@ -39,18 +39,37 @@ export const INTERVAL_CHAPTERS=[
  ['Perfect Octave','A perfect octave (P8) spans 12 semitones: C4–C5. The upper note has twice the frequency of the lower note.','theory',12],
  ['Fourths & Fifths','Tell the perfect fourth (5 semitones) from the perfect fifth (7 semitones).','practice',null],
  ['Perfect Intervals Challenge','Recognize perfect fourths, fifths and octaves in different directions and together.','challenge',null]
+ ],
+ [
+ ['Tritone','The tritone spans 6 semitones, half an octave. Example: C4–F♯4 (augmented fourth) or C4–G♭4 (diminished fifth). The same piano keys can have different written interval names.','theory',6],
+ ['Minor Sixth','A minor sixth spans 8 semitones. Example: C4–A♭4. Its inversion is a major third.','theory',8],
+ ['Major Sixth','A major sixth spans 9 semitones. Example: C4–A4. Its inversion is a minor third.','theory',9],
+ ['Minor Seventh','A minor seventh spans 10 semitones. Example: C4–B♭4. It is found between the root and seventh of a dominant seventh chord.','theory',10],
+ ['Major Seventh','A major seventh spans 11 semitones. Example: C4–B4. It lies just one semitone below the octave.','theory',11],
+ ['Sixths: Hear the Difference','Identify minor sixths (8 semitones) and major sixths (9 semitones).','practice',null],
+ ['Sevenths: Hear the Difference','Identify minor sevenths (10 semitones) and major sevenths (11 semitones).','practice',null],
+ ['Tension & Color Challenge','Identify the tritone, sixths and sevenths in varied keys and directions.','challenge',null]
+ ],
+ [
+ ['Chromatic Interval Map','In one octave, intervals cover 0 to 12 semitones. You have learned the unison, minor and major seconds and thirds, perfect fourth, tritone, perfect fifth, minor and major sixths and sevenths, and octave.','theory',0],
+ ['Small Steps','Review the four smallest intervals: minor second (1), major second (2), minor third (3), major third (4). Listen for the difference in distance.','practice',null],
+ ['Middle Distances','Compare the perfect fourth (5), tritone (6), and perfect fifth (7).','practice',null],
+ ['Wide Leaps','Compare the minor sixth (8), major sixth (9), minor seventh (10), major seventh (11) and octave (12).','practice',null],
+ ['All Twelve Challenge','Identify all chromatic interval distances from unison (0) through octave (12), with changing roots and presentations.','challenge',null]
  ]
 ];
 export const INTERVAL_CHAPTER_OPTIONS=[
  INTERVAL_OPTIONS,
  [{name:'Minor Second',semitones:1},{name:'Major Second',semitones:2},{name:'Minor Third',semitones:3},{name:'Major Third',semitones:4}],
- [{name:'Perfect Fourth',semitones:5},{name:'Perfect Fifth',semitones:7},{name:'Perfect Octave',semitones:12}]
+ [{name:'Perfect Fourth',semitones:5},{name:'Perfect Fifth',semitones:7},{name:'Perfect Octave',semitones:12}],
+ [{name:'Tritone',semitones:6},{name:'Minor Sixth',semitones:8},{name:'Major Sixth',semitones:9},{name:'Minor Seventh',semitones:10},{name:'Major Seventh',semitones:11}],
+ [{name:'Unison',semitones:0},{name:'Minor Second',semitones:1},{name:'Major Second',semitones:2},{name:'Minor Third',semitones:3},{name:'Major Third',semitones:4},{name:'Perfect Fourth',semitones:5},{name:'Tritone',semitones:6},{name:'Perfect Fifth',semitones:7},{name:'Minor Sixth',semitones:8},{name:'Major Sixth',semitones:9},{name:'Minor Seventh',semitones:10},{name:'Major Seventh',semitones:11},{name:'Octave',semitones:12}]
 ];
 export function makeChapterIntervalQuestions(chapter,level,count=10,random=Math.random){
  if(chapter===0)return makeIntervalQuestions(level,count,random);
  const lessons=INTERVAL_CHAPTERS[chapter],all=INTERVAL_CHAPTER_OPTIONS[chapter];
  if(!lessons||!lessons[level]||lessons[level][2]==='theory')throw new Error('Unknown practice level');
- const options=chapter===1&&level===4?all.slice(0,2):chapter===1&&level===5?all.slice(2):all;
+ const options=chapter===1&&level===4?all.slice(0,2):chapter===1&&level===5?all.slice(2):chapter===3&&level===5?all.slice(1,3):chapter===3&&level===6?all.slice(3,5):chapter===4&&level===1?all.slice(1,5):chapter===4&&level===2?all.slice(5,8):chapter===4&&level===3?all.slice(8,13):all;
  const result=[];let previous=-1;
  for(let i=0;i<count;i++){
   const kind=options[i%options.length];
