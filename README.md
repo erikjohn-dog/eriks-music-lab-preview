@@ -14,6 +14,9 @@ A free, installable music practice web app with **Grand Piano**, **Chromatic Tun
 
 ## Changelog
 
+- 1.1.16 · Neon Sampler preview naming; corrected home-card pink hover and Start recording accent; pointer-drag waveform scrubbing; compact 2-column iPhone FX cards with manual transpose in an optional section; edge-swipe navigation back while avoiding interactive controls. Single-track only; audio recordings preserved.
+
+
 - 1.1.15 · Removed experimental automatic note-by-note pitch correction controls and playback scheduling. Retained manual SoundTouch transposition, vocal pitch analysis, scale/key detection and detailed pitch measurements. No changes to saved recordings or exports.
 
 
