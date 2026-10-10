@@ -11,7 +11,7 @@ let world='Intervals',chapter=0,level=0,question=0,correct=0,answered=false,cont
 const escapeHTML=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function title(text){return '<div class="eyebrow">GUIDED EAR TRAINING</div><h1>'+escapeHTML(text)+'</h1>';}
 function open(){document.dispatchEvent(new CustomEvent('musiclab:ear-learning-open'));renderWorld();}
-function renderWorld(){const chapters=CHAPTERS[world],progress=readProgress();content.innerHTML=title(world)+ '<p class="subtitle">Choose a chapter. New lessons will be added as the course grows.</p><div class="ear-course-progress">'+chapters.length+' chapters planned · '+(world==='Chords'?CHORD_LEVELS.length:world==='Intervals'?INTERVAL_CHAPTERS.reduce((n,items)=>n+items.length,0):FIRST_LESSONS[world].length)+' introductory lessons available</div><div class="ear-chapter-list">'+chapters.map((c,i)=>{const available=i===0||(world==='Intervals'&&i<5);const stars=available?(world==='Chords'?CHORD_LEVELS:world==='Intervals'?INTERVAL_CHAPTERS[i]:FIRST_LESSONS[world]).reduce((s,_,j)=>s+(progress[levelId(world,i,j)]||0),0):0;return '<button class="ear-chapter-card" data-chapter="'+i+'" '+(available?'':'disabled')+'><span class="ear-chapter-index">'+String(i+1).padStart(2,'0')+'</span><span><strong>'+escapeHTML(c[0])+'</strong><small>'+escapeHTML(c[1])+'</small></span><span class="ear-chapter-state">'+(available?'★ '+stars:'SOON')+'</span></button>'}).join('')+'</div>';
+function renderWorld(){const chapters=CHAPTERS[world],progress=readProgress();content.innerHTML=title(world)+ '<p class="subtitle">Choose a chapter. New lessons will be added as the course grows.</p><div class="ear-course-progress">'+chapters.length+' chapters planned · '+(world==='Chords'?CHORD_LEVELS.length:world==='Intervals'?INTERVAL_CHAPTERS.reduce((n,items)=>n+items.length,0):FIRST_LESSONS[world].length)+' introductory lessons available</div><div class="ear-chapter-list">'+chapters.map((c,i)=>{const available=i===0||(world==='Intervals'&&i<7);const stars=available?(world==='Chords'?CHORD_LEVELS:world==='Intervals'?INTERVAL_CHAPTERS[i]:FIRST_LESSONS[world]).reduce((s,_,j)=>s+(progress[levelId(world,i,j)]||0),0):0;return '<button class="ear-chapter-card" data-chapter="'+i+'" '+(available?'':'disabled')+'><span class="ear-chapter-index">'+String(i+1).padStart(2,'0')+'</span><span><strong>'+escapeHTML(c[0])+'</strong><small>'+escapeHTML(c[1])+'</small></span><span class="ear-chapter-state">'+(available?'★ '+stars:'SOON')+'</span></button>'}).join('')+'</div>';
 content.querySelectorAll('[data-chapter]').forEach(b=>b.onclick=()=>{chapter=Number(b.dataset.chapter);renderChapter()});}
 function renderChapter(){const lessons=world==='Chords'?CHORD_LEVELS.map((name,i)=>[name,CHORD_LESSONS[i]]):world==='Intervals'?INTERVAL_CHAPTERS[chapter]:FIRST_LESSONS[world],progress=readProgress();content.innerHTML=title(CHAPTERS[world][chapter][0])+'<p class="subtitle">'+escapeHTML(CHAPTERS[world][chapter][1])+'</p><div class="ear-level-list">'+lessons.map((l,i)=>'<button class="ear-level-card" data-level="'+i+'"><span class="ear-level-number">'+(i+1)+'</span><span><strong>'+escapeHTML(l[0])+'</strong><small>'+(world==='Chords'?(i<2?'Learn · Listen':'Listen · Identify'):world==='Intervals'?(l[2]==='theory'?'Learn · Listen':'Listen · Identify'):'Learn · Listen · Practice')+'</small></span>'+((world==='Chords'&&i<2)||(world==='Intervals'&&l[2]==='theory')?'':'<span class="ear-level-stars">'+('★'.repeat(progress[levelId(world,chapter,i)]||0)||'☆')+'</span>')+'</button>').join('')+'</div>';
 content.querySelectorAll('[data-level]').forEach(b=>b.onclick=()=>{level=Number(b.dataset.level);renderLesson()});}
@@ -126,9 +126,9 @@ function renderIntervalLevel(){
  const info=INTERVAL_CHAPTERS[chapter][level],theory=info[2]==='theory';
  content.innerHTML=title(info[0])+'<div class="ear-lesson-card"><span class="ear-lesson-label">'+(theory?'LEARN · THEORY & SOUND':'PRACTICE · LISTEN & IDENTIFY')+'</span><p>'+escapeHTML(info[1])+'</p>'+(theory?'<button id="ear-listen" class="secondary" type="button">▶ Listen to example</button><p id="ear-audio-status" role="status"></p>':'')+'</div>'+(theory?'<button id="ear-levels" class="primary" type="button">Back to chapter →</button>':'<button id="ear-practice" class="primary" type="button">Start practice →</button>');
  if(theory){
-  document.getElementById('ear-listen').onclick=()=>playNotes([0,info[3]],false,60);
+  document.getElementById('ear-listen').onclick=()=>playNotes([0,info[3]],chapter===6,60);
   document.getElementById('ear-levels').onclick=renderChapter;
-  if(getEarPractice().autoPlayLesson)playNotes([0,info[3]],false,60);
+  if(getEarPractice().autoPlayLesson)playNotes([0,info[3]],chapter===6,60);
  }else document.getElementById('ear-practice').onclick=()=>{
   question=0;correct=0;intervalQuestions=makeChapterIntervalQuestions(chapter,level,getEarPractice().questionCount);renderIntervalQuestion();
  };
@@ -140,7 +140,7 @@ function renderIntervalQuestion(){
  if(question>=intervalQuestions.length){renderResults();return;}
  answered=false;
  const item=intervalQuestions[question];
- content.innerHTML=title('Which Interval?')+'<p class="subtitle">Question '+(question+1)+' of '+intervalQuestions.length+'</p><div class="ear-quiz-card"><button id="ear-replay" class="ear-play-button" type="button">▶</button><p id="ear-audio-status" role="status"></p><p>Identify the distance between the two notes.</p><div class="ear-answer-grid">'+(item.options||INTERVAL_OPTIONS).map(option=>'<button class="ear-answer" data-interval="'+escapeHTML(option.name)+'">'+escapeHTML(option.name)+'</button>').join('')+'</div><div id="ear-feedback" aria-live="polite"></div><button id="ear-next" class="primary" type="button" hidden>Next question →</button></div>';
+ content.innerHTML=title(chapter===5?'Up or Down?':'Which Interval?')+'<p class="subtitle">Question '+(question+1)+' of '+intervalQuestions.length+'</p><div class="ear-quiz-card"><button id="ear-replay" class="ear-play-button" type="button">▶</button><p id="ear-audio-status" role="status"></p><p>Identify the distance between the two notes.</p><div class="ear-answer-grid">'+(item.options||INTERVAL_OPTIONS).map(option=>'<button class="ear-answer" data-interval="'+escapeHTML(option.name)+'">'+escapeHTML(option.name)+'</button>').join('')+'</div><div id="ear-feedback" aria-live="polite"></div><button id="ear-next" class="primary" type="button" hidden>Next question →</button></div>';
  document.getElementById('ear-replay').onclick=()=>playInterval(item);
  if(getEarPractice().autoPlayNext)playInterval(item);
  content.querySelectorAll('[data-interval]').forEach(b=>b.onclick=()=>{
@@ -149,7 +149,7 @@ function renderIntervalQuestion(){
   const good=b.dataset.interval===item.answer;
   if(good)correct++;
   content.querySelectorAll('[data-interval]').forEach(x=>x.disabled=true);
-  document.getElementById('ear-feedback').textContent=good?'Correct! '+item.answer+' spans '+item.semitones+' semitones.':'Not quite. That was '+item.answer+' ('+item.semitones+' semitones). Replay to compare.';
+  document.getElementById('ear-feedback').textContent=good?'Correct! '+item.answer+(chapter===5?' motion.':' spans '+item.semitones+' semitones.'):'Not quite. That was '+item.answer+(chapter===5?' motion.':' ('+item.semitones+' semitones).')+' Replay to compare.';
   document.getElementById('ear-next').hidden=false;
  });
  document.getElementById('ear-next').onclick=()=>{question++;renderIntervalQuestion();};
