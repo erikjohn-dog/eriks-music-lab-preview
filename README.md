@@ -14,6 +14,9 @@ A free, installable music practice web app with **Grand Piano**, **Chromatic Tun
 
 ## Changelog
 
+- 1.1.0 · Temporarily disabled the unreliable transpose and global pitch-assist UI. Restored predictable playback-speed behavior while a tempo-preserving pitch engine is designed. No original recordings changed.
+
+
 - 1.0.99 · Corrected outdated version labels in footer and About; bumped service worker cache to distribute updated app shell.
 
 
