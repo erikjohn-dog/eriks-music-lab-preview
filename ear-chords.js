@@ -179,3 +179,29 @@ export function makeContextChordQuestions(chapter,level,count=10){
  for(let i=out.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[out[i],out[j]]=[out[j],out[i]];}
  return out;
 }
+
+export const CHORD_CHAPTER_13=[["Dorian Color","A Dorian minor chord with an added natural sixth: C–E♭–G–A (0,3,7,9). The natural sixth distinguishes Dorian color from Aeolian ♭6.",1,"dorian"],["Phrygian Color","A Phrygian minor chord with a flat ninth: C–E♭–G–D♭ (0,3,7,13). The flat second is characteristic.",1,"phrygian"],["Lydian Color","A Lydian major chord with a raised fourth: C–E–G–F♯ (0,4,7,18). The ♯11 is characteristic.",1,"lydian"],["Mixolydian Color","A Mixolydian dominant seventh chord: C–E–G–B♭ (0,4,7,10). The flat seventh differentiates it from Ionian major seventh.",1,"mixolydian"],["Dorian vs. Phrygian","Identify the natural sixth or flat second over a minor tonic.",0,["dorian","phrygian"]],["Lydian vs. Mixolydian","Hear the raised fourth versus the minor seventh above a major tonic.",0,["lydian","mixolydian"]],["Modal Harmony Challenge","Recognize four modal chord colors over changing tonic roots.",0,["dorian","phrygian","lydian","mixolydian"]]];
+export const CHORD_CHAPTER_14=[["Quartal Voicing","Quartal harmony stacks fourths rather than thirds. C–F–B♭ (0,5,10) creates an open sound.",1,"quartal"],["Tone Cluster","A tone cluster uses adjacent notes. C–D–E (0,2,4) produces a dense, close-spaced color.",1,"cluster"],["Slash Chord","A slash chord specifies a bass note. C/E is a C major triad over E in the bass: E–G–C (0,3,8 relative to E).",1,"slash"],["Polychord","A polychord combines two recognizable triads. C major plus D major: C–E–G–D–F♯–A (0,4,7,14,18,21).",1,"poly"],["Quartal vs. Cluster","Distinguish stacked fourths from adjacent-tone clusters.",0,["quartal","cluster"]],["Slash vs. Quartal","Compare an inverted major triad with a quartal voicing.",0,["slash","quartal"]],["Advanced Structures Challenge","Identify quartal, cluster, slash-chord and polychord textures.",0,["quartal","cluster","slash","poly"]]];
+Object.assign(CHORD_SHAPES,{dorian:[0,3,7,9],phrygian:[0,3,7,13],lydian:[0,4,7,18],mixolydian:[0,4,7,10],quartal:[0,5,10],cluster:[0,2,4],slash:[0,3,8],poly:[0,4,7,14,18,21]});
+Object.assign(CHORD_NAMES,{dorian:'Dorian color',phrygian:'Phrygian color',lydian:'Lydian color',mixolydian:'Mixolydian color',quartal:'Quartal voicing',cluster:'Tone cluster',slash:'Slash chord',poly:'Polychord'});
+const MODERN_CHAPTERS={12:CHORD_CHAPTER_13,13:CHORD_CHAPTER_14};
+export const modernChordLevels=c=>MODERN_CHAPTERS[c]?MODERN_CHAPTERS[c].map(x=>x[0]):contextChordLevels(c);
+export const modernChordLesson=(c,l)=>MODERN_CHAPTERS[c]?MODERN_CHAPTERS[c][l][1]:contextChordLesson(c,l);
+export const modernChordTheory=(c,l)=>MODERN_CHAPTERS[c]?!!MODERN_CHAPTERS[c][l][2]:contextChordTheory(c,l);
+export function modernChordDemo(c,l){
+ if(!MODERN_CHAPTERS[c])return contextChordDemo(c,l);
+ const quality=MODERN_CHAPTERS[c][l][3];
+ return typeof quality==='string'?{quality,root:60,presentation:'combined'}:null;
+}
+export function makeModernChordQuestions(c,l,n=10){
+ if(!MODERN_CHAPTERS[c])return makeContextChordQuestions(c,l,n);
+ const entry=MODERN_CHAPTERS[c][l];if(!entry||entry[2])return [];
+ const options=entry[3],out=[];
+ for(let i=0;i<n;i++){
+  const quality=options[i%options.length],root=48+Math.floor(Math.random()*16),offsets=CHORD_SHAPES[quality];
+  const presentation=l===6?['harmonic','arpeggiated','combined'][Math.floor(Math.random()*3)]:l===5?'arpeggiated':'harmonic';
+  out.push({quality,root,notes:offsets.map(x=>root+x),presentation,options});
+ }
+ for(let i=out.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[out[i],out[j]]=[out[j],out[i]];}
+ return out;
+}
