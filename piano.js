@@ -169,11 +169,13 @@ function buildKeyboard() {
     keyboard.append(key);
   }
   keyboard.style.width=(whiteIndex*WHITE_WIDTH)+'px';
+ requestAnimationFrame(syncPianoStrip);
 }
 function centerOn(midi) {
   const key=keyboard.querySelector('[data-midi="'+midi+'"]');
   if (!key) return;
   viewport.scrollLeft=Math.max(0,key.offsetLeft+key.offsetWidth/2-viewport.clientWidth/2);
+ syncPianoStrip();
 }
 function stopPointer(pointerId) {
   const state=pointers.get(pointerId);
@@ -188,8 +190,19 @@ function stopPointer(pointerId) {
   }
 }
 function keyAtPoint(x,y){
- const hit=document.elementFromPoint(x,y);
- return hit?.closest('.piano-key')?.closest('.piano-keyboard')===keyboard?hit.closest('.piano-key'):null;
+ const rect=keyboard.getBoundingClientRect();
+ if(x<rect.left||x>rect.right||y<rect.top||y>rect.bottom)return null;
+ // Hit-test black keys first; they visually overlap the white keys.
+ const black=[...keyboard.querySelectorAll('.piano-key.black')];
+ for(const key of black){
+  const box=key.getBoundingClientRect();
+  if(x>=box.left&&x<=box.right&&y>=box.top&&y<=box.bottom)return key;
+ }
+ for(const key of keyboard.querySelectorAll('.piano-key.white')){
+  const box=key.getBoundingClientRect();
+  if(x>=box.left&&x<=box.right&&y>=box.top&&y<=box.bottom)return key;
+ }
+ return null;
 }
 function movePianoPointer(id,key){
  const state=pointers.get(id);
@@ -213,7 +226,7 @@ viewport.addEventListener('pointerdown',event=>{
  if(event.pointerType!=='mouse')event.preventDefault();
  const midi=Number(key.dataset.midi);
  pointers.set(event.pointerId,{midi,key,playing:true});
- if(event.pointerType!=='mouse')try{viewport.setPointerCapture(event.pointerId)}catch{}
+ try{viewport.setPointerCapture(event.pointerId)}catch{}
  key.classList.add('pressed');drawNotation();
  if(pianoSound==='sine')sineOn(midi);else engine.noteOn(midi);
 });
@@ -229,6 +242,53 @@ window.addEventListener('pointercancel',event=>stopPointer(event.pointerId));
 viewport.addEventListener('scroll',()=>{
   for(const id of [...pointers.keys()])stopPointer(id);
 },{passive:true});
+// A dedicated navigation strip keeps playing gestures separate from scrolling.
+const scrollStrip=document.getElementById('piano-scroll-strip');
+const scrollThumb=document.getElementById('piano-scroll-thumb');
+let stripPointer=null;
+function syncPianoStrip(){
+ if(!scrollStrip||!scrollThumb)return;
+ const maximum=Math.max(0,viewport.scrollWidth-viewport.clientWidth);
+ const track=scrollStrip.clientWidth;
+ const thumbWidth=Math.max(32,Math.min(track,track*viewport.clientWidth/Math.max(viewport.scrollWidth,1)));
+ scrollThumb.style.width=thumbWidth+'px';
+ scrollThumb.style.transform='translateX('+(maximum?viewport.scrollLeft/maximum*(track-thumbWidth):0)+'px)';
+ scrollStrip.setAttribute('aria-valuenow',String(Math.round(maximum?100*viewport.scrollLeft/maximum:0)));
+}
+function scrollFromStrip(clientX,offset=0){
+ const rect=scrollStrip.getBoundingClientRect();
+ const thumbWidth=scrollThumb.getBoundingClientRect().width;
+ const travel=Math.max(1,rect.width-thumbWidth);
+ const position=Math.max(0,Math.min(travel,clientX-rect.left-offset));
+ viewport.scrollLeft=position/travel*Math.max(0,viewport.scrollWidth-viewport.clientWidth);
+ syncPianoStrip();
+}
+scrollStrip.addEventListener('pointerdown',event=>{
+ if(event.pointerType==='mouse'&&event.button!==0)return;
+ event.preventDefault();
+ const box=scrollThumb.getBoundingClientRect();
+ const onThumb=event.clientX>=box.left&&event.clientX<=box.right;
+ stripPointer={id:event.pointerId,offset:onThumb?event.clientX-box.left:box.width/2};
+ try{scrollStrip.setPointerCapture(event.pointerId)}catch{}
+ scrollFromStrip(event.clientX,stripPointer.offset);
+});
+scrollStrip.addEventListener('pointermove',event=>{
+ if(!stripPointer||event.pointerId!==stripPointer.id)return;
+ event.preventDefault();
+ scrollFromStrip(event.clientX,stripPointer.offset);
+});
+for(const type of ['pointerup','pointercancel','lostpointercapture'])
+ scrollStrip.addEventListener(type,event=>{if(stripPointer?.id===event.pointerId)stripPointer=null;});
+scrollStrip.addEventListener('keydown',event=>{
+ const step=WHITE_WIDTH*3;
+ if(event.key==='ArrowLeft'||event.key==='ArrowRight'){
+  event.preventDefault();
+  viewport.scrollLeft+=event.key==='ArrowLeft'?-step:step;
+  syncPianoStrip();
+ }
+});
+viewport.addEventListener('scroll',syncPianoStrip,{passive:true});
+window.addEventListener('resize',syncPianoStrip);
 start.addEventListener('click',async()=>{
   start.disabled=true;
   status.textContent='Loading piano samples…';
