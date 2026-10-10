@@ -14,6 +14,8 @@ A free, installable music practice web app with **Grand Piano**, **Chromatic Tun
 
 ## Changelog
 
+- 1.0.83 · Simplified Practice Studio Overview: upcoming sessions first, then calendar, then time statistics. Removed hero, recent sessions and goals from Overview; completed history stays in Sessions. Tightened header spacing and centered calendar month arrows.
+
 - 1.0.82 · Practice Studio goal plans now include five progressive learning phases, specific session tasks, milestone progress and rescheduling of missed sessions into free practice days before the deadline. Existing local sessions and goals remain supported.
 
 - 1.0.81 · Practice Studio redesign: prominent upcoming sessions, separate history, larger colorful calendar, navigation tabs, session editing, instrument filters, goal management, progress insights, and new home-screen icon.
