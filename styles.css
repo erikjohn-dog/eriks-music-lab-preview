@@ -715,3 +715,7 @@ body:has(#home:not([hidden])) .icon-button{background:var(--surface);border:1px 
 .ps-repeat-fieldset{border-color:var(--ps-border)!important}
 .ps-repeat-fieldset[hidden],#ps-repeat-settings[hidden],#ps-repeat-weekdays[hidden]{display:none!important}
 @media(max-width:520px){.ps-date-stepper button{flex-basis:38px}}
+
+/* Unified audio cache status and touch-first Practice Studio entry */
+#sample-cache-status{white-space:pre-line;line-height:1.75}
+@media(hover:none){#open-practice-studio:hover{transform:none}}
