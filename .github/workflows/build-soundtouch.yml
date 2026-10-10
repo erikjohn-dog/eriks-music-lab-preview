@@ -1,0 +1,37 @@
+name: Bundle SoundTouch for offline Preview
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/build-soundtouch.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  bundle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install pinned SoundTouch and bundler
+        run: npm install --no-save --no-package-lock --ignore-scripts @soundtouchjs/audio-worklet@2.1.1 esbuild@0.25.12
+      - name: Build local browser files
+        run: |
+          mkdir -p vendor
+          ./node_modules/.bin/esbuild node_modules/@soundtouchjs/audio-worklet/.dist/index.js --bundle --format=esm --platform=browser --target=es2020 --outfile=vendor/soundtouch-node.js
+          cp node_modules/@soundtouchjs/audio-worklet/.dist/soundtouch-processor.js vendor/soundtouch-processor.js
+          test -s vendor/soundtouch-node.js
+          test -s vendor/soundtouch-processor.js
+      - name: Commit bundled vendor files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add vendor/soundtouch-node.js vendor/soundtouch-processor.js
+          if ! git diff --cached --quiet; then
+            git commit -m "Build pinned SoundTouch 2.1.1 offline assets"
+            git push
+          fi
