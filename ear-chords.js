@@ -68,3 +68,29 @@ export function makeAllChordQuestions(c,l,n=10){
  }
  for(let i=out.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[out[i],out[j]]=[out[j],out[i]];}return out;
 }
+
+export const CHORD_CHAPTER_5=[["Fully Diminished Seventh","A fully diminished seventh contains root, minor third, diminished fifth and diminished seventh: 0, 3, 6, 9 semitones. C°7 = C–E♭–G♭–B𝄫 (enharmonically A).",1,"dim7"],["Minor-Major Seventh","A minor-major seventh combines a minor triad with a major seventh: 0, 3, 7, 11. Cm(maj7) = C–E♭–G–B.",1,"minMaj7"],["Augmented Seventh","An augmented dominant seventh has a major third, augmented fifth and minor seventh: 0, 4, 8, 10. C7♯5 = C–E–G♯–B♭.",1,"aug7"],["Half vs. Fully Diminished","Compare Cø7 (0, 3, 6, 10) with C°7 (0, 3, 6, 9). The seventh differs by one semitone.",0,["halfDim7","dim7"]],["Minor 7 vs. Minor-Major 7","Listen for the minor seventh (10 semitones) versus major seventh (11) above a minor triad.",0,["min7","minMaj7"]],["Altered Seventh Colors","Identify dominant seventh, augmented dominant seventh and fully diminished seventh chords.",0,["dom7","aug7","dim7"]],["Advanced Seventh Challenge","Identify six seventh-chord qualities, including diminished, minor-major and augmented variants.",0,["halfDim7","dim7","min7","minMaj7","dom7","aug7"]]];
+export const CHORD_CHAPTER_6=[["Major Sixth","A major sixth chord adds a major sixth to a major triad: 0, 4, 7, 9. C6 = C–E–G–A.",1,"maj6"],["Minor Sixth","A minor sixth chord adds a major sixth to a minor triad: 0, 3, 7, 9. Cm6 = C–E♭–G–A. The sixth is not lowered.",1,"min6"],["Add9 Chords","An add9 chord adds the ninth without a seventh: Cadd9 = C–E–G–D (0, 4, 7, 14). Compare with Cmaj9, which also includes B.",1,"add9"],["Minor Add9","A minor add9 chord adds a ninth to a minor triad without adding a seventh: Cm(add9) = C–E♭–G–D (0, 3, 7, 14).",1,"minAdd9"],["Major 6 vs. Minor 6","Listen for the major versus minor third; both sixth chords contain the same major sixth.",0,["maj6","min6"]],["Add9 vs. Minor Add9","Identify whether the added-ninth chord contains a major or minor third.",0,["add9","minAdd9"]],["Added Tones Challenge","Distinguish sixth and added-ninth chords, with changing roots and varied playback.",0,["maj6","min6","add9","minAdd9"]]];
+Object.assign(CHORD_SHAPES,{dim7:[0,3,6,9],minMaj7:[0,3,7,11],aug7:[0,4,8,10],maj6:[0,4,7,9],min6:[0,3,7,9],add9:[0,4,7,14],minAdd9:[0,3,7,14]});
+Object.assign(CHORD_NAMES,{dim7:'Fully diminished seventh',minMaj7:'Minor-major seventh',aug7:'Augmented seventh',maj6:'Major sixth',min6:'Minor sixth',add9:'Add9',minAdd9:'Minor add9'});
+const NEXT_CHORD_CHAPTERS={4:CHORD_CHAPTER_5,5:CHORD_CHAPTER_6};
+export const extendedChordLevels=c=>NEXT_CHORD_CHAPTERS[c]?NEXT_CHORD_CHAPTERS[c].map(x=>x[0]):allChordLevels(c);
+export const extendedChordLesson=(c,l)=>NEXT_CHORD_CHAPTERS[c]?NEXT_CHORD_CHAPTERS[c][l][1]:allChordLesson(c,l);
+export const extendedChordTheory=(c,l)=>NEXT_CHORD_CHAPTERS[c]?!!NEXT_CHORD_CHAPTERS[c][l][2]:allChordTheory(c,l);
+export function extendedChordDemo(c,l){
+ if(!NEXT_CHORD_CHAPTERS[c])return chordDemo(c,l);
+ const quality=NEXT_CHORD_CHAPTERS[c][l][3];
+ return typeof quality==='string'?{quality,root:60,presentation:'combined'}:null;
+}
+export function makeExtendedChordQuestions(c,l,n=10){
+ if(!NEXT_CHORD_CHAPTERS[c])return makeAllChordQuestions(c,l,n);
+ const entry=NEXT_CHORD_CHAPTERS[c][l];if(!entry||entry[2])return [];
+ const options=entry[3],out=[];
+ for(let i=0;i<n;i++){
+  const quality=options[i%options.length],root=48+Math.floor(Math.random()*21);
+  const offsets=CHORD_SHAPES[quality],presentation=l===6?['harmonic','arpeggiated','combined'][Math.floor(Math.random()*3)]:l===5?'arpeggiated':'harmonic';
+  out.push({quality,root,notes:offsets.map(x=>root+x),presentation,options});
+ }
+ for(let i=out.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[out[i],out[j]]=[out[j],out[i]];}
+ return out;
+}
