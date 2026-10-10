@@ -755,3 +755,7 @@ body:has(#home:not([hidden])) .icon-button{background:var(--surface);border:1px 
 :root[data-theme=dark] #sing-note-stage .sing-target{background:linear-gradient(155deg,rgba(98,119,209,.2),rgba(112,80,175,.08))}
 :root[data-theme=dark] #sing-note-stage .ps-panel select{background:#111a2d;color:#eff3ff}
 :root[data-theme=dark] #sing-note-stage .primary{background:#6c83e4;color:#fff}
+
+/* Preview 1.0.89 — only correctly detected notes glow neon green */
+#sing-note-stage .sing-target h1#sing-target{transition:color .14s ease,text-shadow .14s ease,filter .14s ease}
+#sing-note-stage .sing-target h1#sing-target.sing-note-correct{color:#19ee73!important;text-shadow:0 0 9px rgba(25,238,115,.7),0 0 25px rgba(25,238,115,.48),0 0 44px rgba(25,238,115,.2);filter:brightness(1.08)}
