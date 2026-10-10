@@ -736,3 +736,22 @@ body:has(#home:not([hidden])) .icon-button{background:var(--surface);border:1px 
 .ps-template-row{display:grid;grid-template-columns:2fr 1fr;gap:12px;margin:10px 0}
 .ps-weekly-goal{padding:12px 0;border-bottom:1px solid var(--ps-border)}
 @media(max-width:520px){#ps-floating-timer:not([hidden]){bottom:calc(12px + env(safe-area-inset-bottom));padding:10px 12px}.ps-template-row{grid-template-columns:minmax(0,2fr) minmax(0,1fr)}}
+
+/* Preview 1.0.88: Practice Studio accent and Ear Trainer voice styling */
+#practice-studio-stage>.eyebrow{color:#b439ed!important}
+:root[data-theme=dark] #practice-studio-stage>.eyebrow{color:#d99aff!important}
+#sing-note-stage{--sing-accent:#5773d5;--sing-panel:#f5f7ff;--sing-border:#d5ddf5;--sing-text:#1b2b4d}
+#sing-note-stage>.eyebrow,#sing-note-stage>.back-home{color:var(--sing-accent)}
+#sing-note-stage .ps-panel{background:var(--sing-panel);border:1px solid var(--sing-border);color:var(--sing-text);box-shadow:0 8px 28px rgba(45,72,145,.06);border-radius:22px;padding:clamp(18px,4vw,30px)}
+#sing-note-stage .sing-target{border-radius:18px;padding:24px 14px;background:linear-gradient(155deg,rgba(87,115,213,.11),rgba(116,94,203,.04))}
+#sing-note-stage .sing-target h1{color:var(--sing-accent);font-size:clamp(2.6rem,10vw,4.5rem)}
+#sing-note-stage .sing-target h2{color:var(--sing-text)}
+#sing-note-stage .primary{background:var(--sing-accent);color:white;border-color:var(--sing-accent)}
+#sing-note-stage #sing-next{color:var(--sing-accent);background:transparent;border:1px solid var(--sing-border);border-radius:12px;padding:11px 18px}
+#sing-note-stage .ps-panel select{background:#fff;color:var(--sing-text);border-color:var(--sing-border)}
+#sing-note-stage .sing-option{display:flex;flex-direction:row;align-items:center;gap:10px;padding:12px 0}
+#sing-note-stage .sing-option input{width:20px;min-width:20px;height:20px;accent-color:var(--sing-accent)}
+:root[data-theme=dark] #sing-note-stage{--sing-accent:#9cafff;--sing-panel:#19243b;--sing-border:#364766;--sing-text:#eff3ff}
+:root[data-theme=dark] #sing-note-stage .sing-target{background:linear-gradient(155deg,rgba(98,119,209,.2),rgba(112,80,175,.08))}
+:root[data-theme=dark] #sing-note-stage .ps-panel select{background:#111a2d;color:#eff3ff}
+:root[data-theme=dark] #sing-note-stage .primary{background:#6c83e4;color:#fff}
