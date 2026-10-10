@@ -582,3 +582,18 @@ body:has(#home:not([hidden])) .icon-button{background:var(--surface);border:1px 
 :root[data-theme=light] #piano-staff-notes line{stroke:#385fc4}
 :root[data-theme=light] #piano-staff-notes ellipse{fill:#385fc4}
 :root[data-theme=light] #piano-staff-notes text{fill:#385fc4}
+
+/* Practice Studio and Sing the Note */
+#practice-studio-stage,#sing-note-stage{width:min(100%,1000px);margin:0 auto;padding:24px 18px 50px}
+.ps-panel{border:1px solid var(--border,rgba(128,128,128,.22));border-radius:20px;padding:18px;margin:16px 0;background:var(--surface,rgba(128,128,128,.05))}
+.ps-panel h2{font-size:1.2rem;margin:0 0 14px}.ps-panel label{display:flex;flex-direction:column;gap:6px;margin:10px 0;font-size:.9rem}
+.ps-panel input,.ps-panel select,.ps-panel textarea{width:100%;min-width:0;padding:11px;border:1px solid rgba(128,128,128,.4);border-radius:10px;background:var(--card-bg,var(--surface,transparent));color:inherit;font:inherit}
+.ps-panel textarea{resize:vertical}.ps-panel fieldset{border:1px solid rgba(128,128,128,.25);border-radius:12px;margin:14px 0;padding:10px}
+.ps-panel .ps-check{display:inline-flex;align-items:center;gap:5px;margin:6px 12px 6px 0}.ps-check input{width:auto}
+.ps-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:18px 0}.ps-stats>div{border-radius:14px;padding:14px 10px;background:var(--surface,rgba(128,128,128,.1));display:flex;flex-direction:column;gap:7px}.ps-stats small,.ps-entry small{opacity:.7}.ps-stats strong{font-size:1.25rem}
+.ps-heading{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.ps-heading button,.ps-entry button,#sing-next{border:1px solid rgba(128,128,128,.35);border-radius:9px;background:transparent;color:inherit;padding:7px 11px;cursor:pointer}
+.ps-weekdays,.ps-calendar{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;text-align:center}.ps-weekdays{font-size:.75rem;opacity:.7;margin:12px 0 6px}
+.ps-day{min-width:0;min-height:55px;border:1px solid rgba(128,128,128,.25);border-radius:10px;background:transparent;color:inherit;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer}.ps-day small{font-size:.63rem;opacity:.75}.ps-today{border-color:currentColor}
+.ps-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 14px}.ps-entry{display:flex;justify-content:space-between;gap:10px;align-items:center;border-bottom:1px solid rgba(128,128,128,.2);padding:12px 0}.ps-entry>div:first-child{min-width:0}.ps-entry small{display:block}.ps-entry p{margin:4px 0;overflow-wrap:anywhere}.ps-entry>div:last-child{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}
+.sing-target{display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;padding:20px 0}.sing-target small{opacity:.7;letter-spacing:.1em}.sing-target h1{font-size:3rem}.sing-target h2{font-size:1.8rem}
+@media(max-width:480px){.ps-panel{padding:12px}.ps-stats strong{font-size:1rem}.ps-day{min-height:44px}.ps-day small{font-size:.55rem}.ps-fields{grid-template-columns:1fr}}
