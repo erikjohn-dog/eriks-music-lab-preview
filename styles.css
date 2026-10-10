@@ -630,3 +630,16 @@ body:has(#home:not([hidden])) .icon-button{background:var(--surface);border:1px 
 .ps-voice-note{padding:16px 20px;border-left:4px solid #e3a34c;background:rgba(227,163,76,.09);border-radius:12px}.ps-voice-note p{margin:6px 0 0;font-size:.87rem}
 .ps-save-status,.ps-local-note{font-size:.76rem;opacity:.7;margin:12px 0}
 @media(max-width:520px){.ps-shell .ps-panel{padding:14px}.ps-calendar-large .ps-day{min-height:62px;border-radius:9px}.ps-calendar-large .ps-day small{font-size:.58rem}.ps-month-nav{gap:4px}.ps-month-nav strong{min-width:110px}.ps-shell .ps-stats>div{padding:12px 8px}.ps-entry-actions button{font-size:.72rem}}
+
+/* Practice Studio goal milestones */
+.ps-goal-card{border:1px solid rgba(17,126,126,.19);border-radius:16px;padding:15px;margin:15px 0;background:linear-gradient(135deg,rgba(17,126,126,.07),rgba(71,111,194,.05))}
+.ps-goal-card .ps-goal-entry{border-bottom:0;padding:0 0 10px}
+.ps-milestones{display:grid;gap:13px;margin:12px 0 18px}
+.ps-milestone{display:flex;align-items:flex-start;gap:12px}
+.ps-milestone-number{flex:0 0 29px;height:29px;border-radius:50%;display:grid;place-items:center;background:#127e80;color:#fff;font-weight:700;font-size:.78rem}
+.ps-milestone strong{display:block;font-size:.86rem}
+.ps-milestone small{display:block;opacity:.72;line-height:1.5;margin-top:3px}
+.ps-progress{height:9px;border-radius:12px;background:rgba(128,128,128,.18);overflow:hidden;margin:10px 0 7px}
+.ps-progress span{display:block;height:100%;background:linear-gradient(90deg,#139e88,#5277c5);border-radius:12px}
+.ps-goal-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}
+.ps-stage-label{color:#168783;font-weight:650}
