@@ -1,6 +1,6 @@
 # Erik’s Music Lab
 
-A free, installable music practice web app with **Grand Piano**, **Chromatic Tuner**, **Metronome**, **Synth**, **Drum Machine**, **Perfect Pitch Trainer**, and a guided **Ear Trainer** for intervals, chords and scales. Explore music, train your ear and build musical confidence at your own pace. Settings and training progress are saved locally; offline use is supported after the app and required audio assets have been cached.
+A free, installable music practice web app with **Grand Piano**, **Chromatic Tuner**, **Metronome**, **Synth**, **Drum Machine**, and a guided **Ear Trainer** for pitch, intervals, chords and scales. Explore music, train your ear and build musical confidence at your own pace. Settings and training progress are saved locally; offline use is supported after the app and required audio assets have been cached.
 
 **Preview app:** https://erikjohn-dog.github.io/eriks-music-lab-preview/
 
@@ -13,6 +13,8 @@ A free, installable music practice web app with **Grand Piano**, **Chromatic Tun
 5. Launch **Erik’s Music Lab** from your Home Screen while online so offline files can finish caching.
 
 ## Changelog
+
+- 1.0.79 · Home screen version label; README and About clarify that Perfect Pitch belongs to the Ear Trainer.
 
 Complete recorded Preview changelog (all entries preserved from the app’s previous About section; earlier versions without a recorded entry are not reconstructed):
 
