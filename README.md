@@ -14,6 +14,9 @@ A free, installable music practice web app with **Grand Piano**, **Chromatic Tun
 
 ## Changelog
 
+- 1.1.10 · Added Detect key to Vocal Note Curve. Ranks all 12 major and 12 natural-minor scales using duration-weighted detected notes, shows percentage of note duration in scale and flags ambiguous matches. Auto-selects suggested key and mode for correction preview; no audio changes.
+
+
 - 1.1.9 · Added key and major/minor/chromatic scale selection to the vocal note analysis. Each detected segment now shows the nearest scale-note correction suggestion (preview only); no audio is altered.
 
 
