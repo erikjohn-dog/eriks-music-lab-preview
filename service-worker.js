@@ -1,6 +1,6 @@
 // Change this version for EVERY deployment that changes any app-shell file.
 // Installation is atomic: a missing file prevents activation of a broken shell.
-const VERSION = '1.0.97';
+const VERSION = '1.0.98';
 const PREFIX = 'eriks-music-lab-preview-';
 const CACHE = PREFIX + VERSION;
 const FILES = ['./', './index.html', './styles.css', './app.js', './navigation.js', './piano.js', './piano-harmony.js', './piano-audio.js', './tuner.js', './about.js', './metronome.js', './synth.js', './drums.js', './core.js', './ear-curriculum.js', './ear-learning.js', './ear-chords.js', './ear-scales.js', './ear-intervals.js', './ear-settings.js', './practice-studio.js', './sing-note.js', './recording-studio.js', './audio.js', './storage.js', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png', './icons/icon-maskable-512.png', './icons/apple-touch-icon.png', './icons/icon.svg'];
