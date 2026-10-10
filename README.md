@@ -14,6 +14,9 @@ A free, installable music practice web app with **Grand Piano**, **Chromatic Tun
 
 ## Changelog
 
+- 1.1.12 · Fixed missed update checks: app now requests a service worker update at startup and when returning to foreground, not just on network reconnection. Preserves opt-in activation and offline storage.
+
+
 - 1.1.11 · Experimental non-destructive real-time note-by-note pitch correction via existing local SoundTouch worklet. After analyzing a monophonic vocal recording, enable the pitch engine and toggle Pitch correction ON. Strength 0–100%; correction follows detected note intervals and selected scale, resetting to base transpose outside notes. Effects/export remain original-only; mobile timing and artifacts need testing.
 
 
