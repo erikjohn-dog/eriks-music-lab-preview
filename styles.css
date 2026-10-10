@@ -823,3 +823,6 @@ body:has(#home:not([hidden])) .icon-button{background:var(--surface);border:1px 
 
 /* Preview 1.1.8 detected note segments */
 .rs-detected-notes{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}.rs-note-chip{border:1px solid var(--rs-border);border-radius:9px;background:var(--rs-surface);color:var(--rs-ink);font-size:.75rem;padding:7px 9px;cursor:pointer}.rs-note-chip:focus-visible{outline:2px solid var(--rs-neon)}
+
+/* Preview 1.1.9 scale correction preview */
+.rs-scale-controls{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:10px;font-size:.75rem}.rs-scale-controls select{background:var(--rs-surface);color:var(--rs-ink);border:1px solid var(--rs-border);border-radius:8px;padding:7px}.rs-scale-controls span{color:var(--rs-muted)}.rs-note-chip.rs-note-correction{border-color:var(--rs-neon);color:var(--rs-neon)}
