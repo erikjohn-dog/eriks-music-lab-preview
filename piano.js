@@ -115,9 +115,12 @@ function staffPosition(midi){
 }
 function drawNotation(){
   staffNotes.replaceChildren();
-  const active=[...pointers.values()].filter(p=>p.playing).map(p=>p.midi);
+  const active=[...new Set([...pointers.values()].filter(p=>p.playing).map(p=>p.midi))].sort((a,b)=>a-b);
   const midi=active.at(-1);
-  notationPanel.querySelector('#piano-current-note').textContent=midi===undefined?'Play a key':label(midi)+' · '+germanLabel(midi);
+  const summary=notationPanel.querySelector('#piano-current-note');
+  summary.textContent=midi===undefined?'Play a key':label(midi)+' · '+germanLabel(midi);
+  if(active.length===2){summary.textContent=active.map(n=>label(n)+' · '+germanLabel(n)).join(' | ')+' | '+(harmonyModule?.intervalName(active[0],active[1])||'');}
+  if(active.length>=3)summary.textContent=harmonyModule?.recognizeChord(active)||'Unidentified chord';
   if(midi===undefined)return;
   const {y,top,sharp}=staffPosition(midi);
   const x=214;
