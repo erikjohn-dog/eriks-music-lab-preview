@@ -19,6 +19,8 @@ jobs:
           node-version: '22'
       - name: Install pinned SoundTouch and bundler
         run: npm install --no-save --no-package-lock --ignore-scripts @soundtouchjs/audio-worklet@2.1.1 esbuild@0.25.12
+      - name: Inspect installed package
+        run: ls -la node_modules/@soundtouchjs/audio-worklet/.dist && test -f node_modules/@soundtouchjs/audio-worklet/.dist/index.js
       - name: Build local browser files
         run: |
           mkdir -p vendor
