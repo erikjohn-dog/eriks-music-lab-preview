@@ -406,3 +406,11 @@ body:has(#home:not([hidden])) .icon-button{background:var(--surface);border:1px 
 .ear-exercise-card:nth-child(3) .ear-exercise-symbol{color:#ffd19c}
 .ear-exercise-card:nth-child(4) .ear-exercise-symbol{color:#9de8d4}
 @media(max-width:370px){.ear-menu-topbar{gap:6px}.ear-menu-topbar .ear-settings-trigger{padding:8px 10px}.ear-exercise-symbol svg{width:30px;height:30px}}
+
+/* 1.0.49 shared quiz length setting */
+.ear-question-count{display:grid;gap:10px;padding:14px;border-radius:13px;border:1px solid #45516a;background:#1b293b}
+.ear-question-count span{display:grid;gap:5px}
+.ear-question-count strong{font-size:14px}
+.ear-question-count small{font-size:12px;color:var(--muted)}
+.ear-question-count select{width:100%;min-height:43px;border-radius:10px;padding:8px 12px;background:#29364b;color:#f5f1ff;border:1px solid #65718c;font-size:15px}
+.piano-notation-heading #piano-current-note{font-size:clamp(13px,3.5vw,17px);font-weight:700;letter-spacing:.02em}
