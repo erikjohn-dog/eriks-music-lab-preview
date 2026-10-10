@@ -119,7 +119,7 @@ function drawNotation(){
   const midi=active.at(-1);
   const summary=notationPanel.querySelector('#piano-current-note');
   summary.textContent=midi===undefined?'Play a key':label(midi)+' · '+germanLabel(midi);
-  if(active.length===2){summary.textContent=active.map(n=>label(n)+' · '+germanLabel(n)).join(' | ')+' | '+(harmonyModule?.intervalName(active[0],active[1])||'');}
+  if(active.length===2){summary.replaceChildren(...[label(active[0])+' · '+germanLabel(active[0]),label(active[1])+' · '+germanLabel(active[1]),harmonyModule?.intervalName(active[0],active[1])||''].map(value=>{const line=document.createElement('span');line.textContent=value;return line;}));}
   if(active.length>=3)summary.textContent=harmonyModule?.recognizeChord(active)||'Unidentified chord';
   if(midi===undefined)return;
   for(const [i,note] of active.entries()){
