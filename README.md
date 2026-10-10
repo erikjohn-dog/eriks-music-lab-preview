@@ -14,6 +14,9 @@ A free, installable music practice web app with **Grand Piano**, **Chromatic Tun
 
 ## Changelog
 
+- 1.1.6 · Added optional offline vocal pitch map (beta): analyze up to 90 seconds of monophonic audio and show detected MIDI pitches over time. Approximate autocorrelation detection may miss quiet notes or report octave errors. No pitch correction is applied.
+
+
 - 1.1.5 · Added reset for SoundTouch pitch and playback speed, smoothed SoundTouch speed updates and added a clear warning when combined processing may create artifacts. Auto-Tune, multi-track and rendered FX export remain future work.
 
 
