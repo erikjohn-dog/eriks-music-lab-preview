@@ -776,3 +776,11 @@ body:has(#home:not([hidden])) .icon-button{background:var(--surface);border:1px 
 :root[data-theme=dark] #sing-note-stage .sing-target{background:linear-gradient(155deg,rgba(155,94,208,.19),rgba(118,79,168,.08))}
 :root[data-theme=dark] #sing-note-stage .primary{background:#c9a0fa!important;border-color:#c9a0fa!important;color:#21142e!important}
 #sing-note-stage #sing-target.sing-note-correct{color:#19ee73!important}
+
+/* Recording Studio – cyan accent, responsive single-track editor */
+#recording-studio-stage{--rs-accent:#087e91;--rs-panel:#eefafd;--rs-border:#b8e2e9;--rs-text:#163a44}
+#recording-studio-stage>.eyebrow,#recording-studio-back{color:var(--rs-accent)}
+#open-recording-studio .module-icon{color:#16b8c8;background:rgba(18,190,205,.12);border-radius:16px}
+.rs-panel{background:var(--rs-panel);border:1px solid var(--rs-border);border-radius:20px;padding:clamp(14px,4vw,24px);margin:18px 0;color:var(--rs-text);min-width:0}
+.rs-panel h2{margin:0 0 14px}.rs-controls{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:16px}.rs-panel audio{width:100%;display:block;margin:16px 0}.rs-panel input[type=text],.rs-panel input[type=file]{max-width:100%;min-width:0;box-sizing:border-box}.rs-panel input[type=range]{width:100%;accent-color:var(--rs-accent)}.rs-panel .primary{background:#0795a7;color:white;border-color:#0795a7}.rs-library-row{display:flex;gap:8px;align-items:center;justify-content:space-between;margin:8px 0}.rs-library-row .secondary{flex:1;min-width:0;overflow-wrap:anywhere;text-align:left}.rs-panel button{max-width:100%}
+:root[data-theme=dark] #recording-studio-stage{--rs-accent:#65e1ed;--rs-panel:#152e38;--rs-border:#29515b;--rs-text:#ecfcff}
