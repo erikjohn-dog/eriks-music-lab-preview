@@ -53,7 +53,12 @@ function startLoopWatch(){if(!loopFrame&&loopOn&&!audio.paused)loopFrame=request
 audio.addEventListener('timeupdate',()=>{enforceLoop();updateTransport();});audio.addEventListener('playing',startLoopWatch);audio.addEventListener('ended',()=>{if(loopOn&&loopIn!==null&&loopOut!==null){audio.currentTime=loopIn;audio.play().then(startLoopWatch).catch(()=>{});}});audio.addEventListener('pause',updateTransport);audio.addEventListener('loadedmetadata',()=>{paintWave();updateTransport();});
 $('play').addEventListener('click',async()=>{if(!current)return;if(audio.paused){try{await audio.play();}catch(e){message('Playback unavailable: '+e.message);}}else audio.pause();updateTransport();});
 $('rewind').addEventListener('click',()=>{audio.currentTime=0;updateTransport();});
-$('waveform').addEventListener('click',e=>{if(!Number.isFinite(audio.duration)||!audio.duration)return;const rect=e.currentTarget.getBoundingClientRect();audio.currentTime=Math.max(0,Math.min(audio.duration,viewStart+(e.clientX-rect.left)/rect.width*windowLength()));updateTransport();});
+// Direct touch/pointer scrubbing on the waveform; no Safari media scrubber needed.
+const waveCanvas=$('waveform');let waveDragging=false;
+function seekWave(clientX){if(!Number.isFinite(audio.duration)||audio.duration<=0)return;const rect=waveCanvas.getBoundingClientRect();audio.currentTime=Math.max(0,Math.min(audio.duration,viewStart+(clientX-rect.left)/rect.width*windowLength()));updateTransport();syncWave();}
+waveCanvas.addEventListener('pointerdown',e=>{if(e.button!==0&&e.pointerType==='mouse')return;waveDragging=true;waveCanvas.setPointerCapture(e.pointerId);seekWave(e.clientX);});
+waveCanvas.addEventListener('pointermove',e=>{if(waveDragging)seekWave(e.clientX);});
+for(const event of ['pointerup','pointercancel','lostpointercapture'])waveCanvas.addEventListener(event,()=>{waveDragging=false;});
 $('library-toggle').addEventListener('click',()=>{const open=$('library-toggle').closest('.rs-app').classList.toggle('rs-library-open');$('library-toggle').setAttribute('aria-expanded',String(open));});
 $('zoom').addEventListener('input',()=>{const center=viewStart+windowLength()/2;zoom=Number($('zoom').value);$('zoom-value').textContent=zoom+'×';viewStart=Math.max(0,center-windowLength()/2);paintWave();});
 $('mark-in').addEventListener('click',()=>{if(!current||!Number.isFinite(audio.duration))return;loopIn=audio.currentTime;if(loopOut!==null&&loopOut<=loopIn)loopOut=null;syncWave();message('IN at '+formatTime(loopIn));});
