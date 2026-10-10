@@ -186,23 +186,37 @@ function stopPointer(pointerId) {
     drawNotation();
   }
 }
+function keyAtPoint(x,y){
+ const hit=document.elementFromPoint(x,y);
+ return hit?.closest('.piano-key')?.closest('.piano-keyboard')===keyboard?hit.closest('.piano-key'):null;
+}
+function movePianoPointer(id,key){
+ const state=pointers.get(id);
+ if(!state||!key||state.key===key)return;
+ const midi=Number(key.dataset.midi);
+ const old=state.midi;
+ state.key.classList.remove('pressed');
+ if(pianoSound==='sine')sineOff(old);else engine.noteOff(old);
+ state.key=key;state.midi=midi;
+ key.classList.add('pressed');
+ if(pianoSound==='sine')sineOn(midi);else engine.noteOn(midi);
+ drawNotation();
+}
 viewport.addEventListener('pointerdown',event=>{
-  if(event.pointerType==='mouse'&&event.button!==0)return;
-  const key=event.target.closest('.piano-key');
-  if(!key||(pianoSound==='piano'&&!engine.buffers.size))return;
-  const midi=Number(key.dataset.midi);
-  pointers.set(event.pointerId,{midi,key,x:event.clientX,y:event.clientY,playing:true});
-  key.classList.add('pressed');
-  drawNotation();
-  if(pianoSound==='sine')sineOn(midi);
-  else engine.noteOn(midi);
+ if(event.pointerType==='mouse'&&event.button!==0)return;
+ const key=event.target.closest('.piano-key');
+ if(!key||(pianoSound==='piano'&&!engine.buffers.size))return;
+ if(event.pointerType!=='mouse')event.preventDefault();
+ const midi=Number(key.dataset.midi);
+ pointers.set(event.pointerId,{midi,key,playing:true});
+ if(event.pointerType!=='mouse')try{viewport.setPointerCapture(event.pointerId)}catch{}
+ key.classList.add('pressed');drawNotation();
+ if(pianoSound==='sine')sineOn(midi);else engine.noteOn(midi);
 });
 viewport.addEventListener('pointermove',event=>{
-  const state=pointers.get(event.pointerId);
-  if(!state)return;
-  // Native horizontal touch scrolling remains enabled. Release any note
-  // when the finger turns into a swipe; pointercancel also handles scrolling.
-  if(Math.abs(event.clientX-state.x)>12||Math.abs(event.clientY-state.y)>18)stopPointer(event.pointerId);
+ if(!pointers.has(event.pointerId))return;
+ if(event.pointerType!=='mouse')event.preventDefault();
+ movePianoPointer(event.pointerId,keyAtPoint(event.clientX,event.clientY));
 });
 for(const type of ['pointerup','pointercancel','lostpointercapture'])
   viewport.addEventListener(type,event=>stopPointer(event.pointerId));
