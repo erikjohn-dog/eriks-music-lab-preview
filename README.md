@@ -14,6 +14,9 @@ A free, installable music practice web app with **Grand Piano**, **Chromatic Tun
 
 ## Changelog
 
+- 1.1.17 · Collapsible Vocal Pitch Analysis and FX Rack; four accessible neon rotary effect knobs controlled by vertical touch drag or keyboard, backed by existing sliders; recording transport moved into arrangement beneath the editor and above the empty state. Single track and manual SoundTouch transpose unchanged.
+
+
 - 1.1.16 · Neon Sampler preview naming; corrected home-card pink hover and Start recording accent; pointer-drag waveform scrubbing; compact 2-column iPhone FX cards with manual transpose in an optional section; edge-swipe navigation back while avoiding interactive controls. Single-track only; audio recordings preserved.
 
 
