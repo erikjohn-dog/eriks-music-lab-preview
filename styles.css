@@ -719,3 +719,20 @@ body:has(#home:not([hidden])) .icon-button{background:var(--surface);border:1px 
 /* Unified audio cache status and touch-first Practice Studio entry */
 #sample-cache-status{white-space:pre-line;line-height:1.75}
 @media(hover:none){#open-practice-studio:hover{transform:none}}
+
+/* Preview 1.0.87: consistent back links and floating Practice Timer */
+#piano-stage .piano-return{background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;padding:7px 0!important;color:var(--accent)!important}
+#practice-studio-back{color:#b439ed!important;background:transparent!important}
+:root[data-theme=dark] #practice-studio-back{color:#d99aff!important}
+#ps-floating-timer:not([hidden]){position:fixed;z-index:900;bottom:calc(16px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);width:min(calc(100vw - 28px),530px);box-sizing:border-box;padding:11px 15px;border:1px solid rgba(190,104,240,.5);border-radius:18px;background:#211b38;color:#f6eeff;box-shadow:0 9px 35px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:space-between;gap:12px}
+#ps-floating-timer[hidden]{display:none!important}
+#ps-floating-timer strong{display:block;font-variant-numeric:tabular-nums}
+#ps-floating-timer small{display:block;font-size:.72rem;color:#c7b7dd}
+.ps-timer-actions{display:flex;gap:7px}
+.ps-timer-actions button{background:#a53bdf;color:white;border:0;border-radius:10px;padding:9px 11px;font:inherit;font-size:.8rem;font-weight:650}
+.ps-timer-clock{font-size:clamp(2.5rem,9vw,5rem);font-weight:800;text-align:center;font-variant-numeric:tabular-nums;color:var(--ps-violet);padding:15px}
+.ps-timer-segment{display:flex;justify-content:space-between;gap:12px;padding:12px;border-bottom:1px solid var(--ps-border)}
+.ps-timer-segment.current{border-left:4px solid #aa48e7;background:var(--ps-tint)}
+.ps-template-row{display:grid;grid-template-columns:2fr 1fr;gap:12px;margin:10px 0}
+.ps-weekly-goal{padding:12px 0;border-bottom:1px solid var(--ps-border)}
+@media(max-width:520px){#ps-floating-timer:not([hidden]){bottom:calc(12px + env(safe-area-inset-bottom));padding:10px 12px}.ps-template-row{grid-template-columns:minmax(0,2fr) minmax(0,1fr)}}
