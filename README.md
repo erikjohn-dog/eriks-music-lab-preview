@@ -14,6 +14,9 @@ A free, installable music practice web app with **Grand Piano**, **Chromatic Tun
 
 ## Changelog
 
+- 1.1.3 · Experimental opt-in SoundTouchJS AudioWorklet live transposition (±5 semitones). Uses external pinned CDN modules for this feasibility test, so first activation requires network and offline operation is not guaranteed. Existing playback and original recordings remain available as fallback; iOS audio testing is pending.
+
+
 - 1.1.2 · Removed the unsuccessful granular transpose beta due to hollow, quiet vocals and unreliable pitch changes. Existing audio tools remain unchanged; a more suitable pitch-shifting engine will be evaluated before reintroducing transpose.
 
 
