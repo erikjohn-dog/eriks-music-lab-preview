@@ -60,8 +60,37 @@ voices.set(note,{gain:amp,filter,osc,lfos,release:settings.release});order.push(
 function lift(note){held.delete(note);release(note);keyboard.querySelectorAll('[data-midi="'+note+'"]').forEach(k=>k.classList.remove('pressed'));}
 function allOff(){generation++;held.clear();lastFrequency=null;for(const note of [...voices.keys()])lift(note);pointers.clear();keyboard.querySelectorAll('.pressed').forEach(k=>k.classList.remove('pressed'));}
 function buildKeyboard(){allOff();keyboard.replaceChildren();const oct=Number(document.getElementById('synth-octave').value),baseMidi=12*(oct+1),black=new Set([1,3,6,8,10]);let white=0;for(let n=0;n<24;n++){const semi=n%12,midi=baseMidi+n,isBlack=black.has(semi),key=document.createElement('button');key.type='button';key.dataset.midi=String(midi);key.className='synth-key '+(isBlack?'black':'white');key.style.left=(isBlack?white*48-15:white*48)+'px';if(!isBlack){white++;if(semi===0)key.textContent='C'+(oct+Math.floor(n/12));}key.setAttribute('aria-label','Play MIDI note '+midi);keyboard.append(key);}}
-keyboard.addEventListener('pointerdown',e=>{const key=e.target.closest('.synth-key');if(!key)return;e.preventDefault();const note=Number(key.dataset.midi);pointers.set(e.pointerId,note);try{key.setPointerCapture(e.pointerId);}catch{}press(note);});
-function pointerEnd(e){if(!pointers.has(e.pointerId))return;const note=pointers.get(e.pointerId);pointers.delete(e.pointerId);lift(note);}
+function synthKeyAt(x,y){
+ const hit=document.elementFromPoint(x,y);
+ const key=hit?.closest('.synth-key');
+ return key&&key.parentElement===keyboard?key:null;
+}
+keyboard.addEventListener('pointerdown',e=>{
+ if(e.pointerType==='mouse'&&e.button!==0)return;
+ const key=e.target.closest('.synth-key');if(!key)return;
+ e.preventDefault();
+ const note=Number(key.dataset.midi);
+ pointers.set(e.pointerId,note);
+ try{keyboard.setPointerCapture(e.pointerId)}catch{}
+ press(note);
+});
+keyboard.addEventListener('pointermove',e=>{
+ if(!pointers.has(e.pointerId))return;
+ e.preventDefault();
+ const key=synthKeyAt(e.clientX,e.clientY);
+ if(!key)return;
+ const note=Number(key.dataset.midi),previous=pointers.get(e.pointerId);
+ if(note===previous)return;
+ pointers.set(e.pointerId,note);
+ if(![...pointers.values()].includes(previous))lift(previous);
+ press(note);
+});
+function pointerEnd(e){
+ if(!pointers.has(e.pointerId))return;
+ const note=pointers.get(e.pointerId);
+ pointers.delete(e.pointerId);
+ if(![...pointers.values()].includes(note))lift(note);
+}
 for(const type of ['pointerup','pointercancel','lostpointercapture'])keyboard.addEventListener(type,pointerEnd);
 document.getElementById('synth-octave').addEventListener('change',()=>{buildKeyboard();save();});
 document.getElementById('synth-panic').addEventListener('click',allOff);
