@@ -414,3 +414,8 @@ body:has(#home:not([hidden])) .icon-button{background:var(--surface);border:1px 
 .ear-question-count small{font-size:12px;color:var(--muted)}
 .ear-question-count select{width:100%;min-height:43px;border-radius:10px;padding:8px 12px;background:#29364b;color:#f5f1ff;border:1px solid #65718c;font-size:15px}
 .piano-notation-heading #piano-current-note{font-size:clamp(13px,3.5vw,17px);font-weight:700;letter-spacing:.02em}
+
+/* 1.0.50 multi-note portrait staff summary */
+.piano-notation-heading #piano-current-note{display:flex;flex-direction:column;align-items:flex-end;gap:2px;text-align:right;line-height:1.3;letter-spacing:0;font-size:13px;min-width:0;overflow-wrap:anywhere}
+.piano-notation-heading #piano-current-note span:last-child:nth-child(3){color:#e4d3ff;font-weight:800}
+.piano-notation-heading{align-items:flex-start}
