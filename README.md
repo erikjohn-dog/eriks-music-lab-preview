@@ -14,6 +14,9 @@ A free, installable music practice web app with **Grand Piano**, **Chromatic Tun
 
 ## Changelog
 
+- 1.1.11 · Experimental non-destructive real-time note-by-note pitch correction via existing local SoundTouch worklet. After analyzing a monophonic vocal recording, enable the pitch engine and toggle Pitch correction ON. Strength 0–100%; correction follows detected note intervals and selected scale, resetting to base transpose outside notes. Effects/export remain original-only; mobile timing and artifacts need testing.
+
+
 - 1.1.10 · Added Detect key to Vocal Note Curve. Ranks all 12 major and 12 natural-minor scales using duration-weighted detected notes, shows percentage of note duration in scale and flags ambiguous matches. Auto-selects suggested key and mode for correction preview; no audio changes.
 
 
