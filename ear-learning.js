@@ -121,3 +121,36 @@ function renderChordLevel(){
   question=0;correct=0;chordQuestions=makeChordQuestions(level,getEarPractice().questionCount);renderChordQuestion();
  };
 }
+
+function renderIntervalLevel(){
+ const info=INTERVAL_LEVELS[level],theory=level<3;
+ content.innerHTML=title(info[0])+'<div class="ear-lesson-card"><span class="ear-lesson-label">'+(theory?'LEARN · THEORY & SOUND':'PRACTICE · LISTEN & IDENTIFY')+'</span><p>'+escapeHTML(info[1])+'</p>'+(theory?'<button id="ear-listen" class="secondary" type="button">▶ Listen to example</button><p id="ear-audio-status" role="status"></p>':'')+'</div>'+(theory?'<button id="ear-levels" class="primary" type="button">Back to chapter →</button>':'<button id="ear-practice" class="primary" type="button">Start practice →</button>');
+ if(theory){
+  document.getElementById('ear-listen').onclick=()=>playNotes([0,info[3]],false,60);
+  document.getElementById('ear-levels').onclick=renderChapter;
+  if(getEarPractice().autoPlayLesson)playNotes([0,info[3]],false,60);
+ }else document.getElementById('ear-practice').onclick=()=>{
+  question=0;correct=0;intervalQuestions=makeIntervalQuestions(level,getEarPractice().questionCount);renderIntervalQuestion();
+ };
+}
+function playInterval(item){
+ playNotes(item.notes.map(n=>n-item.notes[0]),item.direction==='together',item.notes[0]);
+}
+function renderIntervalQuestion(){
+ if(question>=intervalQuestions.length){renderResults();return;}
+ answered=false;
+ const item=intervalQuestions[question];
+ content.innerHTML=title('Which Interval?')+'<p class="subtitle">Question '+(question+1)+' of '+intervalQuestions.length+'</p><div class="ear-quiz-card"><button id="ear-replay" class="ear-play-button" type="button">▶</button><p id="ear-audio-status" role="status"></p><p>Identify the distance between the two notes.</p><div class="ear-answer-grid">'+INTERVAL_OPTIONS.map(option=>'<button class="ear-answer" data-interval="'+escapeHTML(option.name)+'">'+escapeHTML(option.name)+'</button>').join('')+'</div><div id="ear-feedback" aria-live="polite"></div><button id="ear-next" class="primary" type="button" hidden>Next question →</button></div>';
+ document.getElementById('ear-replay').onclick=()=>playInterval(item);
+ if(getEarPractice().autoPlayNext)playInterval(item);
+ content.querySelectorAll('[data-interval]').forEach(b=>b.onclick=()=>{
+  if(answered)return;
+  answered=true;
+  const good=b.dataset.interval===item.answer;
+  if(good)correct++;
+  content.querySelectorAll('[data-interval]').forEach(x=>x.disabled=true);
+  document.getElementById('ear-feedback').textContent=good?'Correct! '+item.answer+' spans '+item.semitones+' semitones.':'Not quite. That was '+item.answer+' ('+item.semitones+' semitones). Replay to compare.';
+  document.getElementById('ear-next').hidden=false;
+ });
+ document.getElementById('ear-next').onclick=()=>{question++;renderIntervalQuestion();};
+}
