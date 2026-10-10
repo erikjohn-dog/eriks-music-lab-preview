@@ -643,3 +643,13 @@ body:has(#home:not([hidden])) .icon-button{background:var(--surface);border:1px 
 .ps-progress span{display:block;height:100%;background:linear-gradient(90deg,#139e88,#5277c5);border-radius:12px}
 .ps-goal-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}
 .ps-stage-label{color:#168783;font-weight:650}
+
+/* Preview 1.0.83 — compact Practice Studio header and centered month controls */
+#practice-studio-stage{padding-top:0!important}
+#practice-studio-stage>.back-home{margin-top:0!important;margin-bottom:12px!important}
+#practice-studio-stage>.eyebrow{margin-top:0!important}
+#practice-studio-stage>h1{margin-top:8px!important}
+.ps-month-nav button{display:inline-flex!important;align-items:center!important;justify-content:center!important;line-height:1!important;padding:0!important;vertical-align:middle!important;flex:0 0 36px}
+.ps-month-nav{display:flex;align-items:center;justify-content:center}
+.ps-time-statistics .ps-stats{margin:10px 0 0}
+@media(max-width:520px){#practice-studio-stage>.back-home{margin-bottom:8px!important}}
