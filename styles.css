@@ -826,3 +826,6 @@ body:has(#home:not([hidden])) .icon-button{background:var(--surface);border:1px 
 
 /* Preview 1.1.9 scale correction preview */
 .rs-scale-controls{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:10px;font-size:.75rem}.rs-scale-controls select{background:var(--rs-surface);color:var(--rs-ink);border:1px solid var(--rs-border);border-radius:8px;padding:7px}.rs-scale-controls span{color:var(--rs-muted)}.rs-note-chip.rs-note-correction{border-color:var(--rs-neon);color:var(--rs-neon)}
+
+/* Preview 1.1.10 key estimation */
+.rs-key-result{display:block;margin-top:7px;color:var(--rs-muted);font-size:.72rem;line-height:1.5}.rs-scale-controls button:disabled{opacity:.5}
