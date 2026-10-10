@@ -2,7 +2,7 @@
   "id": "./",
   "name": "Erik’s Music Lab",
   "short_name": "Erik’s Music Lab",
-  "description": "Music tools and ear training, including Perfect Pitch Trainer. Works offline.",
+  "description": "Music instruments, ear training, practice tools and Neon Sampler audio recording with vocal pitch analysis. Offline-ready.",
   "lang": "en",
   "start_url": "./",
   "scope": "./",
