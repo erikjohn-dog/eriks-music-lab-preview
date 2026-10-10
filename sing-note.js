@@ -5,9 +5,9 @@ const root=document.getElementById('sing-note-content');
 const NAMES=['C','C♯','D','D♯','E','F','F♯','G','G♯','A','A♯','B'];
 const note=m=>NAMES[m%12]+(Math.floor(m/12)-1);
 const hz=m=>440*Math.pow(2,(m-69)/12);
-let mode='single',ref=60,target=65,stream=null,ctx=null,analyser=null,source=null,raf=0,oscillators=[],audio=null,started=0,stable=0,detected=null,octaveFree=true,holdStart=0,nextTimeout=0,playToken=0;
-function render(){root.innerHTML='<div class="ps-panel"><h2>Reference type</h2><label>Exercise<select id="sing-mode"><option value="single">Single note</option><option value="chord">Major or minor chord</option><option value="scale">Major scale</option></select></label><p class="micro">The reference is named. Sing the target note shown below.</p><label class="sing-option"><input type="checkbox" id="sing-octave" checked> Accept any octave of the target note</label><p class="micro">Reference sound follows Ear Trainer General Settings (Piano or Sine wave). Hold the correct note for 1.5 seconds to advance automatically.</p><div class="sing-target"><small>REFERENCE</small><h2 id="sing-reference"></h2><button class="primary" id="sing-play" type="button">▶ Play reference</button><small>TARGET NOTE</small><h1 id="sing-target"></h1><p id="sing-readout" role="status">Tap Start microphone, then sing.</p><button class="primary" id="sing-mic" type="button">Start microphone</button><button id="sing-next" type="button">New challenge</button></div><p class="micro">Use headphones to prevent the reference sound from entering the microphone. Microphone audio is processed locally and is never recorded or uploaded. Pitch tracking works best with a steady solo voice in a quiet room.</p></div>';root.querySelector('#sing-mode').value=mode;root.querySelector('#sing-mode').onchange=e=>{mode=e.target.value;newChallenge();};root.querySelector('#sing-play').onclick=play;root.querySelector('#sing-mic').onclick=()=>stream?stop():start();root.querySelector('#sing-next').onclick=newChallenge;root.querySelector('#sing-octave').checked=octaveFree;root.querySelector('#sing-octave').onchange=e=>{octaveFree=e.target.checked;holdStart=0;};newChallenge();}
-function newChallenge(){clearTimeout(nextTimeout);nextTimeout=0;holdStart=0;ref=57+Math.floor(Math.random()*13);target=ref+[-7,-5,-4,-3,-2,0,2,3,4,5,7][Math.floor(Math.random()*11)];target=Math.max(48,Math.min(81,target));root.querySelector('#sing-reference').textContent=mode==='single'?note(ref):mode==='chord'?note(ref)+' '+(ref%2?'minor':'major'):' '+note(ref)+' major scale';root.querySelector('#sing-target').textContent=note(target);root.querySelector('#sing-readout').textContent='Listen, then sing '+note(target)+'.';}
+let mode='single',ref=60,target=65,stream=null,ctx=null,analyser=null,source=null,raf=0,oscillators=[],audio=null,started=0,stable=0,detected=null,octaveFree=true,holdStart=0,nextTimeout=0,playToken=0,graceStart=0;
+function render(){root.innerHTML='<div class="ps-panel"><h2>Reference type</h2><label>Exercise<select id="sing-mode"><option value="single">Single note</option><option value="chord">Major or minor chord</option><option value="scale">Major scale</option></select></label><p class="micro">The reference is named. Sing the target note shown below.</p><label class="sing-option"><input type="checkbox" id="sing-octave" checked> Accept any octave of the target note</label><p class="micro">Reference sound follows Ear Trainer General Settings (Piano or Sine wave). Hold the correct note for 1.5 seconds to advance automatically.</p><div class="sing-target"><small>REFERENCE</small><h2 id="sing-reference"></h2><button class="primary" id="sing-play" type="button">▶ Play reference</button><small>TARGET NOTE</small><h1 id="sing-target"></h1><p id="sing-readout" role="status">Tap Start microphone, then sing.</p><button class="primary" id="sing-mic" type="button">Start microphone</button><button id="sing-next" type="button">New challenge</button></div><p class="micro">Use headphones to prevent the reference sound from entering the microphone. Microphone audio is processed locally and is never recorded or uploaded. Pitch tracking works best with a steady solo voice in a quiet room.</p></div>';root.querySelector('#sing-mode').value=mode;root.querySelector('#sing-mode').onchange=e=>{mode=e.target.value;newChallenge();};root.querySelector('#sing-play').onclick=play;root.querySelector('#sing-mic').onclick=()=>stream?stop():start();root.querySelector('#sing-next').onclick=newChallenge;root.querySelector('#sing-octave').checked=octaveFree;root.querySelector('#sing-octave').onchange=e=>{octaveFree=e.target.checked;holdStart=0;graceStart=0;};newChallenge();}
+function newChallenge(){clearTimeout(nextTimeout);nextTimeout=0;holdStart=0;graceStart=0;root.querySelector('#sing-target')?.classList.remove('sing-note-correct');ref=57+Math.floor(Math.random()*13);target=ref+[-7,-5,-4,-3,-2,0,2,3,4,5,7][Math.floor(Math.random()*11)];target=Math.max(48,Math.min(81,target));root.querySelector('#sing-reference').textContent=mode==='single'?note(ref):mode==='chord'?note(ref)+' '+(ref%2?'minor':'major'):' '+note(ref)+' major scale';root.querySelector('#sing-target').textContent=note(target);root.querySelector('#sing-readout').textContent='Listen, then sing '+note(target)+'.';}
 async function play(){
  const token=++playToken;
  oscillators.forEach(o=>{try{o.stop();}catch{}});oscillators=[];
@@ -32,16 +32,29 @@ async function start(){if(!navigator.mediaDevices?.getUserMedia){root.querySelec
 function tick(){
  if(!analyser)return;
  const buf=new Float32Array(analyser.fftSize);analyser.getFloatTimeDomainData(buf);
- const f=pitch(buf,ctx.sampleRate),el=root.querySelector('#sing-readout');
- if(f){const midi=69+12*Math.log2(f/440),nearest=Math.round(midi),diff=octaveFree?((midi-target+6)%12+12)%12-6:midi-target,cents=Math.round(diff*100);
-  if(Math.abs(cents)<=35){if(!holdStart)holdStart=performance.now();const held=performance.now()-holdStart;
-   if(held>=1500){el.textContent='✓ Correct! Loading next challenge…';holdStart=0;nextTimeout=setTimeout(()=>{nextTimeout=0;newChallenge();if(analyser)tick();},650);return;}
-   el.textContent='✓ '+note(nearest)+' · Hold for '+Math.max(0,(1.5-held/1000)).toFixed(1)+'s';
-  }else{holdStart=0;el.textContent='Detected '+note(nearest)+' · '+(cents>=0?'+':'')+cents+' cents from '+(octaveFree?NAMES[target%12]:note(target));}
- }else{holdStart=0;el.textContent='Listening… sing a steady note.';}
+ const f=pitch(buf,ctx.sampleRate),el=root.querySelector('#sing-readout'),targetEl=root.querySelector('#sing-target'),now=performance.now();
+ let cents=null,nearest=null;
+ if(f){const midi=69+12*Math.log2(f/440);nearest=Math.round(midi);const diff=octaveFree?((midi-target+6)%12+12)%12-6:midi-target;cents=Math.round(diff*100);}
+ const correct=cents!==null&&Math.abs(cents)<=50;
+ targetEl?.classList.toggle('sing-note-correct',correct);
+ if(correct){
+  if(!holdStart)holdStart=now;
+  graceStart=0;
+  const held=now-holdStart;
+  if(held>=1500){
+   el.textContent='✓ '+note(nearest)+' · '+(cents>=0?'+':'')+cents+' cents · Correct! Next challenge…';
+   holdStart=0;graceStart=0;
+   nextTimeout=setTimeout(()=>{nextTimeout=0;newChallenge();if(analyser)tick();},650);return;
+  }
+  el.textContent='✓ '+note(nearest)+' · '+(cents>=0?'+':'')+cents+' cents · Hold '+Math.max(0,(1.5-held/1000)).toFixed(1)+'s';
+ }else{
+  if(holdStart){if(!graceStart)graceStart=now;if(now-graceStart>220){holdStart=0;graceStart=0;}}
+  if(cents!==null)el.textContent='Detected '+note(nearest)+' · '+(cents>=0?'+':'')+cents+' cents from '+(octaveFree?NAMES[target%12]:note(target));
+  else el.textContent='Listening… sing a steady note.';
+ }
  raf=requestAnimationFrame(tick);
 }
 
-function stop(update=true){clearTimeout(nextTimeout);nextTimeout=0;holdStart=0;cancelAnimationFrame(raf);raf=0;analyser=null;source?.disconnect();source=null;stream?.getTracks().forEach(t=>t.stop());stream=null;ctx?.close();ctx=null;if(update&&root.querySelector('#sing-mic'))root.querySelector('#sing-mic').textContent='Start microphone';}
+function stop(update=true){clearTimeout(nextTimeout);nextTimeout=0;holdStart=0;graceStart=0;root.querySelector('#sing-target')?.classList.remove('sing-note-correct');cancelAnimationFrame(raf);raf=0;analyser=null;source?.disconnect();source=null;stream?.getTracks().forEach(t=>t.stop());stream=null;ctx?.close();ctx=null;if(update&&root.querySelector('#sing-mic'))root.querySelector('#sing-mic').textContent='Start microphone';}
 document.addEventListener('musiclab:sing-note-hidden',()=>{stop();playToken++;sharedPiano.allNotesOff();oscillators.forEach(o=>{try{o.stop();}catch{}});oscillators=[];});
 render();
