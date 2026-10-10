@@ -347,10 +347,11 @@ async function setupOffline() {
       worker?.addEventListener('statechange', () => { if (worker.state === 'installed') { offerUpdate(); checkOffline(); } });
     });
     navigator.serviceWorker.addEventListener('controllerchange', () => { if (reloading) location.reload(); else checkOffline(); });
-    await navigator.serviceWorker.ready; checkOffline();
+    await navigator.serviceWorker.ready; checkOffline(); await checkUpdates();
   } catch { $('offline-status').textContent = 'Offline setup failed. Reopen online using HTTPS.'; }
 }
 window.addEventListener('online', () => { checkUpdates(); checkOffline(); });
+document.addEventListener('visibilitychange', () => { if (!document.hidden) checkUpdates(); });
 document.addEventListener('musiclab:request-general-settings', () => {
   document.dispatchEvent(new CustomEvent('musiclab:general-settings', { detail: { theme: settings.theme, animations: settings.animations } }));
 });
