@@ -1,6 +1,6 @@
 # Erik’s Music Lab
 
-A free, installable music practice web app with **Grand Piano**, **Chromatic Tuner**, **Metronome**, **Synth**, **Drum Machine**, **Practice Studio**, and a guided **Ear Trainer** for pitch, intervals, chords and scales. Explore music, train your ear and build musical confidence at your own pace. Settings and training progress are saved locally; offline use is supported after the app and required audio assets have been cached.
+A free, installable music practice web app with **Grand Piano**, **Chromatic Tuner**, **Metronome**, **Synth**, **Drum Machine**, **Practice Studio**, **Recording Studio**, and a guided **Ear Trainer** for pitch, intervals, chords and scales. Explore music, train your ear and build musical confidence at your own pace. Settings and training progress are saved locally; offline use is supported after the app and required audio assets have been cached.
 
 **Preview app:** https://erikjohn-dog.github.io/eriks-music-lab-preview/
 
@@ -13,6 +13,9 @@ A free, installable music practice web app with **Grand Piano**, **Chromatic Tun
 5. Launch **Erik’s Music Lab** from your Home Screen while online so offline files can finish caching.
 
 ## Changelog
+
+- 1.0.92 · Introduced Recording Studio: microphone recording, audio import, local IndexedDB library, playback speed, rename, deletion and original-file export. First step toward non-destructive effects and multi-track editing.
+
 
 - 1.0.91 · Added Cache All Audio Samples in General Settings with progress and retry support for missing Grand Piano and drum samples. Preserved existing sample caches across service-worker updates.
 
