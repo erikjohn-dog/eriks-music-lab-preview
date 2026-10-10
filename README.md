@@ -14,6 +14,8 @@ A free, installable music practice web app with **Grand Piano**, **Chromatic Tun
 
 ## Changelog
 
+- 1.0.88 · Practice Studio eyebrow matches neon magenta theme. Sing the Note gains coordinated Ear Trainer light/dark styling, octave-independent pitch option, automatic challenge advancement after 1.5 seconds of correct singing, and three-second piano/sine reference playback using Ear Trainer General Settings.
+
 - 1.0.87 · Practice Studio adds a persistent Practice Timer usable while navigating other tools, editable completion notes and ratings, reusable multi-block session templates, weekly goals by instrument and progress, plus harmonized All tools navigation styling in Piano and Practice Studio.
 
 - 1.0.86 · General Audio Samples Status now checks Grand Piano, electronic and acoustic Drum Kit caches and explains the synthesized kit; About copy simplified, daily average clarified, Practice Studio touch entry improved.
