@@ -20,7 +20,7 @@ function applyAppearance() {
   const theme = settings.theme === 'system' ? (systemTheme.matches ? 'dark' : 'light') : settings.theme;
   document.documentElement.dataset.theme = theme;
   document.documentElement.dataset.animations = String(settings.animations);
-  document.querySelector('meta[name=theme-color]').content = theme === 'dark' ? '#111a18' : '#f5f4ef';
+  document.querySelector('meta[name=theme-color]').content = theme === 'dark' ? '#0b111b' : '#f3f7fc';
 }
 systemTheme.addEventListener('change', applyAppearance);
 function stopAudio() {
