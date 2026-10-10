@@ -14,6 +14,9 @@ A free, installable music practice web app with **Grand Piano**, **Chromatic Tun
 
 ## Changelog
 
+- 1.1.5 · Added reset for SoundTouch pitch and playback speed, smoothed SoundTouch speed updates and added a clear warning when combined processing may create artifacts. Auto-Tune, multi-track and rendered FX export remain future work.
+
+
 - 1.1.4 · Replaced broken external SoundTouch imports with local vendor paths. GitHub Actions workflow builds the pinned 2.1.1 node bundle and processor into vendor/; app-shell caching includes both. Deployment requires successful workflow build and commit; otherwise the new service worker intentionally refuses incomplete shell installation.
 
 
