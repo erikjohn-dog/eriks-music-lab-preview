@@ -817,3 +817,6 @@ body:has(#home:not([hidden])) .icon-button{background:var(--surface);border:1px 
 
 /* Preview 1.1.6 vocal pitch map */
 .rs-pitch-chart{padding:12px;border:1px solid var(--rs-border);border-radius:12px;margin:10px 0;background:var(--rs-surface2)}.rs-pitch-chart .rs-pitch-row{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px}.rs-pitch-chart strong{font-size:.75rem;letter-spacing:.09em}.rs-pitch-chart canvas{width:100%;height:110px;display:block;border-radius:8px}.rs-pitch-chart small{display:block;color:var(--rs-muted);font-size:.7rem;line-height:1.5;margin-top:7px}
+
+/* Preview 1.1.7 pitch curve readability */
+.rs-pitch-chart canvas{height:150px;touch-action:pan-y}
