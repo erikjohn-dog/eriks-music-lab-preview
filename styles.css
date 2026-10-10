@@ -832,3 +832,6 @@ body:has(#home:not([hidden])) .icon-button{background:var(--surface);border:1px 
 
 /* Preview 1.1.11 note correction beta */
 .rs-correction-controls{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:10px 0 5px;font-size:.75rem}.rs-correction-controls input{width:100px;max-width:35vw;accent-color:#f032aa}.rs-correction-controls small{flex-basis:100%;color:var(--rs-muted);line-height:1.5}.rs-correction-controls button:disabled{opacity:.5}
+
+/* Preview 1.1.13: analysis first, optional experimental correction */
+.rs-advanced-pitch{margin:12px 0 8px;padding:10px 12px;border:1px solid rgba(240,50,170,.23);border-radius:12px}.rs-advanced-pitch summary{cursor:pointer;font-size:.79rem;font-weight:650;line-height:1.5}.rs-advanced-pitch p{margin:8px 0;color:var(--rs-muted);font-size:.75rem;line-height:1.5}.rs-advanced-pitch:not([open]) .rs-correction-controls{display:none}
