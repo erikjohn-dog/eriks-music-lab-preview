@@ -146,3 +146,36 @@ export function makeFinalChordQuestions(c,l,n=10){
  for(let i=out.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[out[i],out[j]]=[out[j],out[i]];}
  return out;
 }
+
+export const CHORD_CHAPTER_11=[["Tonic Function","In a major key, I is the tonic: the tonal home. Hear C major followed by G7 and a return to C (I–V7–I).",1,"tonic"],["Dominant Function","V7 contains the leading tone and a tritone that tend to resolve to I. Hear C–G7–C in C major.",1,"dominant"],["Predominant Function","IV and ii commonly lead toward V. Hear C–F–G7–C (I–IV–V7–I).",1,"predominant"],["Tonic vs. Dominant","Listen to a C-major-key context and identify whether the final chord is I or V7. The key is transposed between questions.",0,["tonic","dominant"]],["Predominant vs. Dominant","Hear I followed by IV or V7. Identify the function of the final chord.",0,["predominant","dominant"]],["Functional Harmony Challenge","Recognize I, IV and V7 as the final chord after an establishing tonic, across different major keys.",0,["tonic","predominant","dominant"]]];
+export const CHORD_CHAPTER_12=[["Authentic Cadence","V7–I moves from dominant tension to tonic resolution. Hear G7–C in C major.",1,"authentic"],["Plagal Cadence","IV–I moves from subdominant to tonic. Hear F–C in C major.",1,"plagal"],["Deceptive Cadence","V7–vi moves from dominant to relative minor instead of I. Hear G7–Am in C major.",1,"deceptive"],["Authentic vs. Plagal","Both cadences end on I. Identify whether V7 or IV leads to tonic.",0,["authentic","plagal"]],["Authentic vs. Deceptive","Hear whether V7 resolves to I or moves unexpectedly to vi.",0,["authentic","deceptive"]],["Three Cadences","Identify authentic, plagal and deceptive cadences in transposed major keys.",0,["authentic","plagal","deceptive"]],["Progressions Challenge","Recognize authentic, plagal and deceptive endings after a tonic key-establishing chord.",0,["authentic","plagal","deceptive"]]];
+Object.assign(CHORD_NAMES,{tonic:'Tonic (I)',dominant:'Dominant (V7)',predominant:'Predominant (IV)',authentic:'Authentic (V7–I)',plagal:'Plagal (IV–I)',deceptive:'Deceptive (V7–vi)'});
+const CONTEXT_CHAPTERS={10:CHORD_CHAPTER_11,11:CHORD_CHAPTER_12};
+export const contextChordLevels=c=>CONTEXT_CHAPTERS[c]?CONTEXT_CHAPTERS[c].map(x=>x[0]):finalChordLevels(c);
+export const contextChordLesson=(c,l)=>CONTEXT_CHAPTERS[c]?CONTEXT_CHAPTERS[c][l][1]:finalChordLesson(c,l);
+export const contextChordTheory=(c,l)=>CONTEXT_CHAPTERS[c]?!!CONTEXT_CHAPTERS[c][l][2]:finalChordTheory(c,l);
+function contextSequence(chapter,quality,root,level){
+ const I=[0,4,7],IV=[5,9,12],V7=[7,11,14,17],vi=[9,12,16];
+ if(chapter===10){
+  if(level<3)return quality==='predominant'?[I,IV,V7,I]:[I,V7,I];
+  return [I,quality==='tonic'?I:quality==='dominant'?V7:IV];
+ }
+ const ending=quality==='authentic'?[V7,I]:quality==='plagal'?[IV,I]:[V7,vi];
+ return level===6?[I,...ending]:ending;
+}
+export function contextChordDemo(chapter,level){
+ if(!CONTEXT_CHAPTERS[chapter])return finalChordDemo(chapter,level);
+ const quality=CONTEXT_CHAPTERS[chapter][level][3];
+ return {quality,root:60,sequence:contextSequence(chapter,quality,60,level)};
+}
+export function makeContextChordQuestions(chapter,level,count=10){
+ if(!CONTEXT_CHAPTERS[chapter])return makeFinalChordQuestions(chapter,level,count);
+ const entry=CONTEXT_CHAPTERS[chapter][level];if(!entry||entry[2])return [];
+ const options=entry[3],out=[];
+ for(let i=0;i<count;i++){
+  const quality=options[i%options.length],root=48+Math.floor(Math.random()*13);
+  out.push({quality,root,sequence:contextSequence(chapter,quality,root,level),options});
+ }
+ for(let i=out.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[out[i],out[j]]=[out[j],out[i]];}
+ return out;
+}
