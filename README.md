@@ -14,6 +14,9 @@ A free, installable music practice web app with **Grand Piano**, **Chromatic Tun
 
 ## Changelog
 
+- 1.1.18 · Fixed stray literal 'undefined' in arrangement markup and moved recording transport directly beneath waveform timeline. Pitch analysis now follows transport and is shown only for selected recordings; transport remains available before first recording.
+
+
 - 1.1.17 · Collapsible Vocal Pitch Analysis and FX Rack; four accessible neon rotary effect knobs controlled by vertical touch drag or keyboard, backed by existing sliders; recording transport moved into arrangement beneath the editor and above the empty state. Single track and manual SoundTouch transpose unchanged.
 
 
