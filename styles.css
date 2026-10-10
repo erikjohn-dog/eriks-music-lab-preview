@@ -690,3 +690,28 @@ body:has(#home:not([hidden])) .icon-button{background:var(--surface);border:1px 
 .ps-breakdown>div{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;padding:10px 4px;border-bottom:1px solid var(--ps-border);font-size:.84rem}
 .ps-breakdown>div span{text-align:right}
 @media(max-width:520px){#practice-studio-stage .ps-shell .ps-fields,.ps-insight-filters{grid-template-columns:1fr}.ps-insight-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.ps-day-detail{align-items:flex-start;flex-wrap:wrap}.ps-day-actions{width:100%;justify-content:flex-start}}
+
+/* Practice Studio 1.0.85 — coordinated neon-violet accent */
+#open-practice-studio{--tool-accent:#b32eff}
+#open-practice-studio .module-icon{color:#bf36ff!important;background:rgba(189,54,255,.13)!important;border:1px solid rgba(189,54,255,.19);border-radius:16px;filter:none!important}
+#open-practice-studio .module-action{color:#b32eff}
+#practice-studio-stage .ps-shell{--ps-violet:#9431d6;--ps-violet-soft:#f5eafb;--ps-violet-line:#e4c8f5;--ps-chip:var(--ps-violet-soft);--ps-tint:#f9f1ff}
+#practice-studio-stage .ps-shell .ps-tabs button.active{background:#9332d3;border-color:#9332d3;box-shadow:0 6px 20px rgba(147,50,211,.22)}
+#practice-studio-stage .ps-shell .ps-stats strong,#practice-studio-stage .ps-shell .ps-kicker,#practice-studio-stage .ps-shell .ps-text-link,#practice-studio-stage .ps-shell .ps-soft-button{color:var(--ps-violet)}
+#practice-studio-stage .ps-shell .ps-soft-button{border-color:var(--ps-violet-line)}
+#practice-studio-stage .ps-shell .ps-upcoming{border-left-color:#a53bdf}
+#practice-studio-stage .ps-shell .ps-day.ps-today{border-color:#b448ed}
+#practice-studio-stage .ps-shell .ps-day.ps-selected{outline-color:#a53bdf}
+#practice-studio-stage .ps-shell .ps-milestone-number{background:#983bd4}
+#practice-studio-stage .ps-shell .ps-progress span,#practice-studio-stage .ps-shell .ps-bar i{background:linear-gradient(90deg,#a735e5,#6867d8)}
+#practice-studio-stage .ps-shell .ps-stage-label{color:var(--ps-violet)}
+:root[data-theme=dark] #practice-studio-stage .ps-shell{--ps-violet:#d99aff;--ps-violet-soft:#352246;--ps-violet-line:#67417d;--ps-chip:#352246;--ps-tint:#281e3b}
+:root[data-theme=dark] #practice-studio-stage .ps-shell .ps-stats strong{color:#d99aff}
+:root[data-theme=dark] #practice-studio-stage .ps-shell .ps-kicker,:root[data-theme=dark] #practice-studio-stage .ps-shell .ps-text-link,:root[data-theme=dark] #practice-studio-stage .ps-shell .ps-soft-button{color:#d99aff}
+:root[data-theme=dark] #open-practice-studio .module-icon{color:#e29aff!important;background:rgba(189,54,255,.2)!important}
+.ps-date-stepper{display:flex;align-items:stretch;gap:6px;width:100%;min-width:0}
+#practice-studio-stage .ps-shell .ps-date-stepper input[type=date]{flex:1 1 auto;width:0;min-width:0;max-width:100%}
+.ps-date-stepper button{flex:0 0 34px;display:grid;place-items:center;border:1px solid var(--ps-border);border-radius:10px;background:var(--ps-chip);color:var(--ps-violet);font-size:1.4rem;line-height:1;padding:0}
+.ps-repeat-fieldset{border-color:var(--ps-border)!important}
+.ps-repeat-fieldset[hidden],#ps-repeat-settings[hidden],#ps-repeat-weekdays[hidden]{display:none!important}
+@media(max-width:520px){.ps-date-stepper button{flex-basis:38px}}
