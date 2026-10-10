@@ -35,7 +35,7 @@ function tick(){
  const f=pitch(buf,ctx.sampleRate),el=root.querySelector('#sing-readout');
  if(f){const midi=69+12*Math.log2(f/440),nearest=Math.round(midi),diff=octaveFree?((midi-target+6)%12+12)%12-6:midi-target,cents=Math.round(diff*100);
   if(Math.abs(cents)<=35){if(!holdStart)holdStart=performance.now();const held=performance.now()-holdStart;
-   if(held>=1500){el.textContent='✓ Correct! Loading next challenge…';holdStart=0;nextTimeout=setTimeout(()=>{nextTimeout=0;newChallenge();},650);return;}
+   if(held>=1500){el.textContent='✓ Correct! Loading next challenge…';holdStart=0;nextTimeout=setTimeout(()=>{nextTimeout=0;newChallenge();if(analyser)tick();},650);return;}
    el.textContent='✓ '+note(nearest)+' · Hold for '+Math.max(0,(1.5-held/1000)).toFixed(1)+'s';
   }else{holdStart=0;el.textContent='Detected '+note(nearest)+' · '+(cents>=0?'+':'')+cents+' cents from '+(octaveFree?NAMES[target%12]:note(target));}
  }else{holdStart=0;el.textContent='Listening… sing a steady note.';}
