@@ -575,3 +575,10 @@ body:has(#home:not([hidden])) .icon-button{background:var(--surface);border:1px 
  :root[data-theme=light] #piano-stage:not([hidden]) .piano-toolbar>.piano-scroll-strip{background:#e5edf7;border-color:#bbcee3}
  :root[data-theme=light] #piano-stage:not([hidden]) .piano-toolbar>.piano-scroll-strip .piano-scroll-thumb{background:linear-gradient(180deg,#698de1,#385fc4)}
 }
+
+/* High-contrast ink for notation on white paper, without touching dark SVGs. */
+:root[data-theme=light] #piano-staff-lines line{stroke:#788da6}
+:root[data-theme=light] #piano-staff-lines text{fill:#516d90}
+:root[data-theme=light] #piano-staff-notes line{stroke:#385fc4}
+:root[data-theme=light] #piano-staff-notes ellipse{fill:#385fc4}
+:root[data-theme=light] #piano-staff-notes text{fill:#385fc4}
