@@ -473,3 +473,94 @@ body:has(#home:not([hidden])) .icon-button{background:var(--surface);border:1px 
   box-shadow:0 -6px 0 #e2f8ff55,0 6px 0 #e2f8ff55
  }
 }
+
+/* Preview 1.0.58 — daylight design system. All rules are light-only:
+   the existing dark palette and instrument styling remain untouched. */
+:root[data-theme=light]{
+ color-scheme:light;
+ --bg:#f3f7fc;--surface:#ffffff;--ink:#17283d;--muted:#576b83;
+ --line:#d7e2ee;--accent:#126d9b;--accent-ink:#fff;
+ --soft:#e6f2fa;--correct:#126342;--incorrect:#b22d43;
+ --good-bg:#e3f5e9;--bad-bg:#fff0ee;
+ --shadow:0 12px 34px #16385612;
+}
+:root[data-theme=light] body{background:linear-gradient(160deg,#f9fcff 0%,#eef4fb 70%,#f3f7fc 100%) fixed}
+:root[data-theme=light] .app-header .brand-symbol{background:#e6f0f9;border-color:#d1dfed;box-shadow:0 6px 18px #26496516}
+:root[data-theme=light] .module-card{background:#fff;border-color:#d8e3ef;box-shadow:0 8px 24px #1936530d}
+:root[data-theme=light] .module-card:nth-child(1){--tool-accent:#7951b3}
+:root[data-theme=light] .module-card:nth-child(2){--tool-accent:#385fc4}
+:root[data-theme=light] .module-card:nth-child(3){--tool-accent:#087d6c}
+:root[data-theme=light] .module-card:nth-child(4){--tool-accent:#a96814}
+:root[data-theme=light] .module-card:nth-child(5){--tool-accent:#087ba6}
+:root[data-theme=light] .module-card:nth-child(6){--tool-accent:#bb4667}
+:root[data-theme=light] .module-card:hover{background:#f9fcff;border-color:var(--tool-accent)}
+:root[data-theme=light] :is(.tone-card,.tuner-panel,.metronome-panel,.synth-panel,.settings-section,.stat-section,.sheet){box-shadow:0 12px 34px #17375212;border-color:var(--line)}
+:root[data-theme=light] :is(.sheet,.piano-settings-dialog){background:#f8fbff;color:var(--ink);border-color:var(--line)}
+:root[data-theme=light] :is(input,select,textarea){color-scheme:light}
+:root[data-theme=light] :is(#training,.ear-trainer-menu,.ear-learning-stage){--accent:#7951b3;--accent-ink:#fff;--soft:#f1eafb}
+:root[data-theme=light] #piano-stage{--accent:#385fc4;--accent-ink:#fff;--soft:#e9efff}
+:root[data-theme=light] #tuner-stage{--accent:#087d6c;--accent-ink:#fff;--soft:#e1f5ef;--correct:#087d6c}
+:root[data-theme=light] #metronome-stage{--accent:#a96814;--accent-ink:#fff;--soft:#fff0dc}
+:root[data-theme=light] #synth-stage{--accent:#087ba6;--accent-ink:#fff;--soft:#e1f4fb}
+:root[data-theme=light] #drums-stage{--accent:#bb4667;--accent-ink:#fff;--soft:#ffebf1}
+:root[data-theme=light] :is(#training,#tuner-stage,#metronome-stage,#synth-stage,#drums-stage) .primary{background:var(--accent);color:#fff}
+:root[data-theme=light] #training .tone-card{background:radial-gradient(ellipse at top,#f3eafb,#fff 70%)}
+:root[data-theme=light] #training .wave-mark span{background:var(--accent)}
+:root[data-theme=light] .pitch-picker-button[aria-pressed=true]{background:#eee3fa;color:#603797;border-color:#a47cc8;box-shadow:inset 0 0 0 1px #a47cc833}
+:root[data-theme=light] #tuner-stage .tuner-panel{background:radial-gradient(ellipse at 50% 10%,#e5f8f2,#fff 75%)}
+:root[data-theme=light] #tuner-stage .tuner-note{color:#087d6c;text-shadow:none}
+:root[data-theme=light] #tuner-stage .tuner-meter{background:linear-gradient(90deg,#e3eaf4,#cdece2 45%,#cdece2 55%,#e3eaf4);border-color:#bad5d1}
+:root[data-theme=light] #tuner-stage .tuner-meter-center{background:#087d6c}
+:root[data-theme=light] #tuner-stage .tuner-needle{background:#087d6c;box-shadow:0 0 8px #087d6c55}
+:root[data-theme=light] #metronome-stage .metronome-panel{background:radial-gradient(ellipse at 50% 0%,#fff0db,#fff 70%)}
+:root[data-theme=light] #metronome-stage .metronome-tempo output{color:#a96814}
+:root[data-theme=light] #metronome-stage .metronome-beat{border-color:#a96814}
+:root[data-theme=light] #metronome-stage .metronome-beat.active{background:#a96814;box-shadow:0 0 12px #d39a4955}
+:root[data-theme=light] #synth-stage .synth-panel{background:linear-gradient(160deg,#eaf8fd,#fff 46%)}
+:root[data-theme=light] #synth-stage .synth-tabs{background:#e6f1f7;border-color:#cbdfe9}
+:root[data-theme=light] #synth-stage .synth-tabs button[aria-selected=true]{background:#fff;color:#087ba6;box-shadow:0 2px 10px #123e5a15}
+:root[data-theme=light] #synth-stage .synth-macros label{background:#eef7fc;border-color:#d0e3ed}
+:root[data-theme=light] #synth-stage .synth-visual{background:linear-gradient(145deg,#e6f5fb,#d7edf7);border-color:#b8d8e7}
+:root[data-theme=light] #synth-stage .synth-subtab[aria-selected=true]{background:#087ba6;color:#fff}
+:root[data-theme=light] #drums-stage .drums-pad{background:linear-gradient(145deg,#fff4f7,#f5e9f4);border-color:#e8cbd8;color:#71384f;box-shadow:inset 0 1px 1px #fff,0 4px 12px #74405912}
+:root[data-theme=light] #drums-stage .drums-pad:active,:root[data-theme=light] #drums-stage .drums-pad.hit{background:linear-gradient(145deg,#f9b5ca,#e49dbd);color:#56253e;box-shadow:0 0 14px #d5669566}
+:root[data-theme=light] #drums-stage .drums-light-stage{background:radial-gradient(ellipse at center,#f5dff0,#e8e8f7 85%);border-color:#dec6e2}
+:root[data-theme=light] #drums-stage .drums-light-title{color:#8d3f79;text-shadow:none}
+:root[data-theme=light] #drums-stage .drums-neon-grid{background-image:linear-gradient(#ad5c9e20 1px,transparent 1px),linear-gradient(90deg,#ad5c9e20 1px,transparent 1px)}
+:root[data-theme=light] #drums-stage .drums-step.active{background:#bb4667;border-color:#bb4667}
+:root[data-theme=light] #drums-stage .drums-step.playhead{box-shadow:0 0 0 2px #9b3155,0 0 10px #d775a0}
+:root[data-theme=light] .ear-exercise-card{background:linear-gradient(135deg,#fff,#f7f3ff);border-color:#e0d5ed;box-shadow:0 8px 22px #43315b0c;color:var(--ink)}
+:root[data-theme=light] .ear-exercise-symbol{background:#f0e7fb;border-color:#dfc8f4;color:#7951b3}
+:root[data-theme=light] .ear-exercise-card:nth-child(1) .ear-exercise-symbol{color:#7951b3}
+:root[data-theme=light] .ear-exercise-card:nth-child(2) .ear-exercise-symbol{color:#176f9e}
+:root[data-theme=light] .ear-exercise-card:nth-child(3) .ear-exercise-symbol{color:#aa6817}
+:root[data-theme=light] .ear-exercise-card:nth-child(4) .ear-exercise-symbol{color:#087d6c}
+:root[data-theme=light] .ear-exercise-arrow{color:#7951b3}
+:root[data-theme=light] .ear-soon{color:#755c8c}
+:root[data-theme=light] .ear-course-progress{color:#7951b3}
+:root[data-theme=light] .ear-chapter-card,:root[data-theme=light] .ear-level-card{background:#fff;border-color:#ded5eb;color:var(--ink);box-shadow:0 5px 18px #4b32600a}
+:root[data-theme=light] .ear-chapter-card small,:root[data-theme=light] .ear-level-card small{color:var(--muted)}
+:root[data-theme=light] .ear-chapter-index,:root[data-theme=light] .ear-level-number{background:#f0e7fb;color:#7951b3}
+:root[data-theme=light] .ear-chapter-state,:root[data-theme=light] .ear-level-stars{color:#95621d}
+:root[data-theme=light] :is(.ear-lesson-card,.ear-quiz-card,.ear-results-card){background:linear-gradient(145deg,#fcfaff,#f1f5fc);border-color:#e0d6ee;color:var(--ink)}
+:root[data-theme=light] .ear-lesson-card p{color:#33445e}
+:root[data-theme=light] .ear-lesson-label{color:#7951b3}
+:root[data-theme=light] .ear-lesson-tip{color:#526780!important}
+:root[data-theme=light] .ear-learning-stage .primary{background:#7951b3;color:#fff}
+:root[data-theme=light] .ear-answer{background:#fff;border-color:#d5c8e6;color:#28364c}
+:root[data-theme=light] .ear-answer:not(:disabled):active{background:#eee4fa;border-color:#7951b3}
+:root[data-theme=light] .ear-play-button{background:#e8daf8;color:#673ca0;border-color:#c6a8e6}
+:root[data-theme=light] #ear-feedback{color:#5e447b}
+:root[data-theme=light] .ear-big-stars{color:#ac761c}
+:root[data-theme=light] .ear-settings-trigger{background:#f0e7fb;color:#67419b;border-color:#dcc9f1}
+:root[data-theme=light] .ear-sound-choice,:root[data-theme=light] .ear-flow-choice,:root[data-theme=light] .ear-question-count{background:#fff;border-color:#d8dfe9;color:var(--ink)}
+:root[data-theme=light] .ear-sound-choice:has(input:checked){background:#f2eafa;border-color:#9d78c6}
+:root[data-theme=light] #ear-audio-status{color:#7553a1}
+:root[data-theme=light] .piano-notation{background:linear-gradient(145deg,#fff,#edf3fb)!important;border-color:#d2deed!important}
+:root[data-theme=light] .piano-notation-heading{color:#51657e}
+:root[data-theme=light] .piano-notation-heading #piano-current-note{color:#385fc4}
+:root[data-theme=light] .piano-viewport{border-color:#bacbdd;background:#e6edf5}
+:root[data-theme=light] .piano-scroll-strip,:root[data-theme=light] #piano-stage:not([hidden]) .piano-scroll-strip{background:#e5edf7;border-color:#bbcee3}
+:root[data-theme=light] .piano-scroll-thumb,:root[data-theme=light] #piano-stage:not([hidden]) .piano-scroll-thumb{background:linear-gradient(180deg,#698de1,#385fc4);box-shadow:0 1px 6px #19375b30}
+:root[data-theme=light] .piano-scroll-grip{background:#fff;box-shadow:0 -7px 0 #ffffff99,0 7px 0 #ffffff99}
+:root[data-theme=light] .piano-settings-button{background:#e9efff;color:#385fc4;border-color:#d3def4}
