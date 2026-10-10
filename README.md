@@ -14,6 +14,9 @@ A free, installable music practice web app with **Grand Piano**, **Chromatic Tun
 
 ## Changelog
 
+- 1.1.8 · Vocal note segmentation beta: group stable detected pitch frames into note intervals, display note names and timestamps, and tap a note to start playback at its onset. Detection is approximate; no automatic tuning or audio changes are applied.
+
+
 - 1.1.7 · Improved vocal pitch detection with adaptive silence threshold, 45 ms frame spacing, brief-gap interpolation and connected note curve labeled with note names. Still an experimental monophonic detector, not pitch correction.
 
 
