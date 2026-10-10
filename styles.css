@@ -840,3 +840,13 @@ body:has(#home:not([hidden])) .icon-button{background:var(--surface);border:1px 
 .rs-note-details{margin:10px 0;padding:9px 11px;border:1px solid rgba(240,50,170,.2);border-radius:11px}.rs-note-details summary{cursor:pointer;font-size:.76rem;font-weight:600}.rs-note-detail-table{margin-top:10px;overflow-x:auto}.rs-note-detail-row{display:grid;grid-template-columns:.8fr 1.6fr 1fr .85fr;gap:6px;min-width:285px;padding:7px 0;border-bottom:1px solid rgba(200,160,200,.12);font-size:.73rem;font-variant-numeric:tabular-nums}.rs-note-detail-head{font-weight:700;opacity:.7}.rs-note-details small{display:block;margin-top:8px;line-height:1.5;opacity:.7}
 
 /* Preview 1.1.15: retired experimental automatic correction controls. */
+
+/* Preview 1.1.16: Neon Sampler iPhone touch and consistent card accent */
+#open-recording-studio{--tool-accent:#f440b5;--module-accent:#f440b5}
+#open-recording-studio .module-action{color:#f440b5}
+#open-recording-studio:hover,#open-recording-studio:focus-visible{border-color:#f440b5}
+#rs-waveform{touch-action:none;cursor:ew-resize;user-select:none;-webkit-user-select:none}
+.rs-wave-wrap{touch-action:none}
+.rs-fx-advanced{margin:8px 14px 14px;padding:10px 12px;border:1px solid var(--rs-border);border-radius:12px;background:var(--rs-surface2)}
+.rs-fx-advanced summary{font-weight:700;font-size:.8rem;cursor:pointer;color:var(--rs-neon);padding:5px 0}
+@media(max-width:650px){.rs-effect-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.rs-effect-card{padding:12px 10px;gap:10px}.rs-effect-card input[type=range]{min-height:32px}.rs-edit-toolbar .rs-mini-button{min-height:40px}.rs-wave-wrap #rs-waveform{height:185px}}
