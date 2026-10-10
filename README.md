@@ -14,6 +14,9 @@ A free, installable music practice web app with **Grand Piano**, **Chromatic Tun
 
 ## Changelog
 
+- 1.1.7 · Improved vocal pitch detection with adaptive silence threshold, 45 ms frame spacing, brief-gap interpolation and connected note curve labeled with note names. Still an experimental monophonic detector, not pitch correction.
+
+
 - 1.1.6 · Added optional offline vocal pitch map (beta): analyze up to 90 seconds of monophonic audio and show detected MIDI pitches over time. Approximate autocorrelation detection may miss quiet notes or report octave errors. No pitch correction is applied.
 
 
