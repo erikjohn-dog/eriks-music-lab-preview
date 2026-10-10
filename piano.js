@@ -196,11 +196,14 @@ function movePianoPointer(id,key){
  if(!state||!key||state.key===key)return;
  const midi=Number(key.dataset.midi);
  const old=state.midi;
- state.key.classList.remove('pressed');
- if(pianoSound==='sine')sineOff(old);else engine.noteOff(old);
  state.key=key;state.midi=midi;
+ if(![...pointers.values()].some(p=>p.midi===old)){
+  keyboard.querySelector('[data-midi="'+old+'"]').classList.remove('pressed');
+  if(pianoSound==='sine')sineOff(old);else engine.noteOff(old);
+ }
+ const already=[...pointers.entries()].some(([otherId,p])=>otherId!==id&&p.midi===midi);
  key.classList.add('pressed');
- if(pianoSound==='sine')sineOn(midi);else engine.noteOn(midi);
+ if(!already){if(pianoSound==='sine')sineOn(midi);else engine.noteOn(midi);}
  drawNotation();
 }
 viewport.addEventListener('pointerdown',event=>{
