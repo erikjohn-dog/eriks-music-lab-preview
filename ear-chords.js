@@ -120,3 +120,29 @@ export function makeUpperChordQuestions(c,l,n=10){
  for(let i=out.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[out[i],out[j]]=[out[j],out[i]];}
  return out;
 }
+
+export const CHORD_CHAPTER_9=[["Dominant Flat Nine","C7♭9 = C–E–G–B♭–D♭ (0,4,7,10,13). The flat ninth creates strong tension.",1,"domFlat9"],["Dominant Sharp Nine","C7♯9 = C–E–G–B♭–D♯ (0,4,7,10,15). The sharp ninth is enharmonically E♭, but spelled D♯.",1,"domSharp9"],["Dominant Flat Five","C7♭5 = C–E–G♭–B♭ (0,4,6,10). The fifth is lowered by one semitone.",1,"domFlat5"],["Dominant Sharp Five","C7♯5 = C–E–G♯–B♭ (0,4,8,10). The fifth is raised by one semitone.",1,"aug7"],["Flat 9 vs. Sharp 9","Identify whether the altered ninth lies one semitone above the octave or three semitones above it.",0,["domFlat9","domSharp9"]],["Flat 5 vs. Sharp 5","Listen for the lowered or raised fifth in dominant seventh chords.",0,["domFlat5","aug7"]],["Altered Dominants Challenge","Identify four altered dominant qualities using changing roots and mixed playback.",0,["domFlat9","domSharp9","domFlat5","aug7"]]];
+export const CHORD_CHAPTER_10=[["Close Position","A close-position Cmaj7 places C–E–G–B within one octave: 0,4,7,11. Listen to its compact texture.",1,"closeMaj7"],["Open Position","An open Cmaj7 voicing spreads the same notes across a wider range: C–G–B–E (0,7,11,16).",1,"openMaj7"],["Drop-2 Voicing","Starting with Cmaj7 in close position C–E–G–B, drop the second-highest note G by an octave: G–C–E–B. Relative to G, offsets are 0,5,9,16.",1,"drop2Maj7"],["Shell Voicing","A C7 shell uses the root, third and seventh: C–E–B♭ (0,4,10). The fifth is optional; the third and seventh define dominant function.",1,"shellDom7"],["Close vs. Open","Identify compact versus spread Cmaj7 structures across changing roots.",0,["closeMaj7","openMaj7"]],["Open vs. Drop-2","Hear two different wide Cmaj7 arrangements: open position and drop-2.",0,["openMaj7","drop2Maj7"]],["Voicing Challenge","Identify close, open, drop-2 and dominant shell voicings by their spacing and chord color.",0,["closeMaj7","openMaj7","drop2Maj7","shellDom7"]]];
+Object.assign(CHORD_SHAPES,{domFlat9:[0,4,7,10,13],domSharp9:[0,4,7,10,15],domFlat5:[0,4,6,10],closeMaj7:[0,4,7,11],openMaj7:[0,7,11,16],drop2Maj7:[0,5,9,16],shellDom7:[0,4,10]});
+Object.assign(CHORD_NAMES,{domFlat9:'Dominant flat nine',domSharp9:'Dominant sharp nine',domFlat5:'Dominant flat five',closeMaj7:'Close position',openMaj7:'Open position',drop2Maj7:'Drop-2 voicing',shellDom7:'Dominant shell'});
+const VOICING_CHAPTERS={8:CHORD_CHAPTER_9,9:CHORD_CHAPTER_10};
+export const finalChordLevels=c=>VOICING_CHAPTERS[c]?VOICING_CHAPTERS[c].map(x=>x[0]):upperChordLevels(c);
+export const finalChordLesson=(c,l)=>VOICING_CHAPTERS[c]?VOICING_CHAPTERS[c][l][1]:upperChordLesson(c,l);
+export const finalChordTheory=(c,l)=>VOICING_CHAPTERS[c]?!!VOICING_CHAPTERS[c][l][2]:upperChordTheory(c,l);
+export function finalChordDemo(c,l){
+ if(!VOICING_CHAPTERS[c])return upperChordDemo(c,l);
+ const quality=VOICING_CHAPTERS[c][l][3];
+ return typeof quality==='string'?{quality,root:60,presentation:'combined'}:null;
+}
+export function makeFinalChordQuestions(c,l,n=10){
+ if(!VOICING_CHAPTERS[c])return makeUpperChordQuestions(c,l,n);
+ const entry=VOICING_CHAPTERS[c][l];if(!entry||entry[2])return [];
+ const options=entry[3],out=[];
+ for(let i=0;i<n;i++){
+  const quality=options[i%options.length],root=48+Math.floor(Math.random()*19),offsets=CHORD_SHAPES[quality];
+  const presentation=c===9?'arpeggiated':l===6?['harmonic','arpeggiated','combined'][Math.floor(Math.random()*3)]:l===5?'arpeggiated':'harmonic';
+  out.push({quality,root,notes:offsets.map(x=>root+x),presentation,options});
+ }
+ for(let i=out.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[out[i],out[j]]=[out[j],out[i]];}
+ return out;
+}
