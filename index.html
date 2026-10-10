@@ -21,6 +21,8 @@
   <script type="module" src="./metronome.js"></script>
   <script type="module" src="./synth.js"></script>
   <script type="module" src="./drums.js"></script>
+  <script type="module" src="./practice-studio.js"></script>
+  <script type="module" src="./sing-note.js"></script>
 </head>
 <body>
 <div class="app-shell">
@@ -32,7 +34,7 @@
     <div class="eyebrow">WELCOME TO ERIK’S MUSIC LAB</div>
     <h1>Your Musical Companion.</h1>
     <p class="subtitle">Explore, practice, and create — all in one place.</p>
-    <div class="home-section-label">YOUR TOOLS <span>06 MODULES</span></div>
+    <div class="home-section-label">YOUR TOOLS <span>07 MODULES</span></div>
     <div class="module-grid">
       <button type="button" class="module-card" id="open-perfect-pitch">
         <span class="module-icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17C12 8 19 4 27 5c9 1 14 8 13 17-.5 7-5 10-9 14-3 3-4 8-11 8-6 0-10-4-10-10"/><path d="M19 28c-2-3-3-7-2-11 1-5 5-8 10-8 6 0 10 5 10 11 0 5-3 7-7 10-2 2-3 5-5 7"/><path d="M21 23c-1-4 1-8 5-8 4 0 6 3 6 6"/></svg></span>
@@ -50,15 +52,19 @@
       <button type="button" class="module-card" id="open-metronome"><span class="module-icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h14l9 32H8L17 8Z"/><path d="M24 32l8-19"/><circle cx="24" cy="32" r="2" fill="currentColor"/></svg></span><span class="module-title">Metronome</span><span class="module-description">Find your rhythm.</span><span class="module-action">Start practicing <span aria-hidden="true">↗</span></span></button>
       <button type="button" class="module-card" id="open-synth"><span class="module-icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="5" y="9" width="38" height="30" rx="6"/><path d="M11 24h5l4-9 7 18 5-9h5"/><circle cx="37" cy="17" r="2" fill="currentColor"/></svg></span><span class="module-title">Erik’s Synth</span><span class="module-description">Shape your own sound.</span><span class="module-action">Play synth <span aria-hidden="true">↗</span></span></button>
       <button type="button" class="module-card" id="open-drums"><span class="module-icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="5" y="8" width="38" height="32" rx="6"/><path d="M12 15h9v9h-9zM27 15h9v9h-9zM12 29h9v5h-9zM27 29h9v5h-9z"/></svg></span><span class="module-title">Drum Machine</span><span class="module-description">Build your own beat.</span><span class="module-action">Make beats <span aria-hidden="true">↗</span></span></button>
+      <button type="button" class="module-card" id="open-practice-studio"><span class="module-icon" aria-hidden="true">◫</span><span class="module-title">Practice Studio</span><span class="module-description">Plan, log and reflect on your practice.</span><span class="module-action">Open planner <span aria-hidden="true">↗</span></span></button>
     </div>
     <p class="home-footnote">A little space for big musical ideas.</p>
   </main>
+  <main id="practice-studio-stage" hidden><button type="button" class="back-home" id="practice-studio-back">← All tools</button><div class="eyebrow">YOUR MUSICAL JOURNEY</div><h1>Practice Studio.</h1><p class="subtitle">Plan, practice, reflect and grow.</p><div id="practice-studio-content"></div></main>
+  <main id="sing-note-stage" hidden><button type="button" class="back-home" id="sing-note-back">← Ear Trainer</button><div class="eyebrow">EAR TRAINER · VOICE</div><h1>Sing the Note.</h1><p class="subtitle">Listen to a named reference, then sing the target note.</p><div id="sing-note-content"></div></main>
   <main id="ear-trainer-menu" class="ear-trainer-menu" hidden>
     <div class="ear-menu-topbar"><button type="button" id="ear-menu-back" class="back-home">← All tools</button><button type="button" id="ear-settings-open" class="ear-settings-trigger" aria-label="Ear Trainer settings" title="Ear Trainer settings"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.2v2.1m0 13.4v2.1M3.2 12h2.1m13.4 0h2.1M5.8 5.8l1.5 1.5m9.4 9.4 1.5 1.5m0-12.4-1.5 1.5m-9.4 9.4-1.5 1.5"/><circle cx="12" cy="12" r="4.3"/><circle cx="12" cy="12" r="1.4"/></svg><span>Settings</span></button></div>
     <div class="eyebrow">LISTEN · LEARN · GROW</div>
     <div class="ear-menu-heading"><h1>Ear Trainer.</h1></div>
     <p class="subtitle">Sharpen your musical ear, one exercise at a time.</p>
     <div class="ear-exercise-grid">
+      <button type="button" class="ear-exercise-card" id="open-sing-note"><span class="ear-exercise-symbol" aria-hidden="true">♫</span><span class="ear-exercise-copy"><strong>Sing the Note</strong><small>Hear a reference and sing the target pitch.</small></span><span class="ear-exercise-arrow" aria-hidden="true">↗</span></button>
       <button type="button" id="open-ear-perfect-pitch" class="ear-exercise-card"><span class="ear-exercise-symbol" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M28 7v26"/><path d="M28 7l11-3v9l-11 3" fill="currentColor" stroke="none"/><ellipse cx="21" cy="34" rx="8" ry="5.3" transform="rotate(-22 21 34)" fill="currentColor" stroke="none"/><path d="M8 14c-3 3-4.5 6.5-4.5 10S5 31 8 34M12 18c-1.5 1.7-2.3 3.6-2.3 6s.8 4.3 2.3 6" stroke-width="2.1"/></svg></span><span class="ear-exercise-copy"><strong>Perfect Pitch</strong><small>Recognize individual notes by ear.</small></span><span class="ear-exercise-arrow" aria-hidden="true">↗</span></button>
       <button type="button" class="ear-exercise-card" data-ear-world="Intervals"><span class="ear-exercise-symbol" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 11h34M7 20h34M7 29h34M7 38h34"/><ellipse cx="15" cy="32" rx="5.2" ry="3.3" transform="rotate(-22 15 32)" fill="currentColor" stroke="none"/><path d="M19 31V14"/><ellipse cx="33" cy="17" rx="5.2" ry="3.3" transform="rotate(-22 33 17)" fill="currentColor" stroke="none"/><path d="M37 16V5"/></svg></span><span class="ear-exercise-copy"><strong>Intervals</strong><small>Recognize the distance between notes.</small></span><span class="ear-exercise-arrow" aria-hidden="true">↗</span></button>
       <button type="button" class="ear-exercise-card" data-ear-world="Chords"><span class="ear-exercise-symbol" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9h36M6 18h36M6 27h36M6 36h36"/><ellipse cx="15" cy="35" rx="5.4" ry="3.2" transform="rotate(-20 15 35)" fill="currentColor" stroke="none"/><ellipse cx="25" cy="26" rx="5.4" ry="3.2" transform="rotate(-20 25 26)" fill="currentColor" stroke="none"/><ellipse cx="35" cy="17" rx="5.4" ry="3.2" transform="rotate(-20 35 17)" fill="currentColor" stroke="none"/></svg></span><span class="ear-exercise-copy"><strong>Chords</strong><small>Discover the sound of harmony.</small></span><span class="ear-exercise-arrow" aria-hidden="true">↗</span></button>
@@ -125,7 +131,7 @@
     <div class="session-actions"><button id="end-session" class="text-button" hidden>Finish session</button></div>
     <p id="headphones" class="micro headphone-hint" hidden>Headphones recommended for notes below C3.</p>
   </main>
-  <footer><span class="status-dot" id="offline-dot"></span><span id="offline-status">Preparing offline access…</span><button id="update" class="text-button" hidden>Update available</button><span class="app-footer-version" aria-label="App version">Preview 1.0.79</span></footer>
+  <footer><span class="status-dot" id="offline-dot"></span><span id="offline-status">Preparing offline access…</span><button id="update" class="text-button" hidden>Update available</button><span class="app-footer-version" aria-label="App version">Preview 1.0.80</span></footer>
   <p id="warning" class="notice" role="status" hidden></p>
 </div>
 <dialog id="general-settings-dialog" class="sheet" aria-labelledby="general-settings-title">
@@ -136,11 +142,12 @@
     <section class="settings-section about"><h3>About</h3>
 <p><strong>Erik’s Music Lab · Preview</strong></p>
 <p>Erik’s Music Lab is a collection of musical instruments, creative tools and guided listening exercises. Play the Grand Piano, explore sounds with the Synth, build rhythms with the Drum Machine, keep time with the Metronome and tune instruments with the Chromatic Tuner.</p>
-<p>The Ear Trainer helps you develop pitch recognition, interval hearing, chord recognition and an understanding of scales through listening, practice and progressively more challenging lessons.</p>
+<p>The Ear Trainer helps you develop pitch recognition, singing accuracy, interval hearing, chord recognition and an understanding of scales through listening, practice and progressively more challenging lessons.</p>
+<p>Practice Studio lets you plan sessions, track multiple instruments and build goal-based practice schedules.</p>
 <p><strong>Our goal:</strong> make music exploration and ear training accessible, enjoyable and useful for everyday practice — whether you are just starting out or building on existing musical skills.</p>
 <p>Your settings, practice progress and Perfect Pitch statistics are stored locally on this device. Clearing website data may erase them. Offline status is shown at the bottom of the app.</p>
 <div class="about-detail"><strong>Grand Piano samples</strong><p id="sample-cache-status" role="status">Checking local audio cache…</p><button type="button" id="sample-cache-refresh" class="text-button">Refresh audio status</button></div>
-<div class="about-detail"><strong>App version</strong><p>Preview 1.0.79</p></div></section>
+<div class="about-detail"><strong>App version</strong><p>Preview 1.0.80</p></div></section>
     
   </form>
 </dialog>
