@@ -123,8 +123,8 @@ function answerChord(choice,item){
 }
 
 function renderChordLevel(){
- const explanation=allChordTheory(chapter,level);
- content.innerHTML=title(allChordLevels(chapter)[level])+'<div class="ear-lesson-card"><span class="ear-lesson-label">'+(explanation?'LEARN · THEORY & SOUND':'PRACTICE · LISTEN & IDENTIFY')+'</span><p>'+escapeHTML(allChordLesson(chapter,level))+'</p>'+(explanation?'<button id="ear-listen" class="secondary" type="button">▶ Listen to example</button><p id="ear-audio-status" role="status"></p>':'')+'</div>'+(explanation?'<button id="ear-levels" class="primary" type="button">Back to chapter →</button>':'<button id="ear-practice" class="primary" type="button">Start practice →</button>');
+ const explanation=masteryChordTheory(chapter,level);
+ content.innerHTML=title(masteryChordLevels(chapter)[level])+'<div class="ear-lesson-card"><span class="ear-lesson-label">'+(explanation?'LEARN · THEORY & SOUND':'PRACTICE · LISTEN & IDENTIFY')+'</span><p>'+escapeHTML(masteryChordLesson(chapter,level))+'</p>'+(explanation?'<button id="ear-listen" class="secondary" type="button">▶ Listen to example</button><p id="ear-audio-status" role="status"></p>':'')+'</div>'+(explanation?'<button id="ear-levels" class="primary" type="button">Back to chapter →</button>':'<button id="ear-practice" class="primary" type="button">Start practice →</button>');
  if(explanation){
   document.getElementById('ear-listen').onclick=playChordDemo;
   document.getElementById('ear-levels').onclick=renderChapter;
