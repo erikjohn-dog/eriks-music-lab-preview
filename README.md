@@ -14,6 +14,9 @@ A free, installable music practice web app with **Grand Piano**, **Chromatic Tun
 
 ## Changelog
 
+- 1.0.94 · Redesigned Recording Studio as responsive Neon DAW with fixed transport area, prominent seekable waveform timeline, compact FX rack, desktop library sidebar and mobile library drawer; retained original recordings and audio engine.
+
+
 - 1.0.93 · Recording Studio adds waveform display, live reverb and echo with delay controls, and neon-pink styling for light and dark modes. Practice Studio renamed to Practice Room in the interface.
 
 
