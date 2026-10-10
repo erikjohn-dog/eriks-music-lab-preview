@@ -1,7 +1,7 @@
 export const WORLDS = ['Intervals', 'Chords', 'Scales'];
 export const PROGRESS_KEY = 'eriks-music-lab:ear-curriculum:v1';
 export function grade(correct, total) { const score = total ? 100 * correct / total : 0; return score >= 95 ? 3 : score >= 85 ? 2 : score >= 70 ? 1 : 0; }
-export function readProgress() { try { const value = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}'); if (!value || typeof value !== 'object' || Array.isArray(value)) return {}; const obsolete=['Chords:0:0','Chords:0:1']; if (obsolete.some(id=>Object.prototype.hasOwnProperty.call(value,id))) { for (const id of obsolete) delete value[id]; try { localStorage.setItem(PROGRESS_KEY, JSON.stringify(value)); } catch {} } return value; } catch { return {}; } }
+export function readProgress() { try { const value = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}'); if (!value || typeof value !== 'object' || Array.isArray(value)) return {}; const obsolete=['Chords:0:0','Chords:0:1','Intervals:0:0','Intervals:0:1','Intervals:0:2']; if (obsolete.some(id=>Object.prototype.hasOwnProperty.call(value,id))) { for (const id of obsolete) delete value[id]; try { localStorage.setItem(PROGRESS_KEY, JSON.stringify(value)); } catch {} } return value; } catch { return {}; } }
 export function saveResult(id, stars) { if (!Number.isInteger(stars) || stars < 0 || stars > 3) return; const progress = readProgress(); progress[id] = Math.max(progress[id] || 0, stars); try { localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress)); } catch {} }
 
 export const CHAPTERS = {
