@@ -95,15 +95,15 @@ import('./piano-harmony.js').then(m=>{harmonyModule=m;drawNotation();});
 const notationPanel=document.createElement('section');
 notationPanel.className='piano-notation';
 notationPanel.setAttribute('aria-label','Live piano sheet music');
-notationPanel.innerHTML='<div class="piano-notation-heading"><strong>LIVE NOTATION</strong><span id="piano-current-note" aria-live="off">Play a key</span></div><svg id="piano-staff" viewBox="0 0 360 188" role="img" aria-label="Treble and bass staves"><g id="piano-staff-lines"></g><g id="piano-staff-notes"></g></svg>';
+notationPanel.innerHTML='<div class="piano-notation-heading"><strong>LIVE NOTATION</strong><span id="piano-current-note" aria-live="off">Play a key</span></div><svg id="piano-staff" viewBox="0 0 280 188" role="img" aria-label="Treble and bass staves"><g id="piano-staff-lines"></g><g id="piano-staff-notes"></g></svg>';
 document.querySelector('.piano-landscape .piano-toolbar')?.after(notationPanel);
 const staffLines=notationPanel.querySelector('#piano-staff-lines');
 const staffNotes=notationPanel.querySelector('#piano-staff-notes');
 const NS='http://www.w3.org/2000/svg';
 function svgEl(tag,attrs,parent){const el=document.createElementNS(NS,tag);for(const [k,v] of Object.entries(attrs))el.setAttribute(k,String(v));parent.append(el);return el;}
 for(const [label,top,glyph] of [['TREBLE',24,'𝄞'],['BASS',110,'𝄢']]){
-  for(let i=0;i<5;i++)svgEl('line',{x1:65,x2:341,y1:top+i*11,y2:top+i*11,stroke:'#52657d','stroke-width':1.3},staffLines);
-  svgEl('text',{x:9,y:top+33,fill:'#a4b5d0','font-size':label==='TREBLE'?49:37,'font-family':'serif'},staffLines).textContent=glyph;
+  for(let i=0;i<5;i++)svgEl('line',{x1:46,x2:263,y1:top+i*11,y2:top+i*11,stroke:'#52657d','stroke-width':1.3},staffLines);
+  svgEl('text',{x:0,y:top+33,fill:'#a4b5d0','font-size':label==='TREBLE'?49:37,'font-family':'serif'},staffLines).textContent=glyph;
 }
 const diatonic=['C','D','E','F','G','A','B'];
 function staffPosition(midi){
@@ -125,7 +125,7 @@ function drawNotation(){
   for(const [i,note] of active.entries()){
   const {y,top,sharp}=staffPosition(note);
   const nearby=active.slice(0,i).filter(previous=>Math.abs(staffPosition(previous).y-y)<9&&staffPosition(previous).top===top).length;
-  const x=214+nearby*19;
+  const x=166+nearby*19;
   for(let line=top-11;line>=y-2;line-=11)svgEl('line',{x1:x-18,x2:x+18,y1:line,y2:line,stroke:'#a3b7d0','stroke-width':1.5},staffNotes);
   for(let line=top+55;line<=y+2;line+=11)svgEl('line',{x1:x-18,x2:x+18,y1:line,y2:line,stroke:'#a3b7d0','stroke-width':1.5},staffNotes);
   if(sharp)svgEl('text',{x:x-29,y:y+7,fill:'#8faaff','font-size':25,'font-family':'serif'},staffNotes).textContent='♯';
