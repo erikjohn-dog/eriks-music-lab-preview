@@ -114,7 +114,7 @@ function drawNotation(){
   staffNotes.replaceChildren();
   const active=[...pointers.values()].filter(p=>p.playing).map(p=>p.midi);
   const midi=active.at(-1);
-  notationPanel.querySelector('#piano-current-note').textContent=midi===undefined?'Play a key':label(midi);
+  notationPanel.querySelector('#piano-current-note').textContent=midi===undefined?'Play a key':label(midi)+' · '+germanLabel(midi);
   if(midi===undefined)return;
   const {y,top,sharp}=staffPosition(midi);
   const x=214;
@@ -127,6 +127,14 @@ function drawNotation(){
 
 let initializedPosition = false;
 function label(midi) { return notes[midi%12]+(Math.floor(midi/12)-1); }
+function germanLabel(midi){
+ const german=['c','cis','d','dis','e','f','fis','g','gis','a','ais','h'];
+ const octave=Math.floor(midi/12)-1;
+ const name=german[midi%12];
+ if(octave>=4)return name+"'".repeat(octave-3);
+ if(octave===3)return name;
+ return name.toUpperCase()+','.repeat(Math.max(0,2-octave));
+}
 function buildKeyboard() {
   keyboard.replaceChildren();
   let whiteIndex = 0;
