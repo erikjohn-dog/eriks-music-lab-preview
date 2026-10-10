@@ -205,3 +205,42 @@ export function makeModernChordQuestions(c,l,n=10){
  for(let i=out.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[out[i],out[j]]=[out[j],out[i]];}
  return out;
 }
+
+export const CHORD_CHAPTER_15=[["Mastery Warm-Up","Review major, minor, diminished, augmented and suspended triads. Listen for the third, fifth and suspended tones.",1,"major"],["Harmony Across Chapters","Practice listening for triad inversions, seventh chords, extensions, voicings and harmonic function. Replay each example before deciding.",1,"maj7"],["Triads & Inversions","Identify major, minor, diminished, augmented and suspended chords, plus root, first and second inversions.",0,"triads"],["Sevenths & Extensions","Identify seventh, ninth, eleventh and thirteenth chords from earlier chapters.",0,"extensions"],["Alterations & Modal Colors","Recognize altered dominants, Dorian, Phrygian, Lydian and Mixolydian colors.",0,"colors"],["Voicings & Structures","Recognize close, open, drop-2, shell, quartal, cluster, slash and polychord sounds.",0,"structures"],["Functions & Cadences","Hear tonic, predominant and dominant functions as well as authentic, plagal and deceptive cadences.",0,"cadences"],["Chord Master Challenge","A comprehensive mixed challenge covering triads, inversions, extended chords, modal colors, structures and harmonic progressions.",0,"master"]];
+export const masteryChordLevels=c=>c===14?CHORD_CHAPTER_15.map(x=>x[0]):modernChordLevels(c);
+export const masteryChordLesson=(c,l)=>c===14?CHORD_CHAPTER_15[l][1]:modernChordLesson(c,l);
+export const masteryChordTheory=(c,l)=>c===14?!!CHORD_CHAPTER_15[l][2]:modernChordTheory(c,l);
+export const masteryChordDemo=(c,l)=>c===14?{quality:l===0?'major':'maj7',root:60,presentation:'combined'}:modernChordDemo(c,l);
+const MASTER_POOLS={
+ triads:[['major','minor','diminished','augmented','sus2','sus4'],['root','first','second']],
+ extensions:[['maj7','dom7','min7','halfDim7','dim7','minMaj7','aug7'],['dom9','maj9','min9','dom11','min11','dom13','maj13']],
+ colors:[['domFlat9','domSharp9','domFlat5','aug7'],['dorian','phrygian','lydian','mixolydian']],
+ structures:[['closeMaj7','openMaj7','drop2Maj7','shellDom7'],['quartal','cluster','slash','poly']],
+ cadences:[['tonic','predominant','dominant'],['authentic','plagal','deceptive']]
+};
+const MASTER_GROUPS=[...Object.values(MASTER_POOLS).flat()];
+export function makeMasteryChordQuestions(chapter,level,count=10){
+ if(chapter!==14)return makeModernChordQuestions(chapter,level,count);
+ if(level<2)return [];
+ const groups=level===7?MASTER_GROUPS:MASTER_POOLS[CHORD_CHAPTER_15[level][3]];
+ const result=[];
+ for(let i=0;i<count;i++){
+  const group=groups[i%groups.length],quality=group[Math.floor(i/groups.length)%group.length];
+  const root=48+Math.floor(Math.random()*13);
+  let item;
+  if(['root','first','second'].includes(quality)){
+   const triad=i%2?'minor':'major',tones=CHORD_SHAPES[triad],p=quality==='first'?1:quality==='second'?2:0;
+   const offsets=tones.map((_,j)=>tones[(j+p)%3]+(j+p>=3?12:0));
+   item={quality,root,offsets,presentation:'arpeggiated',options:group};
+  }else if(['tonic','predominant','dominant','authentic','plagal','deceptive'].includes(quality)){
+   const source=['tonic','predominant','dominant'].includes(quality)?10:11;
+   const seq=makeContextChordQuestions(source,source===10?5:6,group.length*2).find(x=>x.quality===quality);
+   item={quality,root:seq.root,sequence:seq.sequence,options:group};
+  }else{
+   item={quality,root,presentation:i%3===0?'harmonic':i%3===1?'arpeggiated':'combined',options:group};
+  }
+  result.push(item);
+ }
+ for(let i=result.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[result[i],result[j]]=[result[j],result[i]];}
+ return result;
+}
