@@ -180,9 +180,10 @@ function stopPointer(pointerId) {
   if(!state)return;
   pointers.delete(pointerId);
   if(state.playing) {
-    if(pianoSound==='sine')sineOff(state.midi);
-    else engine.noteOff(state.midi);
-    state.key.classList.remove('pressed');
+    if(![...pointers.values()].some(p=>p.midi===state.midi)){
+      if(pianoSound==='sine')sineOff(state.midi);else engine.noteOff(state.midi);
+      state.key.classList.remove('pressed');
+    }
     drawNotation();
   }
 }
