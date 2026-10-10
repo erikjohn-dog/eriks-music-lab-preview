@@ -759,3 +759,20 @@ body:has(#home:not([hidden])) .icon-button{background:var(--surface);border:1px 
 /* Preview 1.0.89 — only correctly detected notes glow neon green */
 #sing-note-stage .sing-target h1#sing-target{transition:color .14s ease,text-shadow .14s ease,filter .14s ease}
 #sing-note-stage .sing-target h1#sing-target.sing-note-correct{color:#19ee73!important;text-shadow:0 0 9px rgba(25,238,115,.7),0 0 25px rgba(25,238,115,.48),0 0 44px rgba(25,238,115,.2);filter:brightness(1.08)}
+
+/* Preview 1.0.90: shared Ear Trainer purple navigation and Sing the Note theme */
+#ear-menu-back,#ear-learning-back,#back-home,#sing-note-back{color:#a877db!important;background:transparent!important;border:0!important;box-shadow:none!important;border-radius:0!important;padding:7px 0!important;font-weight:650!important}
+:root[data-theme=dark] #ear-menu-back,:root[data-theme=dark] #ear-learning-back,:root[data-theme=dark] #back-home,:root[data-theme=dark] #sing-note-back{color:#c9a6ff!important}
+#sing-note-stage{--sing-accent:#9757c9;--sing-panel:#f7f2fc;--sing-border:#dfd0ee;--sing-text:#28203d}
+#sing-note-stage>.eyebrow,#sing-note-stage>.back-home{color:var(--sing-accent)!important}
+#sing-note-stage .ps-panel{background:var(--sing-panel);border-color:var(--sing-border);color:var(--sing-text)}
+#sing-note-stage .sing-target{background:linear-gradient(155deg,rgba(175,117,228,.16),rgba(128,82,185,.07))}
+#sing-note-stage .sing-target h1:not(.sing-note-correct){color:var(--sing-accent)}
+#sing-note-stage .primary{background:#b98af0!important;border-color:#b98af0!important;color:#20152e!important}
+#sing-note-stage #sing-next{color:var(--sing-accent);border-color:var(--sing-border)}
+#sing-note-stage .ps-panel select{border-color:var(--sing-border)}
+:root[data-theme=dark] #sing-note-stage{--sing-accent:#c9a6ff;--sing-panel:#211f35;--sing-border:#453856;--sing-text:#f3edff}
+:root[data-theme=dark] #sing-note-stage .ps-panel{background:linear-gradient(140deg,#242139,#1b2435);border-color:#403856}
+:root[data-theme=dark] #sing-note-stage .sing-target{background:linear-gradient(155deg,rgba(155,94,208,.19),rgba(118,79,168,.08))}
+:root[data-theme=dark] #sing-note-stage .primary{background:#c9a0fa!important;border-color:#c9a0fa!important;color:#21142e!important}
+#sing-note-stage #sing-target.sing-note-correct{color:#19ee73!important}
