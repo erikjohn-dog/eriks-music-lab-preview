@@ -829,3 +829,6 @@ body:has(#home:not([hidden])) .icon-button{background:var(--surface);border:1px 
 
 /* Preview 1.1.10 key estimation */
 .rs-key-result{display:block;margin-top:7px;color:var(--rs-muted);font-size:.72rem;line-height:1.5}.rs-scale-controls button:disabled{opacity:.5}
+
+/* Preview 1.1.11 note correction beta */
+.rs-correction-controls{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:10px 0 5px;font-size:.75rem}.rs-correction-controls input{width:100px;max-width:35vw;accent-color:#f032aa}.rs-correction-controls small{flex-basis:100%;color:var(--rs-muted);line-height:1.5}.rs-correction-controls button:disabled{opacity:.5}
