@@ -14,6 +14,9 @@ A free, installable music practice web app with **Grand Piano**, **Chromatic Tun
 
 ## Changelog
 
+- 1.1.1 · Added opt-in experimental offline granular transpose preview (±7 semitones, max 30 seconds) that preserves playback duration, with a return-to-original button. Source recordings and original exports remain unchanged; grain artifacts are expected and mobile performance is unverified.
+
+
 - 1.1.0 · Temporarily disabled the unreliable transpose and global pitch-assist UI. Restored predictable playback-speed behavior while a tempo-preserving pitch engine is designed. No original recordings changed.
 
 
