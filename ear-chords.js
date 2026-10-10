@@ -2,7 +2,7 @@ export const CHORD_LEVELS = ['Major Triad', 'Minor Triad', 'Hear the Difference'
 export const TRIADS = { major: [0, 4, 7], minor: [0, 3, 7] };
 export const CHORD_MODES = ['combined','combined','harmonic','arpeggiated','random'];
 export const CHORD_LESSONS = [
-'The major triad is built from a root (1), a major third (3) and a perfect fifth (5). In twelve-tone equal temperament these are 0, 4 and 7 semitones above the root. Example: C major = C–E–G; G major = G–B–D. Symbols: C, Cmaj or CΔ (the triangle is often used for major seventh chords, so plain C is clearest for a major triad). The third gives the triad its major quality. Listen to the notes separately, then together.',
+'The major triad is built from a root (1), a major third (3) and a perfect fifth (5). In twelve-tone equal temperament these are 0, 4 and 7 semitones above the root. Example: C major = C–E–G; G major = G–B–D. Common chord symbols: C or Cmaj. Do not confuse Cmaj with Cmaj7, which adds a major seventh. The third gives the triad its major quality. Listen to the notes separately, then together.',
 'The minor triad contains a root (1), minor third (♭3) and perfect fifth (5): 0, 3 and 7 semitones above the root. Example: C minor = C–E♭–G; A minor = A–C–E. Symbols: Cm, Cmin or C−. Compared with major, only the third is lowered by one semitone. Listen to the notes separately, then together.',
 'You have met both triads. Now identify whether the chord has a major third or a minor third. All three notes sound together, and the root changes between questions.',
 'Listen to the three chord tones played one after another, from low to high. Major triads move 4 then 3 semitones; minor triads move 3 then 4. Identify the quality by ear.',
