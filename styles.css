@@ -820,3 +820,6 @@ body:has(#home:not([hidden])) .icon-button{background:var(--surface);border:1px 
 
 /* Preview 1.1.7 pitch curve readability */
 .rs-pitch-chart canvas{height:150px;touch-action:pan-y}
+
+/* Preview 1.1.8 detected note segments */
+.rs-detected-notes{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}.rs-note-chip{border:1px solid var(--rs-border);border-radius:9px;background:var(--rs-surface);color:var(--rs-ink);font-size:.75rem;padding:7px 9px;cursor:pointer}.rs-note-chip:focus-visible{outline:2px solid var(--rs-neon)}
