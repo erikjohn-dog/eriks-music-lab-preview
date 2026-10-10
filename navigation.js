@@ -103,3 +103,24 @@ generalForm.addEventListener('submit', event => {
 });
 document.getElementById('general-settings-close').addEventListener('click', () => generalDialog.close());
 show('home');
+
+// Edge swipe back on touch devices. Avoid sliders, wave editing and horizontally
+// scrollable controls. Only a rightward swipe beginning at the left screen edge.
+let backSwipe=null;
+document.addEventListener('touchstart',e=>{
+  if(e.touches.length!==1||e.touches[0].clientX>28||!home.hidden)return;
+  if(e.target.closest('input,select,textarea,button,canvas,a,[contenteditable],.rs-wave-wrap,.rs-edit-toolbar,.rs-effect-grid'))return;
+  backSwipe={x:e.touches[0].clientX,y:e.touches[0].clientY};
+},{passive:true});
+document.addEventListener('touchend',e=>{
+  if(!backSwipe||!e.changedTouches.length)return;
+  const dx=e.changedTouches[0].clientX-backSwipe.x,dy=e.changedTouches[0].clientY-backSwipe.y;
+  backSwipe=null;
+  if(dx<85||Math.abs(dy)>Math.abs(dx)*.65)return;
+  if(!earLearning.hidden){show('ear-trainer');return;}
+  if(!training.hidden){show('ear-trainer');return;}
+  if(!earMenu.hidden){show('home');return;}
+  if(!singNote.hidden){show('ear-trainer');return;}
+  show('home');
+},{passive:true});
+document.addEventListener('touchcancel',()=>{backSwipe=null;},{passive:true});
