@@ -432,3 +432,22 @@ body:has(#home:not([hidden])) .icon-button{background:var(--surface);border:1px 
 /* 1.0.54: finger glissando on both instrument keyboards */
 .piano-viewport,.piano-viewport .piano-keyboard,.piano-viewport .piano-key{touch-action:none!important}
 .synth-keyboard-scroll,.synth-keyboard,.synth-keyboard .synth-key{touch-action:none!important}
+
+/* 1.0.55: independent horizontal navigation below the portrait piano */
+.piano-scroll-strip{display:none}
+@media (orientation:portrait){
+ #piano-stage:not([hidden]) .piano-scroll-strip{
+  display:block;position:relative;height:34px;margin:9px 1px 3px;
+  border-radius:12px;background:#14263c;border:1px solid #3b5472;
+  touch-action:none;user-select:none;-webkit-user-select:none;
+  cursor:ew-resize;overflow:hidden
+ }
+ #piano-stage:not([hidden]) .piano-scroll-strip:focus-visible{outline:2px solid #6edbff;outline-offset:3px}
+ #piano-stage:not([hidden]) .piano-scroll-thumb{
+  position:absolute;left:0;top:3px;bottom:3px;
+  border-radius:8px;background:linear-gradient(180deg,#53bce6,#24759e);
+  box-shadow:0 1px 6px #06182b88;display:flex;align-items:center;justify-content:center;
+  will-change:transform
+ }
+ #piano-stage:not([hidden]) .piano-scroll-grip{width:32px;height:4px;border-radius:5px;background:#e2f8ffbb;box-shadow:0 -7px 0 #e2f8ff55,0 7px 0 #e2f8ff55}
+}
