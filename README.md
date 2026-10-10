@@ -14,6 +14,9 @@ A free, installable music practice web app with **Grand Piano**, **Chromatic Tun
 
 ## Changelog
 
+- 1.0.97 · Neon DAW exports the marked IN/OUT passage as a 16-bit PCM WAV file without changing the original recording. Export selection activates only for valid markers. Live effects are not baked into WAV exports.
+
+
 - 1.0.96 · Fixed Neon DAW loop playback with frame-based IN/OUT boundary checks and end-of-track restart, including Safari-friendly handling.
 
 
