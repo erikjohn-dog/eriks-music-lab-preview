@@ -56,6 +56,21 @@ export const INTERVAL_CHAPTERS=[
  ['Middle Distances','Compare the perfect fourth (5), tritone (6), and perfect fifth (7).','practice',null],
  ['Wide Leaps','Compare the minor sixth (8), major sixth (9), minor seventh (10), major seventh (11) and octave (12).','practice',null],
  ['All Twelve Challenge','Identify all chromatic interval distances from unison (0) through octave (12), with changing roots and presentations.','challenge',null]
+ ],
+ [
+ ['Ascending Motion','An ascending interval moves from a lower pitch to a higher pitch. Example: C4 followed by G4. Listen to which note comes second.','theory',7],
+ ['Descending Motion','A descending interval moves from a higher pitch to a lower pitch. Example: G4 followed by C4. The distance is the same, but the melodic direction is reversed.','theory',-7],
+ ['Direction: Hear the Difference','Listen to two successive notes and choose whether the melody rises or falls. Starting notes and distances vary.','practice',null],
+ ['Close vs Wide Direction','Recognize ascending and descending motion with both small steps and larger leaps.','practice',null],
+ ['Direction Challenge','Identify whether unfamiliar two-note melodies move up or down, across a range of intervals and keys.','challenge',null]
+ ],
+ [
+ ['Melodic and Harmonic','Melodic intervals sound one note after the other; harmonic intervals sound both notes together. The interval size does not change. Listen to a perfect fifth played harmonically.','theory',7],
+ ['Harmonic Seconds & Thirds','When notes sound together, minor and major seconds can sound tense, while thirds often sound more blended. Focus on distance, not just consonance.','theory',3],
+ ['Harmonic Fourths & Fifths','Compare perfect fourths (5 semitones), tritones (6) and perfect fifths (7), with both notes sounding at once.','theory',5],
+ ['Harmonic Small Intervals','Identify minor and major seconds and thirds played simultaneously.','practice',null],
+ ['Harmonic Wide Intervals','Identify fourths, tritones, fifths and octaves played simultaneously.','practice',null],
+ ['Harmonic Challenge','Identify all 13 chromatic distances from unison to octave when the notes sound together.','challenge',null]
  ]
 ];
 export const INTERVAL_CHAPTER_OPTIONS=[
@@ -63,17 +78,37 @@ export const INTERVAL_CHAPTER_OPTIONS=[
  [{name:'Minor Second',semitones:1},{name:'Major Second',semitones:2},{name:'Minor Third',semitones:3},{name:'Major Third',semitones:4}],
  [{name:'Perfect Fourth',semitones:5},{name:'Perfect Fifth',semitones:7},{name:'Perfect Octave',semitones:12}],
  [{name:'Tritone',semitones:6},{name:'Minor Sixth',semitones:8},{name:'Major Sixth',semitones:9},{name:'Minor Seventh',semitones:10},{name:'Major Seventh',semitones:11}],
+ [{name:'Unison',semitones:0},{name:'Minor Second',semitones:1},{name:'Major Second',semitones:2},{name:'Minor Third',semitones:3},{name:'Major Third',semitones:4},{name:'Perfect Fourth',semitones:5},{name:'Tritone',semitones:6},{name:'Perfect Fifth',semitones:7},{name:'Minor Sixth',semitones:8},{name:'Major Sixth',semitones:9},{name:'Minor Seventh',semitones:10},{name:'Major Seventh',semitones:11},{name:'Octave',semitones:12}],
+ [{name:'Ascending',semitones:1},{name:'Descending',semitones:-1}],
  [{name:'Unison',semitones:0},{name:'Minor Second',semitones:1},{name:'Major Second',semitones:2},{name:'Minor Third',semitones:3},{name:'Major Third',semitones:4},{name:'Perfect Fourth',semitones:5},{name:'Tritone',semitones:6},{name:'Perfect Fifth',semitones:7},{name:'Minor Sixth',semitones:8},{name:'Major Sixth',semitones:9},{name:'Minor Seventh',semitones:10},{name:'Major Seventh',semitones:11},{name:'Octave',semitones:12}]
 ];
+function shuffled(items,random){
+ for(let i=items.length-1;i>0;i--){const j=Math.floor(random()*(i+1));[items[i],items[j]]=[items[j],items[i]];}
+ return items;
+}
+export function makeDirectionQuestions(level,count=10,random=Math.random){
+ if(level<2||level>4)throw Error('Direction theory has no quiz');
+ const result=[];let previous=-1;
+ const distances=level===2?[2,4,5,7,9]:level===3?[1,2,3,4,7,9,12]:[1,2,3,4,5,6,7,8,9,10,11,12];
+ for(let i=0;i<count;i++){
+  const rising=i%2===0;
+  const distance=distances[Math.floor(random()*distances.length)];
+  const roots=Array.from({length:25},(_,j)=>(rising?48:60)+j).filter(n=>n!==previous);
+  const root=roots[Math.floor(random()*roots.length)];previous=root;
+  result.push({answer:rising?'Ascending':'Descending',semitones:distance,notes:[root,root+(rising?distance:-distance)],direction:rising?'up':'down',options:INTERVAL_CHAPTER_OPTIONS[5]});
+ }
+ return shuffled(result,random);
+}
 export function makeChapterIntervalQuestions(chapter,level,count=10,random=Math.random){
  if(chapter===0)return makeIntervalQuestions(level,count,random);
+ if(chapter===5)return makeDirectionQuestions(level,count,random);
  const lessons=INTERVAL_CHAPTERS[chapter],all=INTERVAL_CHAPTER_OPTIONS[chapter];
  if(!lessons||!lessons[level]||lessons[level][2]==='theory')throw new Error('Unknown practice level');
- const options=chapter===1&&level===4?all.slice(0,2):chapter===1&&level===5?all.slice(2):chapter===3&&level===5?all.slice(1,3):chapter===3&&level===6?all.slice(3,5):chapter===4&&level===1?all.slice(1,5):chapter===4&&level===2?all.slice(5,8):chapter===4&&level===3?all.slice(8,13):all;
+ const options=chapter===1&&level===4?all.slice(0,2):chapter===1&&level===5?all.slice(2):chapter===3&&level===5?all.slice(1,3):chapter===3&&level===6?all.slice(3,5):chapter===4&&level===1?all.slice(1,5):chapter===4&&level===2?all.slice(5,8):chapter===4&&level===3?all.slice(8,13):chapter===6&&level===3?all.slice(1,5):chapter===6&&level===4?all.filter(o=>[5,6,7,12].includes(o.semitones)):all;
  const result=[];let previous=-1;
  for(let i=0;i<count;i++){
   const kind=options[i%options.length];
-  const direction=lessons[level][2]==='challenge'?['up','down','together'][Math.floor(random()*3)]:'up';
+  const direction=chapter===6?'together':lessons[level][2]==='challenge'?['up','down','together'][Math.floor(random()*3)]:'up';
   const roots=Array.from({length:25},(_,j)=>direction==='down'?60+j:48+j).filter(n=>n!==previous);
   const root=roots[Math.floor(random()*roots.length)];previous=root;
   const notes=[root,root+(direction==='down'?-kind.semitones:kind.semitones)];
