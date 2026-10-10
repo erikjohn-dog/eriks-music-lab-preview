@@ -50,8 +50,10 @@ function makeScaleMelodicPhrase(offsets,variation){
 export function makeScaleQuestions(chapter,level,count=10){
  const entry=SCALE_CHAPTERS[chapter]?.[level];if(!entry||entry[2])return [];
  const options=entry[3],questions=[];
+ const shuffledOptions=[...options];
+ for(let i=shuffledOptions.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[shuffledOptions[i],shuffledOptions[j]]=[shuffledOptions[j],shuffledOptions[i]];}
  for(let i=0;i<count;i++){
-  const quality=options[i%options.length],offsets=SCALE_SHAPES[quality],root=48+Math.floor(Math.random()*19);
+  const quality=shuffledOptions[i%shuffledOptions.length],offsets=SCALE_SHAPES[quality],root=48+Math.floor(Math.random()*19);
   const descending=(chapter===0?level>=3:chapter===1?level===5:chapter===2?level===8:chapter===3?level===5:chapter===4?level===5:chapter===5?level===9:chapter===6||chapter===7?level===9:chapter===8?level===7:chapter===9?level===8:chapter===10?level===6:chapter===11?level===7:chapter===12?level===8:chapter===13?level===9:chapter===14?level===7:level===9)&&i%2===1;
   const melodicContext=chapter===14||(chapter===15&&level===8);
   const notes=melodicContext?makeScaleMelodicPhrase(offsets,i):descending?[...offsets].reverse():offsets;
