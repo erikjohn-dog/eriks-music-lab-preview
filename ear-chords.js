@@ -47,7 +47,7 @@ export const allChordLevels=c=>CHORD_EXTRA[c]?CHORD_EXTRA[c].map(x=>x[0]):previo
 export const allChordLesson=(c,l)=>CHORD_EXTRA[c]?CHORD_EXTRA[c][l][1]:previousChordLesson(c,l);
 export const allChordTheory=(c,l)=>CHORD_EXTRA[c]?!!CHORD_EXTRA[c][l][2]:previousChordTheory(c,l);
 export function chordDemo(c,l){
- if(c===2)return {quality:'major',root:60,presentation:'arpeggiated',notes:invertedTriad('major',CHORD_CHAPTER_3[l][3])};
+ if(c===2)return {quality:'major',root:60,presentation:'arpeggiated',offsets:invertedTriad('major',CHORD_CHAPTER_3[l][3])};
  if(c===3)return {quality:CHORD_CHAPTER_4[l][3],root:60,presentation:'combined'};
  return null;
 }
