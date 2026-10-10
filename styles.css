@@ -564,3 +564,14 @@ body:has(#home:not([hidden])) .icon-button{background:var(--surface);border:1px 
 :root[data-theme=light] .piano-scroll-thumb,:root[data-theme=light] #piano-stage:not([hidden]) .piano-scroll-thumb{background:linear-gradient(180deg,#698de1,#385fc4);box-shadow:0 1px 6px #19375b30}
 :root[data-theme=light] .piano-scroll-grip{background:#fff;box-shadow:0 -7px 0 #ffffff99,0 7px 0 #ffffff99}
 :root[data-theme=light] .piano-settings-button{background:#e9efff;color:#385fc4;border-color:#d3def4}
+
+/* Match the high-specificity portrait and landscape instrument rules. */
+@media(orientation:portrait){
+ :root[data-theme=light] #piano-stage:not([hidden]) .piano-viewport{background:#e6edf5;border-color:#bacbdd}
+ :root[data-theme=light] #piano-stage:not([hidden]) .piano-scroll-strip{background:#e5edf7;border-color:#bbcee3}
+ :root[data-theme=light] #piano-stage:not([hidden]) .piano-scroll-thumb{background:linear-gradient(180deg,#698de1,#385fc4)}
+}
+@media(orientation:landscape){
+ :root[data-theme=light] #piano-stage:not([hidden]) .piano-toolbar>.piano-scroll-strip{background:#e5edf7;border-color:#bbcee3}
+ :root[data-theme=light] #piano-stage:not([hidden]) .piano-toolbar>.piano-scroll-strip .piano-scroll-thumb{background:linear-gradient(180deg,#698de1,#385fc4)}
+}
