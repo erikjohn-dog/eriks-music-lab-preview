@@ -245,6 +245,17 @@ viewport.addEventListener('scroll',()=>{
 // A dedicated navigation strip keeps playing gestures separate from scrolling.
 const scrollStrip=document.getElementById('piano-scroll-strip');
 const scrollThumb=document.getElementById('piano-scroll-thumb');
+const scrollHome=scrollStrip.parentElement;
+function positionPianoStrip(){
+ const landscape=window.matchMedia('(orientation:landscape)').matches;
+ const target=landscape?toolbar:scrollHome;
+ if(scrollStrip.parentElement!==target){
+  if(landscape)toolbar.insertBefore(scrollStrip,pianoSettingsButton);
+  else scrollHome.insertBefore(scrollStrip,scrollHome.querySelector('.piano-credit'));
+ }
+ requestAnimationFrame(syncPianoStrip);
+}
+
 let stripPointer=null;
 function syncPianoStrip(){
  if(!scrollStrip||!scrollThumb)return;
@@ -288,7 +299,8 @@ scrollStrip.addEventListener('keydown',event=>{
  }
 });
 viewport.addEventListener('scroll',syncPianoStrip,{passive:true});
-window.addEventListener('resize',syncPianoStrip);
+window.addEventListener('resize',positionPianoStrip);
+positionPianoStrip();
 start.addEventListener('click',async()=>{
   start.disabled=true;
   status.textContent='Loading piano samples…';
