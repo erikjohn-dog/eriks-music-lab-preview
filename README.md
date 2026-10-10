@@ -14,6 +14,9 @@ A free, installable music practice web app with **Grand Piano**, **Chromatic Tun
 
 ## Changelog
 
+- 1.0.98 · Added semitone transpose and experimental dominant-pitch assist in Neon DAW. Pitch changes use playback rate and therefore affect tempo. Not full note-by-note Auto-Tune; original recordings remain untouched.
+
+
 - 1.0.97 · Neon DAW exports the marked IN/OUT passage as a 16-bit PCM WAV file without changing the original recording. Export selection activates only for valid markers. Live effects are not baked into WAV exports.
 
 
