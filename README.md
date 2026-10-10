@@ -14,6 +14,9 @@ A free, installable music practice web app with **Grand Piano**, **Chromatic Tun
 
 ## Changelog
 
+- 1.0.95 · Renamed Recording Studio to Neon DAW; added waveform zoom, IN/OUT markers and non-destructive loop playback. Planned: integration with Piano, Erik’s Synth and Drum Machine (not implemented yet).
+
+
 - 1.0.94 · Redesigned Recording Studio as responsive Neon DAW with fixed transport area, prominent seekable waveform timeline, compact FX rack, desktop library sidebar and mobile library drawer; retained original recordings and audio engine.
 
 
