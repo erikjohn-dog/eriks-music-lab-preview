@@ -94,3 +94,29 @@ export function makeExtendedChordQuestions(c,l,n=10){
  for(let i=out.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[out[i],out[j]]=[out[j],out[i]];}
  return out;
 }
+
+export const CHORD_CHAPTER_7=[["Dominant Ninth","C9 contains C–E–G–B♭–D: 0, 4, 7, 10, 14 semitones. A ninth chord includes a seventh, unlike Cadd9.",1,"dom9"],["Major Ninth","Cmaj9 contains C–E–G–B–D: 0, 4, 7, 11, 14. Its major seventh differs from C9.",1,"maj9"],["Minor Ninth","Cm9 contains C–E♭–G–B♭–D: 0, 3, 7, 10, 14.",1,"min9"],["Add9 vs. Dominant Ninth","Cadd9 lacks the seventh, whereas C9 includes B♭. Hear the added tension.",0,["add9","dom9"]],["Major 9 vs. Dominant 9","Compare the major seventh with the minor seventh in ninth chords.",0,["maj9","dom9"]],["Minor 9 vs. Dominant 9","Listen for the minor versus major third in two ninth chords.",0,["min9","dom9"]],["Ninth Chord Challenge","Recognize add9, dominant ninth, major ninth and minor ninth across changing roots.",0,["add9","dom9","maj9","min9"]]];
+export const CHORD_CHAPTER_8=[["Dominant Eleventh","C11 contains C–E–G–B♭–D–F: 0, 4, 7, 10, 14, 17. In practice the third or fifth is sometimes omitted to reduce clashes.",1,"dom11"],["Minor Eleventh","Cm11 contains C–E♭–G–B♭–D–F: 0, 3, 7, 10, 14, 17.",1,"min11"],["Dominant Thirteenth","C13 contains C–E–G–B♭–D–F–A: 0, 4, 7, 10, 14, 17, 21. Practical voicings often omit the fifth, ninth or eleventh.",1,"dom13"],["Major Thirteenth","Cmaj13 contains C–E–G–B–D–F–A: 0, 4, 7, 11, 14, 17, 21. The major seventh distinguishes it from C13.",1,"maj13"],["Dominant 11 vs. Minor 11","Identify the major versus minor third within the eleventh-chord family.",0,["dom11","min11"]],["Dominant 13 vs. Major 13","Listen for the minor versus major seventh in thirteenth chords.",0,["dom13","maj13"]],["Extended Harmony Challenge","Compare eleventh and thirteenth chord qualities, hearing the added upper extensions.",0,["dom11","min11","dom13","maj13"]]];
+Object.assign(CHORD_SHAPES,{dom9:[0,4,7,10,14],maj9:[0,4,7,11,14],min9:[0,3,7,10,14],dom11:[0,4,7,10,14,17],min11:[0,3,7,10,14,17],dom13:[0,4,7,10,14,17,21],maj13:[0,4,7,11,14,17,21]});
+Object.assign(CHORD_NAMES,{dom9:'Dominant ninth',maj9:'Major ninth',min9:'Minor ninth',dom11:'Dominant eleventh',min11:'Minor eleventh',dom13:'Dominant thirteenth',maj13:'Major thirteenth'});
+const UPPER_CHORD_CHAPTERS={6:CHORD_CHAPTER_7,7:CHORD_CHAPTER_8};
+export const upperChordLevels=c=>UPPER_CHORD_CHAPTERS[c]?UPPER_CHORD_CHAPTERS[c].map(x=>x[0]):extendedChordLevels(c);
+export const upperChordLesson=(c,l)=>UPPER_CHORD_CHAPTERS[c]?UPPER_CHORD_CHAPTERS[c][l][1]:extendedChordLesson(c,l);
+export const upperChordTheory=(c,l)=>UPPER_CHORD_CHAPTERS[c]?!!UPPER_CHORD_CHAPTERS[c][l][2]:extendedChordTheory(c,l);
+export function upperChordDemo(c,l){
+ if(!UPPER_CHORD_CHAPTERS[c])return extendedChordDemo(c,l);
+ const quality=UPPER_CHORD_CHAPTERS[c][l][3];
+ return typeof quality==='string'?{quality,root:60,presentation:'combined'}:null;
+}
+export function makeUpperChordQuestions(c,l,n=10){
+ if(!UPPER_CHORD_CHAPTERS[c])return makeExtendedChordQuestions(c,l,n);
+ const entry=UPPER_CHORD_CHAPTERS[c][l];if(!entry||entry[2])return [];
+ const options=entry[3],out=[];
+ for(let i=0;i<n;i++){
+  const quality=options[i%options.length],root=48+Math.floor(Math.random()*16);
+  const offsets=CHORD_SHAPES[quality],presentation=l===6?['harmonic','arpeggiated','combined'][Math.floor(Math.random()*3)]:l===5?'arpeggiated':'harmonic';
+  out.push({quality,root,notes:offsets.map(x=>root+x),presentation,options});
+ }
+ for(let i=out.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[out[i],out[j]]=[out[j],out[i]];}
+ return out;
+}
