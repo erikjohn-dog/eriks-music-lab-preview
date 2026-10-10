@@ -88,7 +88,8 @@ const LAST = 95; // B7
 const WHITE_WIDTH = 46;
 const BLACK_WIDTH = 29;
 const pointers = new Map();
-const harmony = import('./piano-harmony.js');
+let harmonyModule=null;
+import('./piano-harmony.js').then(m=>{harmonyModule=m;drawNotation();});
 // Polyphonic notation displays every held MIDI note.
 
 const notationPanel=document.createElement('section');
