@@ -71,6 +71,23 @@ export const INTERVAL_CHAPTERS=[
  ['Harmonic Small Intervals','Identify minor and major seconds and thirds played simultaneously.','practice',null],
  ['Harmonic Wide Intervals','Identify fourths, tritones, fifths and octaves played simultaneously.','practice',null],
  ['Harmonic Challenge','Identify all 13 chromatic distances from unison to octave when the notes sound together.','challenge',null]
+ ],
+ [
+ ['What Is Inversion?','An interval and its inversion fill one octave. The two distances add to 12 semitones. For example, a perfect fourth (5) inverts to a perfect fifth (7).','theory',5],
+ ['Seconds and Sevenths','A minor second (1) inverts to a major seventh (11). A major second (2) inverts to a minor seventh (10). The quality switches between major and minor.','theory',1],
+ ['Thirds and Sixths','A minor third (3) inverts to a major sixth (9); a major third (4) inverts to a minor sixth (8). Listen for the narrow and wide versions.','theory',3],
+ ['Fourth vs Fifth','Identify the perfect fourth (5) and perfect fifth (7), which invert into each other.','practice',null],
+ ['Third vs Sixth','Identify minor and major thirds and their complementary sixths.','practice',null],
+ ['Inversion Challenge','Recognize second/seventh, third/sixth and fourth/fifth interval pairs across the octave.','challenge',null]
+ ],
+ [
+ ['Beyond the Octave','Compound intervals are larger than an octave. A minor ninth is 13 semitones and a major ninth is 14 semitones, each one octave above its corresponding second.','theory',14],
+ ['Ninths','A minor ninth (13) is C4–D♭5; a major ninth (14) is C4–D5. Compare their color beyond the octave.','theory',13],
+ ['Tenths','A minor tenth (15) is C4–E♭5; a major tenth (16) is C4–E5. Each is a third plus an octave.','theory',16],
+ ['Elevenths and Twelfths','A perfect eleventh spans 17 semitones (C4–F5); a perfect twelfth spans 19 (C4–G5). Both are compound perfect intervals.','theory',19],
+ ['Ninths: Hear the Difference','Identify minor and major ninths played melodically.','practice',null],
+ ['Tenths: Hear the Difference','Identify minor and major tenths played melodically.','practice',null],
+ ['Compound Interval Challenge','Distinguish ninths, tenths, perfect elevenths and perfect twelfths, including harmonic examples.','challenge',null]
  ]
 ];
 export const INTERVAL_CHAPTER_OPTIONS=[
@@ -80,7 +97,9 @@ export const INTERVAL_CHAPTER_OPTIONS=[
  [{name:'Tritone',semitones:6},{name:'Minor Sixth',semitones:8},{name:'Major Sixth',semitones:9},{name:'Minor Seventh',semitones:10},{name:'Major Seventh',semitones:11}],
  [{name:'Unison',semitones:0},{name:'Minor Second',semitones:1},{name:'Major Second',semitones:2},{name:'Minor Third',semitones:3},{name:'Major Third',semitones:4},{name:'Perfect Fourth',semitones:5},{name:'Tritone',semitones:6},{name:'Perfect Fifth',semitones:7},{name:'Minor Sixth',semitones:8},{name:'Major Sixth',semitones:9},{name:'Minor Seventh',semitones:10},{name:'Major Seventh',semitones:11},{name:'Octave',semitones:12}],
  [{name:'Ascending',semitones:1},{name:'Descending',semitones:-1}],
- [{name:'Unison',semitones:0},{name:'Minor Second',semitones:1},{name:'Major Second',semitones:2},{name:'Minor Third',semitones:3},{name:'Major Third',semitones:4},{name:'Perfect Fourth',semitones:5},{name:'Tritone',semitones:6},{name:'Perfect Fifth',semitones:7},{name:'Minor Sixth',semitones:8},{name:'Major Sixth',semitones:9},{name:'Minor Seventh',semitones:10},{name:'Major Seventh',semitones:11},{name:'Octave',semitones:12}]
+ [{name:'Unison',semitones:0},{name:'Minor Second',semitones:1},{name:'Major Second',semitones:2},{name:'Minor Third',semitones:3},{name:'Major Third',semitones:4},{name:'Perfect Fourth',semitones:5},{name:'Tritone',semitones:6},{name:'Perfect Fifth',semitones:7},{name:'Minor Sixth',semitones:8},{name:'Major Sixth',semitones:9},{name:'Minor Seventh',semitones:10},{name:'Major Seventh',semitones:11},{name:'Octave',semitones:12}],
+ [{name:'Minor Second',semitones:1},{name:'Major Second',semitones:2},{name:'Minor Third',semitones:3},{name:'Major Third',semitones:4},{name:'Perfect Fourth',semitones:5},{name:'Perfect Fifth',semitones:7},{name:'Minor Sixth',semitones:8},{name:'Major Sixth',semitones:9},{name:'Minor Seventh',semitones:10},{name:'Major Seventh',semitones:11}],
+ [{name:'Minor Ninth',semitones:13},{name:'Major Ninth',semitones:14},{name:'Minor Tenth',semitones:15},{name:'Major Tenth',semitones:16},{name:'Perfect Eleventh',semitones:17},{name:'Perfect Twelfth',semitones:19}]
 ];
 function shuffled(items,random){
  for(let i=items.length-1;i>0;i--){const j=Math.floor(random()*(i+1));[items[i],items[j]]=[items[j],items[i]];}
@@ -104,12 +123,12 @@ export function makeChapterIntervalQuestions(chapter,level,count=10,random=Math.
  if(chapter===5)return makeDirectionQuestions(level,count,random);
  const lessons=INTERVAL_CHAPTERS[chapter],all=INTERVAL_CHAPTER_OPTIONS[chapter];
  if(!lessons||!lessons[level]||lessons[level][2]==='theory')throw new Error('Unknown practice level');
- const options=chapter===1&&level===4?all.slice(0,2):chapter===1&&level===5?all.slice(2):chapter===3&&level===5?all.slice(1,3):chapter===3&&level===6?all.slice(3,5):chapter===4&&level===1?all.slice(1,5):chapter===4&&level===2?all.slice(5,8):chapter===4&&level===3?all.slice(8,13):chapter===6&&level===3?all.slice(1,5):chapter===6&&level===4?all.filter(o=>[5,6,7,12].includes(o.semitones)):all;
+ const options=chapter===1&&level===4?all.slice(0,2):chapter===1&&level===5?all.slice(2):chapter===3&&level===5?all.slice(1,3):chapter===3&&level===6?all.slice(3,5):chapter===4&&level===1?all.slice(1,5):chapter===4&&level===2?all.slice(5,8):chapter===4&&level===3?all.slice(8,13):chapter===6&&level===3?all.slice(1,5):chapter===6&&level===4?all.filter(o=>[5,6,7,12].includes(o.semitones)):chapter===7&&level===3?all.filter(o=>[5,7].includes(o.semitones)):chapter===7&&level===4?all.filter(o=>[3,4,8,9].includes(o.semitones)):chapter===8&&level===4?all.slice(0,2):chapter===8&&level===5?all.slice(2,4):all;
  const result=[];let previous=-1;
  for(let i=0;i<count;i++){
   const kind=options[i%options.length];
   const direction=chapter===6?'together':lessons[level][2]==='challenge'?['up','down','together'][Math.floor(random()*3)]:'up';
-  const roots=Array.from({length:25},(_,j)=>direction==='down'?60+j:48+j).filter(n=>n!==previous);
+  const roots=Array.from({length:chapter===8?13:25},(_,j)=>direction==='down'?(chapter===8?67:60)+j:48+j).filter(n=>n!==previous);
   const root=roots[Math.floor(random()*roots.length)];previous=root;
   const notes=[root,root+(direction==='down'?-kind.semitones:kind.semitones)];
   result.push({answer:kind.name,semitones:kind.semitones,notes,direction,options});
