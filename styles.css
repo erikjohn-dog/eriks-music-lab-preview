@@ -583,7 +583,7 @@ body:has(#home:not([hidden])) .icon-button{background:var(--surface);border:1px 
 :root[data-theme=light] #piano-staff-notes ellipse{fill:#385fc4}
 :root[data-theme=light] #piano-staff-notes text{fill:#385fc4}
 
-/* Practice Studio and Sing the Note */
+/* Practice Room and Sing the Note */
 #practice-studio-stage,#sing-note-stage{width:min(100%,1000px);margin:0 auto;padding:24px 18px 50px}
 .ps-panel{border:1px solid var(--border,rgba(128,128,128,.22));border-radius:20px;padding:18px;margin:16px 0;background:var(--surface,rgba(128,128,128,.05))}
 .ps-panel h2{font-size:1.2rem;margin:0 0 14px}.ps-panel label{display:flex;flex-direction:column;gap:6px;margin:10px 0;font-size:.9rem}
@@ -598,7 +598,7 @@ body:has(#home:not([hidden])) .icon-button{background:var(--surface);border:1px 
 .sing-target{display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;padding:20px 0}.sing-target small{opacity:.7;letter-spacing:.1em}.sing-target h1{font-size:3rem}.sing-target h2{font-size:1.8rem}
 @media(max-width:480px){.ps-panel{padding:12px}.ps-stats strong{font-size:1rem}.ps-day{min-height:44px}.ps-day small{font-size:.55rem}.ps-fields{grid-template-columns:1fr}}
 
-/* Practice Studio 1.0.81 — premium calendar and journal */
+/* Practice Room 1.0.81 — premium calendar and journal */
 #practice-studio-stage{width:min(100%,1120px);padding-inline:clamp(12px,3vw,32px)}
 .ps-shell{--ps-ink:#123b43;--ps-teal:#117e7e;--ps-blue:#476fc2;--ps-gold:#e8b667;--ps-soft:rgba(17,126,126,.07)}
 .ps-tabs{display:flex;gap:7px;overflow-x:auto;padding:7px 0 15px;scrollbar-width:thin}
@@ -631,7 +631,7 @@ body:has(#home:not([hidden])) .icon-button{background:var(--surface);border:1px 
 .ps-save-status,.ps-local-note{font-size:.76rem;opacity:.7;margin:12px 0}
 @media(max-width:520px){.ps-shell .ps-panel{padding:14px}.ps-calendar-large .ps-day{min-height:62px;border-radius:9px}.ps-calendar-large .ps-day small{font-size:.58rem}.ps-month-nav{gap:4px}.ps-month-nav strong{min-width:110px}.ps-shell .ps-stats>div{padding:12px 8px}.ps-entry-actions button{font-size:.72rem}}
 
-/* Practice Studio goal milestones */
+/* Practice Room goal milestones */
 .ps-goal-card{border:1px solid rgba(17,126,126,.19);border-radius:16px;padding:15px;margin:15px 0;background:linear-gradient(135deg,rgba(17,126,126,.07),rgba(71,111,194,.05))}
 .ps-goal-card .ps-goal-entry{border-bottom:0;padding:0 0 10px}
 .ps-milestones{display:grid;gap:13px;margin:12px 0 18px}
@@ -644,7 +644,7 @@ body:has(#home:not([hidden])) .icon-button{background:var(--surface);border:1px 
 .ps-goal-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}
 .ps-stage-label{color:#168783;font-weight:650}
 
-/* Preview 1.0.83 — compact Practice Studio header and centered month controls */
+/* Preview 1.0.83 — compact Practice Room header and centered month controls */
 #practice-studio-stage{padding-top:0!important}
 #practice-studio-stage>.back-home{margin-top:0!important;margin-bottom:12px!important}
 #practice-studio-stage>.eyebrow{margin-top:0!important}
@@ -654,7 +654,7 @@ body:has(#home:not([hidden])) .icon-button{background:var(--surface);border:1px 
 .ps-time-statistics .ps-stats{margin:10px 0 0}
 @media(max-width:520px){#practice-studio-stage>.back-home{margin-bottom:8px!important}}
 
-/* Practice Studio: native light/dark palettes, neon home icon, mobile-safe forms */
+/* Practice Room: native light/dark palettes, neon home icon, mobile-safe forms */
 #open-practice-studio .module-icon{color:#db32ff!important;filter:drop-shadow(0 0 8px rgba(219,50,255,.27))}
 #practice-studio-stage .ps-shell{--ps-text:#202a39;--ps-sub:#626e80;--ps-panel:#ffffff;--ps-border:#d6e2e8;--ps-input:#f8fbff;--ps-chip:#e7f6f5;--ps-tint:#f1f8fa}
 #practice-studio-stage .ps-shell .ps-panel{background:var(--ps-panel);border-color:var(--ps-border);color:var(--ps-text)}
@@ -691,7 +691,7 @@ body:has(#home:not([hidden])) .icon-button{background:var(--surface);border:1px 
 .ps-breakdown>div span{text-align:right}
 @media(max-width:520px){#practice-studio-stage .ps-shell .ps-fields,.ps-insight-filters{grid-template-columns:1fr}.ps-insight-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.ps-day-detail{align-items:flex-start;flex-wrap:wrap}.ps-day-actions{width:100%;justify-content:flex-start}}
 
-/* Practice Studio 1.0.85 — coordinated neon-violet accent */
+/* Practice Room 1.0.85 — coordinated neon-violet accent */
 #open-practice-studio{--tool-accent:#b32eff}
 #open-practice-studio .module-icon{color:#bf36ff!important;background:rgba(189,54,255,.13)!important;border:1px solid rgba(189,54,255,.19);border-radius:16px;filter:none!important}
 #open-practice-studio .module-action{color:#b32eff}
@@ -716,7 +716,7 @@ body:has(#home:not([hidden])) .icon-button{background:var(--surface);border:1px 
 .ps-repeat-fieldset[hidden],#ps-repeat-settings[hidden],#ps-repeat-weekdays[hidden]{display:none!important}
 @media(max-width:520px){.ps-date-stepper button{flex-basis:38px}}
 
-/* Unified audio cache status and touch-first Practice Studio entry */
+/* Unified audio cache status and touch-first Practice Room entry */
 #sample-cache-status{white-space:pre-line;line-height:1.75}
 @media(hover:none){#open-practice-studio:hover{transform:none}}
 
@@ -737,7 +737,7 @@ body:has(#home:not([hidden])) .icon-button{background:var(--surface);border:1px 
 .ps-weekly-goal{padding:12px 0;border-bottom:1px solid var(--ps-border)}
 @media(max-width:520px){#ps-floating-timer:not([hidden]){bottom:calc(12px + env(safe-area-inset-bottom));padding:10px 12px}.ps-template-row{grid-template-columns:minmax(0,2fr) minmax(0,1fr)}}
 
-/* Preview 1.0.88: Practice Studio accent and Ear Trainer voice styling */
+/* Preview 1.0.88: Practice Room accent and Ear Trainer voice styling */
 #practice-studio-stage>.eyebrow{color:#b439ed!important}
 :root[data-theme=dark] #practice-studio-stage>.eyebrow{color:#d99aff!important}
 #sing-note-stage{--sing-accent:#5773d5;--sing-panel:#f5f7ff;--sing-border:#d5ddf5;--sing-text:#1b2b4d}
@@ -777,10 +777,16 @@ body:has(#home:not([hidden])) .icon-button{background:var(--surface);border:1px 
 :root[data-theme=dark] #sing-note-stage .primary{background:#c9a0fa!important;border-color:#c9a0fa!important;color:#21142e!important}
 #sing-note-stage #sing-target.sing-note-correct{color:#19ee73!important}
 
-/* Recording Studio – cyan accent, responsive single-track editor */
-#recording-studio-stage{--rs-accent:#087e91;--rs-panel:#eefafd;--rs-border:#b8e2e9;--rs-text:#163a44}
-#recording-studio-stage>.eyebrow,#recording-studio-back{color:var(--rs-accent)}
-#open-recording-studio .module-icon{color:#16b8c8;background:rgba(18,190,205,.12);border-radius:16px}
+
+/* Preview 1.0.93: neon-pink Recording Studio, both themes */
+#recording-studio-stage{--rs-accent:#dc168e;--rs-panel:#fff0f9;--rs-border:#ffc0e8;--rs-text:#4b183b}
+#recording-studio-stage>.eyebrow,#recording-studio-back{color:var(--rs-accent)!important}
+#open-recording-studio .module-icon{color:#fa43bb;background:rgba(255,62,183,.14);border-radius:16px}
+#open-recording-studio{--module-accent:#f440b5}
 .rs-panel{background:var(--rs-panel);border:1px solid var(--rs-border);border-radius:20px;padding:clamp(14px,4vw,24px);margin:18px 0;color:var(--rs-text);min-width:0}
-.rs-panel h2{margin:0 0 14px}.rs-controls{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:16px}.rs-panel audio{width:100%;display:block;margin:16px 0}.rs-panel input[type=text],.rs-panel input[type=file]{max-width:100%;min-width:0;box-sizing:border-box}.rs-panel input[type=range]{width:100%;accent-color:var(--rs-accent)}.rs-panel .primary{background:#0795a7;color:white;border-color:#0795a7}.rs-library-row{display:flex;gap:8px;align-items:center;justify-content:space-between;margin:8px 0}.rs-library-row .secondary{flex:1;min-width:0;overflow-wrap:anywhere;text-align:left}.rs-panel button{max-width:100%}
-:root[data-theme=dark] #recording-studio-stage{--rs-accent:#65e1ed;--rs-panel:#152e38;--rs-border:#29515b;--rs-text:#ecfcff}
+.rs-panel h2{margin:0 0 14px}.rs-controls{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:16px}.rs-panel audio{width:100%;display:block;margin:16px 0}.rs-panel input[type=text],.rs-panel input[type=file]{max-width:100%;min-width:0;box-sizing:border-box}.rs-panel input[type=range]{width:100%;accent-color:var(--rs-accent)}.rs-panel .primary{background:#f326a9;color:white;border-color:#f326a9}.rs-panel .secondary{border-color:var(--rs-border);color:var(--rs-text)}.rs-library-row{display:flex;gap:8px;align-items:center;justify-content:space-between;margin:8px 0}.rs-library-row .secondary{flex:1;min-width:0;overflow-wrap:anywhere;text-align:left}.rs-panel button{max-width:100%}
+#rs-waveform{display:block;width:100%;height:130px;border-radius:14px;background:#ffe1f2;margin:12px 0}.rs-effect-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:16px 0}.rs-effect-grid .field{min-width:0}
+:root[data-theme=dark] #recording-studio-stage{--rs-accent:#ff76d4;--rs-panel:#32172d;--rs-border:#74415e;--rs-text:#ffe9f7}
+:root[data-theme=dark] #recording-studio-stage .rs-panel .primary{background:#ff65c9;color:#301126;border-color:#ff65c9}
+:root[data-theme=dark] #rs-waveform{background:#451e3a}
+:root[data-theme=dark] #open-recording-studio .module-icon{color:#ff80d8;background:rgba(255,86,192,.17)}
