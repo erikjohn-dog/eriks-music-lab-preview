@@ -653,3 +653,40 @@ body:has(#home:not([hidden])) .icon-button{background:var(--surface);border:1px 
 .ps-month-nav{display:flex;align-items:center;justify-content:center}
 .ps-time-statistics .ps-stats{margin:10px 0 0}
 @media(max-width:520px){#practice-studio-stage>.back-home{margin-bottom:8px!important}}
+
+/* Practice Studio: native light/dark palettes, neon home icon, mobile-safe forms */
+#open-practice-studio .module-icon{color:#db32ff!important;filter:drop-shadow(0 0 8px rgba(219,50,255,.27))}
+#practice-studio-stage .ps-shell{--ps-text:#202a39;--ps-sub:#626e80;--ps-panel:#ffffff;--ps-border:#d6e2e8;--ps-input:#f8fbff;--ps-chip:#e7f6f5;--ps-tint:#f1f8fa}
+#practice-studio-stage .ps-shell .ps-panel{background:var(--ps-panel);border-color:var(--ps-border);color:var(--ps-text)}
+#practice-studio-stage .ps-shell .ps-stats>div{background:var(--ps-tint);border-color:var(--ps-border)}
+#practice-studio-stage .ps-shell .ps-stats strong{color:#087b77}
+#practice-studio-stage .ps-shell .ps-kicker,#practice-studio-stage .ps-shell .ps-text-link{color:#087b77}
+#practice-studio-stage .ps-shell .ps-soft-button{color:#087b77;background:var(--ps-chip);border-color:var(--ps-border)}
+#practice-studio-stage .ps-shell .ps-day{background:var(--ps-input);border-color:var(--ps-border);color:var(--ps-text)}
+#practice-studio-stage .ps-shell .ps-day.ps-today{background:var(--ps-chip);border-color:#148a86}
+#practice-studio-stage .ps-shell .ps-day.ps-selected{background:var(--ps-chip)}
+#practice-studio-stage .ps-shell .ps-month-nav button{color:var(--ps-text);background:var(--ps-chip);border-color:var(--ps-border)}
+#practice-studio-stage .ps-shell .ps-panel input,#practice-studio-stage .ps-shell .ps-panel select,#practice-studio-stage .ps-shell .ps-panel textarea{background:var(--ps-input);border-color:var(--ps-border);color:var(--ps-text);color-scheme:light}
+#practice-studio-stage .ps-shell .ps-goal-card{background:var(--ps-tint);border-color:var(--ps-border)}
+#practice-studio-stage .ps-shell .ps-tabs button:not(.active){background:var(--ps-panel);border-color:var(--ps-border);color:var(--ps-text)}
+#practice-studio-stage .ps-shell .ps-voice-note{color:var(--ps-text)}
+:root[data-theme=dark] #practice-studio-stage .ps-shell{--ps-text:#edf4ff;--ps-sub:#b3c1d6;--ps-panel:#172238;--ps-border:#30435f;--ps-input:#101b2e;--ps-chip:#1a404a;--ps-tint:#1b3046}
+:root[data-theme=dark] #practice-studio-stage .ps-shell .ps-stats strong{color:#65e0d3}
+:root[data-theme=dark] #practice-studio-stage .ps-shell .ps-kicker,:root[data-theme=dark] #practice-studio-stage .ps-shell .ps-text-link,:root[data-theme=dark] #practice-studio-stage .ps-shell .ps-soft-button{color:#79e5d8}
+:root[data-theme=dark] #practice-studio-stage .ps-shell .ps-panel input,:root[data-theme=dark] #practice-studio-stage .ps-shell .ps-panel select,:root[data-theme=dark] #practice-studio-stage .ps-shell .ps-panel textarea{color-scheme:dark}
+:root[data-theme=dark] #practice-studio-stage .ps-shell .ps-voice-note{background:#413324;border-color:#f0b968}
+#practice-studio-stage .ps-shell,#practice-studio-stage .ps-shell *{min-width:0}
+#practice-studio-stage .ps-shell .ps-panel label{max-width:100%}
+#practice-studio-stage .ps-shell input[type=date]{display:block;width:100%;max-width:100%;min-width:0;box-sizing:border-box;-webkit-appearance:none;appearance:none}
+#practice-studio-stage .ps-shell .ps-fields{min-width:0;grid-template-columns:repeat(2,minmax(0,1fr))}
+#practice-studio-stage .ps-shell .ps-fields>label{min-width:0}
+.ps-day-actions{display:flex;flex-wrap:wrap;gap:7px;justify-content:flex-end}
+.ps-calendar-large .ps-day.ps-vacation{background:repeating-linear-gradient(135deg,rgba(178,110,210,.13),rgba(178,110,210,.13) 7px,transparent 7px,transparent 14px)!important;border-color:#ad65ce!important}
+.ps-calendar-large .ps-day.ps-vacation strong{color:#aa58d3}
+.ps-dot-vacation{background:#b468d4}
+.ps-insight-filters{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.ps-insight-stats{grid-template-columns:repeat(3,minmax(0,1fr))}
+.ps-breakdown{display:grid;gap:2px}
+.ps-breakdown>div{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;padding:10px 4px;border-bottom:1px solid var(--ps-border);font-size:.84rem}
+.ps-breakdown>div span{text-align:right}
+@media(max-width:520px){#practice-studio-stage .ps-shell .ps-fields,.ps-insight-filters{grid-template-columns:1fr}.ps-insight-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.ps-day-detail{align-items:flex-start;flex-wrap:wrap}.ps-day-actions{width:100%;justify-content:flex-start}}
