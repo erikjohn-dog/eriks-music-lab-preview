@@ -75,7 +75,7 @@ soundForm.addEventListener('submit',event=>{
  setEarPractice(flow);
  soundDialog.close();
 });
-document.addEventListener('musiclab:ear-learning-close',()=>{playbackToken++;sharedPiano.allNotesOff()});
+document.addEventListener('musiclab:ear-learning-close',()=>{playbackToken++;chordSequenceToken++;sharedPiano.allNotesOff()});
 
 function playChordDemo(){
  const demo=contextChordDemo(chapter,level);
@@ -83,10 +83,11 @@ function playChordDemo(){
  const root=60,quality=chapter===1?CHORD_CHAPTER_2[level][3]:(level===1?'minor':'major');
  playChord({root,quality,presentation:'combined'});
 }
+let chordSequenceToken=0;
 function playChord(item){
+ const sequenceId=++chordSequenceToken;
  if(item.sequence){
-  const token=++playbackToken;
-  item.sequence.forEach((notes,i)=>setTimeout(()=>{if(token===playbackToken&&!stage.hidden)playNotes(notes,true,item.root)},i*1150));
+  item.sequence.forEach((notes,i)=>setTimeout(()=>{if(sequenceId===chordSequenceToken&&!stage.hidden)playNotes(notes,true,item.root)},i*1150));
   return;
  }
  const offsets=item.offsets||CHORD_SHAPES[item.quality];
