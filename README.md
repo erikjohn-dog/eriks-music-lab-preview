@@ -14,6 +14,8 @@ A free, installable music practice web app with **Grand Piano**, **Chromatic Tun
 
 ## Changelog
 
+- 1.0.84 · Practice Studio gains neon magenta home icon, proper light/dark theme colors, detailed instrument/date/rating insights, daily and weekly averages, vacation calendar days excluded from statistics and new goal plans, Singing naming, and mobile date-input layout fix.
+
 - 1.0.83 · Simplified Practice Studio Overview: upcoming sessions first, then calendar, then time statistics. Removed hero, recent sessions and goals from Overview; completed history stays in Sessions. Tightened header spacing and centered calendar month arrows.
 
 - 1.0.82 · Practice Studio goal plans now include five progressive learning phases, specific session tasks, milestone progress and rescheduling of missed sessions into free practice days before the deadline. Existing local sessions and goals remain supported.
