@@ -12,6 +12,21 @@ function impulse(ctx){const length=Math.floor(ctx.sampleRate*2.4),buffer=ctx.cre
 async function setupEffects(){if(!audioCtx){const AC=window.AudioContext||window.webkitAudioContext;audioCtx=new AC();sourceNode=audioCtx.createMediaElementSource(audio);dry=audioCtx.createGain();wet=audioCtx.createGain();convolver=audioCtx.createConvolver();convolver.buffer=impulse(audioCtx);delayNode=audioCtx.createDelay(1);feedbackNode=audioCtx.createGain();echoWet=audioCtx.createGain();sourceNode.connect(dry).connect(audioCtx.destination);sourceNode.connect(convolver).connect(wet).connect(audioCtx.destination);sourceNode.connect(delayNode).connect(echoWet).connect(audioCtx.destination);delayNode.connect(feedbackNode).connect(delayNode);updateEffects();}if(audioCtx.state==='suspended')await audioCtx.resume();}
 function updateEffects(){const rv=Number($('reverb').value)/100,ev=Number($('echo').value)/100,ms=Number($('delay').value);$('reverb-value').textContent=Math.round(rv*100)+'%';$('echo-value').textContent=Math.round(ev*100)+'%';$('delay-value').textContent=ms+' ms';if(!audioCtx)return;dry.gain.value=1;wet.gain.value=rv*.75;echoWet.gain.value=ev*.7;delayNode.delayTime.value=ms/1000;feedbackNode.gain.value=ev*.55;}
 for(const id of ['reverb','echo','delay'])$(id).addEventListener('input',updateEffects);
+
+/* Accessible touch knobs: vertical movement maps to the existing range inputs. */
+for(const id of ['reverb','echo','delay','speed']){
+ const input=$(id),knob=input.closest('.rs-effect-card').querySelector('.rs-knob');
+ const min=Number(input.min),max=Number(input.max),step=Number(input.step)||1;
+ let drag=null;
+ const render=()=>{const ratio=(Number(input.value)-min)/(max-min);knob.style.setProperty('--knob-angle',(-135+270*ratio)+'deg');knob.setAttribute('aria-valuenow',input.value);knob.setAttribute('aria-valuetext',input.closest('.rs-effect-card').querySelector('b').textContent);};
+ const setValue=v=>{const snapped=Math.max(min,Math.min(max,Math.round((v-min)/step)*step+min));input.value=String(Number(snapped.toFixed(5)));input.dispatchEvent(new Event('input',{bubbles:true}));render();};
+ knob.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse'&&e.button!==0)return;drag={y:e.clientY,value:Number(input.value)};knob.setPointerCapture(e.pointerId);e.preventDefault();});
+ knob.addEventListener('pointermove',e=>{if(!drag)return;setValue(drag.value+(drag.y-e.clientY)/130*(max-min));});
+ for(const type of ['pointerup','pointercancel','lostpointercapture'])knob.addEventListener(type,()=>{drag=null;});
+ knob.addEventListener('keydown',e=>{if(!['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;e.preventDefault();setValue(e.key==='Home'?min:e.key==='End'?max:Number(input.value)+(e.key==='ArrowUp'||e.key==='ArrowRight'?step:-step));});
+ input.addEventListener('input',render);render();
+}
+
 $('reset-effects').addEventListener('click',()=>{$('reverb').value=0;$('echo').value=0;$('delay').value=300;updateEffects();});
 audio.addEventListener('play',()=>setupEffects().catch(e=>message('Audio effects unavailable: '+e.message)));
 // Optional SoundTouchJS AudioWorklet. The original audio graph is retained as fallback.
