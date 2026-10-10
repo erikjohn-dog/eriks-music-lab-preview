@@ -1,8 +1,8 @@
 # Erik’s Music Lab
 
-A free, installable music practice web app with **Grand Piano**, **Chromatic Tuner**, **Metronome**, **Synth**, **Drum Machine**, **Practice Room**, **Recording Studio**, and a guided **Ear Trainer** for pitch, intervals, chords and scales. Explore music, train your ear and build musical confidence at your own pace. Settings and training progress are saved locally; offline use is supported after the app and required audio assets have been cached.
+A free, installable music practice web app with **Grand Piano**, **Chromatic Tuner**, **Metronome**, **Synth**, **Drum Machine**, **Practice Room**, **Neon Sampler** (single-track audio recorder and vocal pitch analysis), and a guided **Ear Trainer** for pitch, intervals, chords and scales. Explore music, train your ear and build musical confidence at your own pace. Settings and training progress are saved locally; offline use is supported after the app and required audio assets have been cached.
 
-**Preview app:** https://erikjohn-dog.github.io/eriks-music-lab-preview/
+**Preview app (testing only; LIVE is separate):** https://erikjohn-dog.github.io/eriks-music-lab-preview/
 
 ## Add to your iPhone Home Screen
 
@@ -12,7 +12,16 @@ A free, installable music practice web app with **Grand Piano**, **Chromatic Tun
 4. Keep **Open as Web App** enabled if offered, then tap **Add**.
 5. Launch **Erik’s Music Lab** from your Home Screen while online so offline files can finish caching.
 
+## Current release capabilities
+
+Neon Sampler supports one audio track at a time: microphone recording (with permission), audio import, local IndexedDB library, rename/delete, original export, waveform scrubbing, zoom, IN/OUT loop selection and trimmed WAV export. Vocal Pitch Analysis estimates monophonic notes, frequency, cents and likely major/minor keys; it is not a calibrated tuner and may miss or misidentify notes. Live reverb, echo, delay, playback speed and optional manual SoundTouch transposition are non-destructive and are **not rendered into exports**. Automatic pitch correction has been removed. Audio-only multitrack recording is a future idea, **not implemented**. Export important takes before clearing browser data or uninstalling the PWA.
+
+Offline use requires an initial online load and cached assets. Updates are offered in the app and may require confirmation and reopening. Before promoting preview to LIVE, test recording, playback, editing, exports, local persistence, offline behavior, audio effects and iPhone gestures on a real device. Preview version numbers and repository-specific URLs must be adjusted for the LIVE release.
+
 ## Changelog
+
+- 1.1.19 · Publication-readiness copy audit: updated Neon Sampler descriptions, single-track status, manual transpose and effects/export limitations, local recording backup warning, metadata and release checklist. Historical changelog remains unchanged.
+
 
 - 1.1.18 · Fixed stray literal 'undefined' in arrangement markup and moved recording transport directly beneath waveform timeline. Pitch analysis now follows transport and is shown only for selected recordings; transport remains available before first recording.
 
