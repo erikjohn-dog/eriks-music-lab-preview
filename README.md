@@ -14,6 +14,9 @@ A free, installable music practice web app with **Grand Piano**, **Chromatic Tun
 
 ## Changelog
 
+- 1.1.4 · Replaced broken external SoundTouch imports with local vendor paths. GitHub Actions workflow builds the pinned 2.1.1 node bundle and processor into vendor/; app-shell caching includes both. Deployment requires successful workflow build and commit; otherwise the new service worker intentionally refuses incomplete shell installation.
+
+
 - 1.1.3 · Experimental opt-in SoundTouchJS AudioWorklet live transposition (±5 semitones). Uses external pinned CDN modules for this feasibility test, so first activation requires network and offline operation is not guaranteed. Existing playback and original recordings remain available as fallback; iOS audio testing is pending.
 
 
