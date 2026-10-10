@@ -90,6 +90,53 @@ export const INTERVAL_CHAPTERS=[
  ['Compound Interval Challenge','Distinguish ninths, tenths, perfect elevenths and perfect twelfths, including harmonic examples.','challenge',null]
  ]
 ];
+// Written spelling must be judged from notation, never from identical-sounding pitches.
+export const SPELLING_LEVELS=[
+ ['Enharmonic Equivalence','On an equal-tempered piano, C♯ and D♭ sound identical. Their written names can serve different harmonic purposes. You cannot identify the spelling from sound alone.','theory',1],
+ ['Letters Determine Number','Interval numbers count letter names inclusively: C to F is a fourth; C to G is a fifth. Accidentals change quality, not the letter-based number.','theory',5],
+ ['Augmented and Diminished','C–F♯ is an augmented fourth; C–G♭ is a diminished fifth. Both span six semitones on a twelve-tone equal-tempered piano.','theory',6],
+ ['Read the Tritone','Read the two written notes and choose the correctly spelled interval. This is a notation question, not an audio identification.','notation',null],
+ ['Spelling Challenge','Identify interval numbers and qualities from written pitch names. Enharmonic pairs can sound identical.','notation',null]
+];
+export const SPELLING_CASES=[
+ {notes:'C4 → F♯4',answer:'Augmented Fourth',semitones:6},
+ {notes:'C4 → G♭4',answer:'Diminished Fifth',semitones:6},
+ {notes:'C4 → E4',answer:'Major Third',semitones:4},
+ {notes:'C4 → E♭4',answer:'Minor Third',semitones:3},
+ {notes:'C4 → D♭4',answer:'Minor Second',semitones:1},
+ {notes:'C4 → C♯4',answer:'Augmented Unison',semitones:1},
+ {notes:'D4 → A4',answer:'Perfect Fifth',semitones:7},
+ {notes:'D4 → G4',answer:'Perfect Fourth',semitones:5}
+];
+export function makeSpellingQuestions(level,count=10,random=Math.random){
+ if(level<3||level>4)throw Error('Only notation lessons have questions');
+ const cases=level===3?SPELLING_CASES.slice(0,2):SPELLING_CASES;
+ const choices=[...new Set(cases.map(x=>x.answer))];
+ const result=[];
+ for(let i=0;i<count;i++){
+  const item=cases[i%cases.length];
+  result.push({answer:item.answer,notesLabel:item.notes,semitones:item.semitones,direction:'notation',options:choices.map(name=>({name}))});
+ }
+ for(let i=result.length-1;i>0;i--){const j=Math.floor(random()*(i+1));[result[i],result[j]]=[result[j],result[i]];}
+ return result;
+}
+export const CONTEXT_LEVELS=[
+ ['Intervals in Melody','A melodic interval is the distance between successive notes. An ascending perfect fifth can be C4 followed by G4; the same interval also occurs in other keys.','theory',7],
+ ['Intervals in Harmony','Two notes sounding together form a harmonic interval. The same interval can feel different depending on register, timbre, surrounding notes and musical context.','theory',4],
+ ['Tension and Resolution','A leading tone is often a semitone below its tonic. Hearing a single interval alone cannot prove its harmonic function without a tonal context.','theory',1],
+ ['Melodic Recognition','Identify seconds, thirds, fourths and fifths in short two-note melodic examples.','practice',null],
+ ['Harmonic Recognition','Identify thirds, fourths, tritones and fifths sounded together.','practice',null],
+ ['Context Challenge','Recognize interval distances across melodic and harmonic presentations. No harmonic function is inferred from isolated notes.','challenge',null]
+];
+export const MASTERY_LEVELS=[
+ ['Review Your Toolkit','You have studied chromatic distances, melodic direction, harmonic intervals, inversion, compound intervals and written spelling. Sound questions test distances; written questions test notation.','theory',7],
+ ['Chromatic Mastery','Identify all intervals within an octave, from unison to octave.','practice',null],
+ ['Direction Mastery','Decide whether an unfamiliar two-note phrase rises or falls.','practice',null],
+ ['Compound Mastery','Identify ninths, tenths, elevenths and twelfths.','practice',null],
+ ['Final Interval Challenge','Identify intervals across the octave, with mixed melodic and harmonic playback.','challenge',null]
+];
+export const EXTRA_INTERVAL_CHAPTERS=[SPELLING_LEVELS,CONTEXT_LEVELS,MASTERY_LEVELS];
+INTERVAL_CHAPTERS.push(...EXTRA_INTERVAL_CHAPTERS);
 export const INTERVAL_CHAPTER_OPTIONS=[
  INTERVAL_OPTIONS,
  [{name:'Minor Second',semitones:1},{name:'Major Second',semitones:2},{name:'Minor Third',semitones:3},{name:'Major Third',semitones:4}],
@@ -118,8 +165,31 @@ export function makeDirectionQuestions(level,count=10,random=Math.random){
  }
  return shuffled(result,random);
 }
+const FULL_INTERVALS=[{name:'Unison',semitones:0},{name:'Minor Second',semitones:1},{name:'Major Second',semitones:2},{name:'Minor Third',semitones:3},{name:'Major Third',semitones:4},{name:'Perfect Fourth',semitones:5},{name:'Tritone',semitones:6},{name:'Perfect Fifth',semitones:7},{name:'Minor Sixth',semitones:8},{name:'Major Sixth',semitones:9},{name:'Minor Seventh',semitones:10},{name:'Major Seventh',semitones:11},{name:'Octave',semitones:12}];
+export function makeAdvancedIntervalQuestions(chapter,level,count=10,random=Math.random){
+ if(chapter===9)return makeSpellingQuestions(level,count,random);
+ let options=FULL_INTERVALS,directions=['up','down','together'];
+ if(chapter===10){
+  options=level===3?FULL_INTERVALS.filter(x=>[1,2,3,4,5,7].includes(x.semitones)):FULL_INTERVALS.filter(x=>[3,4,5,6,7].includes(x.semitones));
+  directions=level===3?['up','down']:level===4?['together']:directions;
+ }else if(chapter===11){
+  if(level===2)return makeDirectionQuestions(4,count,random);
+  if(level===3)options=INTERVAL_CHAPTER_OPTIONS[8];
+  directions=level===1?['up','down']:level===3?['up','down','together']:directions;
+ }
+ const result=[];let previous=-1;
+ for(let i=0;i<count;i++){
+  const kind=options[i%options.length],direction=directions[Math.floor(random()*directions.length)];
+  const low=direction==='down'? (kind.semitones>12?67:60):48;
+  const roots=Array.from({length:13},(_,j)=>low+j).filter(n=>n!==previous);
+  const root=roots[Math.floor(random()*roots.length)];previous=root;
+  result.push({answer:kind.name,semitones:kind.semitones,notes:[root,root+(direction==='down'?-kind.semitones:kind.semitones)],direction,options});
+ }
+ return shuffled(result,random);
+}
 export function makeChapterIntervalQuestions(chapter,level,count=10,random=Math.random){
  if(chapter===0)return makeIntervalQuestions(level,count,random);
+ if(chapter>=9)return makeAdvancedIntervalQuestions(chapter,level,count,random);
  if(chapter===5)return makeDirectionQuestions(level,count,random);
  const lessons=INTERVAL_CHAPTERS[chapter],all=INTERVAL_CHAPTER_OPTIONS[chapter];
  if(!lessons||!lessons[level]||lessons[level][2]==='theory')throw new Error('Unknown practice level');
