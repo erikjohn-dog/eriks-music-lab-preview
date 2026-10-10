@@ -108,3 +108,14 @@ function answerChord(choice,item){
  document.getElementById('ear-feedback').textContent=good?'Correct! Listen for the third.':'Not quite. This was a '+item.quality+' triad.';
  document.getElementById('ear-next').hidden=false;
 }
+
+function renderChordLevel(){
+ const explanation=level<2;
+ content.innerHTML=title(CHORD_LEVELS[level])+'<div class="ear-lesson-card"><span class="ear-lesson-label">'+(explanation?'LEARN · THEORY & SOUND':'PRACTICE · LISTEN & IDENTIFY')+'</span><p>'+escapeHTML(CHORD_LESSONS[level])+'</p>'+(explanation?'<button id="ear-listen" class="secondary" type="button">▶ Listen to example</button><p id="ear-audio-status" role="status"></p>':'')+'</div>'+(explanation?'<button id="ear-levels" class="primary" type="button">Back to chapter →</button>':'<button id="ear-practice" class="primary" type="button">Start practice →</button>');
+ if(explanation){
+  document.getElementById('ear-listen').onclick=playChordDemo;
+  document.getElementById('ear-levels').onclick=renderChapter;
+ }else document.getElementById('ear-practice').onclick=()=>{
+  question=0;correct=0;chordQuestions=makeChordQuestions(level,getEarPractice().questionCount);renderChordQuestion();
+ };
+}
