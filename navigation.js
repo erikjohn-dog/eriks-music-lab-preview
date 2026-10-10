@@ -58,7 +58,9 @@ document.getElementById('open-ear-perfect-pitch').addEventListener('click', () =
 document.getElementById('ear-menu-back').addEventListener('click', () => show('home'));
 document.getElementById('ear-settings-open').addEventListener('click', () => document.dispatchEvent(new Event('musiclab:ear-settings-open')));
 document.getElementById('back-home').addEventListener('click', () => show('ear-trainer'));
-document.getElementById('open-practice-studio').addEventListener('click', () => show('practice-studio'));
+const practiceCard=document.getElementById('open-practice-studio');
+practiceCard.addEventListener('pointerdown',event=>{if(event.pointerType==='touch'&&event.isPrimary)show('practice-studio');});
+practiceCard.addEventListener('click',()=>show('practice-studio'));
 document.getElementById('practice-studio-back').addEventListener('click', () => show('home'));
 document.getElementById('open-sing-note').addEventListener('click', () => show('sing-note'));
 document.getElementById('sing-note-back').addEventListener('click', () => show('ear-trainer'));
