@@ -14,6 +14,9 @@ A free, installable music practice web app with **Grand Piano**, **Chromatic Tun
 
 ## Changelog
 
+- 1.0.99 · Corrected outdated version labels in footer and About; bumped service worker cache to distribute updated app shell.
+
+
 - 1.0.98 · Added semitone transpose and experimental dominant-pitch assist in Neon DAW. Pitch changes use playback rate and therefore affect tempo. Not full note-by-note Auto-Tune; original recordings remain untouched.
 
 
