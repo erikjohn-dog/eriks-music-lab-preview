@@ -14,6 +14,8 @@ A free, installable music practice web app with **Grand Piano**, **Chromatic Tun
 
 ## Changelog
 
+- 1.0.91 · Added Cache All Audio Samples in General Settings with progress and retry support for missing Grand Piano and drum samples. Preserved existing sample caches across service-worker updates.
+
 - 1.0.90 · Standardized all Ear Trainer exercise back buttons to “← Ear Trainer” with consistent purple navigation styling. Sing the Note now matches the Ear Trainer purple palette in light and dark themes, while keeping neon-green correct-pitch feedback.
 
 - 1.0.89 · Practice Studio now opens only on an intentional tap/click, not during a swipe. Sing the Note uses ±50-cent tolerance with a short dropout grace period while preserving cents feedback, and glows neon green only when the target is detected.
